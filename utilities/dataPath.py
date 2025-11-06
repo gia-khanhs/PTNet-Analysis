@@ -1,5 +1,5 @@
 class dataPath:
-    data = "tempData/"
+    data = "data/"
     routeTimetable = data + "routeInfo/"
     stopSeq = data + "stopSeq/"
     allRouteJson = data + "allRouteInfo.json"

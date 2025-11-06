@@ -18,8 +18,7 @@ class topoNode:
         print("Name: " + str(self.name) + " | Address: " + str(self.address))# + " | Pos: " + str(self.pos))
 
 class topoEdge:
-    def __init__(self, origin, destination, distance, travelTime):
-        self.origin = origin
+    def __init__(self, destination, distance, travelTime):
         self.destination = destination
         self.distance = distance
         self.travelTime = travelTime
@@ -44,7 +43,7 @@ def buildNodes():
                 newNode = (station['StationName'], station['Address'])
                 if not newNode in tmp:
                     tmp.add(newNode)
-                    newNode = topoNode(station['StationName'], station['Address'], (station['Lat'], station['Lng']))
+                    newNode = topoNode(station['StationName'], station['Address'], geoPos(station['Lat'], station['Lng']))
                     nodes.append(newNode)
 
                     compactedId[station['StationId']] = len(id)
@@ -68,6 +67,7 @@ def buildTopoGraph():
         if route['RouteNo'] == "70-5": continue
 
         preId = 0
+        
         for station in route['InboundSeq']:
             #The first station of the route
             if station['dist'] == 0:
@@ -76,32 +76,26 @@ def buildTopoGraph():
 
             #Add edges (consecutive stops) to the graph
             cId = nodes[2][station['StationId']]
-            newEdge = topoEdge(preId, cId, station['dist'], station['time'])
+            newEdge = topoEdge(cId, station['dist'], station['time'])
             if not (preId, cId) in tmp:
                 tmp.add((preId, cId))
                 edges[preId].append(newEdge)
             preId = cId
+            
 
     #Add edges between stops that are in walk distance to the graph
-    '''
-    for u in range(1, len(nodes[0]) - 1):
+    
+    for u in range(1, len(nodes[0]) - 2):
         origin = nodes[0][u]
-        oPos = geoPos(origin.pos[0], origin.pos[1])
-        
+
         for v in range(u + 1, len(nodes[0]) - 1):
             destination = nodes[0][v]
-            dPos = geoPos(destination.pos[0], destination.pos[1])
+            distance = origin.pos.arcLen(destination.pos)
 
-            distance = oPos.arcLen(dPos)
             if distance <= walkDistance:
-                newEdge = topoEdge(u, v, distance, distance / walkSpeed)
-                edges[u].append(newEdge)
-                newEdge.origin = v
-                newEdge.destination = u
-                edges[v].append(newEdge)
-    '''
-            
-    cnt = 0
-    for u in range(1, 4362): cnt += len(edges[u])
-    print(cnt)
+                tmpEdge = topoEdge(v, distance, distance / walkSpeed)
+                edges[u].append(tmpEdge)
+                tmpEdge = topoEdge(u, distance, distance / walkSpeed)
+                edges[v].append(tmpEdge)
+                
     return (nodes[0], edges) #(nodes, edges, id, compactedId)
