@@ -8,7 +8,7 @@ start_time = time.time()
 
 # Start the main code
 topoGraph = buildTopoGraph()
-'''
+
 nodes = []
 edges = []
 
@@ -25,13 +25,12 @@ for origin in range(1, 4362):
     for edge in topoGraph[1][origin]:
         tmpEdge = {"origin": origin, "destination": edge.destination, "distance": edge.distance, "travelTime": edge.travelTime}
         edges.append(tmpEdge)
-    break
 
 #Save the data of the graph
 graph = {"nodes": nodes, "edges": edges}
 with open("topoGraph.json", 'w', encoding = 'utf-8') as file:
     json.dump(graph, file, indent = 4, ensure_ascii = False)
-'''
+
 # End the main code
 
 end_time = time.time()
