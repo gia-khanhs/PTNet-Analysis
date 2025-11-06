@@ -1,0 +1,1540 @@
+{
+    "nodes": [
+        {
+            "name": "Bến xe Chợ Lớn",
+            "address": "GA HKXB CHO LON, đường Lê Quang Sung, Quận 5"
+        },
+        {
+            "name": "Chu Văn An",
+            "address": "27, đường Tháp Mười, Quận 6"
+        },
+        {
+            "name": "Chợ Kim Biên",
+            "address": "11-12, đường Hải Thượng Lãn Ông, Quận 5"
+        },
+        {
+            "name": "Bưu điện Quận 5",
+            "address": "14-16, đường Châu Văn Liêm, Quận 5"
+        },
+        {
+            "name": "Rạp Đại Quang",
+            "address": "68, đường Châu Văn Liêm, Quận 5"
+        },
+        {
+            "name": "Lương Nhữ Học",
+            "address": "727, đường Nguyễn Trãi, Quận 5"
+        },
+        {
+            "name": "Triệu Quang Phục",
+            "address": "695, đường Nguyễn Trãi, Quận 5"
+        },
+        {
+            "name": "Đại học Sư phạm Thể dục thể thao",
+            "address": "639, đường Nguyễn Trãi, Quận 5"
+        },
+        {
+            "name": "Siêu thị Điện máy Chợ Lớn",
+            "address": "635B, đường Nguyễn Trãi, Quận 5"
+        },
+        {
+            "name": "Ngô Quyền",
+            "address": "593, đường Nguyễn Trãi, Quận 5"
+        },
+        {
+            "name": "Chung cư Nguyễn Trãi",
+            "address": "549, đường Nguyễn Trãi, Quận 5"
+        },
+        {
+            "name": "Siêu thị Điện máy",
+            "address": "99, đường Nguyễn Tri Phương, Quận 5"
+        },
+        {
+            "name": "Nhà Văn hóa Quận 5",
+            "address": "388, đường Trần Phú, Quận 5"
+        },
+        {
+            "name": "Đồng Khánh",
+            "address": "41, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "An Bình",
+            "address": "1149, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Rạp Đồng Tháp",
+            "address": "981, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Bệnh viện Chấn Thương Chỉnh hình",
+            "address": "929, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Trần Bình Trọng",
+            "address": "813, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Nguyễn Biểu",
+            "address": "651, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Chợ Nanci",
+            "address": "563-565, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Tổng Cty Samco",
+            "address": "393 bis, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Sở PCCC",
+            "address": "359, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Hồ Hảo Hớn",
+            "address": "301F, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Bệnh Viện Răng Hàm Mặt",
+            "address": "263, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Rạp Trần Hưng Đạo",
+            "address": "227 - 229, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "KTX Trần Hưng Đạo",
+            "address": "135, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Nguyễn Kim",
+            "address": "71C, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Trạm Trung chuyển trên đường Hàm Nghi",
+            "address": "Hàm Nghi 7, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Chợ Cũ",
+            "address": "89A, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Hồ Tùng Mậu",
+            "address": "67, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Bến Bạch Đằng",
+            "address": "Bến thủy nội địa Thủ Thiêm, đường Tôn Đức Thắng, Quận 1"
+        },
+        {
+            "name": "Công Trường Mê Linh",
+            "address": "2, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Công Trường Mê Linh",
+            "address": "Công trường Mê Linh, đường Thi Sách, Quận 1"
+        },
+        {
+            "name": "Bến Bạch Đằng",
+            "address": "21, đường Tôn Đức Thắng, Quận 1"
+        },
+        {
+            "name": "Cục Hải Quan Thành Phố",
+            "address": "2-4, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Chợ Cũ",
+            "address": "84, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Trường Cao Thắng",
+            "address": "Trường Cao Thắng, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Trạm Trung chuyển trên đường Hàm Nghi",
+            "address": "Hàm Nghi 4, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Bảo tàng Mỹ Thuật",
+            "address": "56, đường Nguyễn Thái Bình, Quận 1"
+        },
+        {
+            "name": "Trường Ernst Thalmann",
+            "address": "8, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "KTX Trần Hưng Đạo",
+            "address": "10, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Rạp Hưng Đạo",
+            "address": "112, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Bệnh viện Răng Hàm Mặt",
+            "address": "150, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Trần Đình Xu",
+            "address": "210 - 212, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Tổng Cty Samco",
+            "address": "262, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Chợ Nanci",
+            "address": "290, đường Trần Hưng Đạo, Quận 1"
+        },
+        {
+            "name": "Nguyễn Biểu",
+            "address": "454, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Trường Cao đẳng Kinh tế Đối ngoại",
+            "address": "520, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Trần Bình Trọng",
+            "address": "560(564), đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Bệnh viện Chấn thương Chỉnh hình",
+            "address": "696, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Rạp Đồng Tháp",
+            "address": "780, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Rạp Đống Đa",
+            "address": "882, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Đồng Khánh",
+            "address": "18, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Ngô Quyền",
+            "address": "212, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Tản Đà",
+            "address": "274, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Triệu Quang Phục",
+            "address": "390, đường Trần Hưng Đạo, Quận 5"
+        },
+        {
+            "name": "Bưu điện Quận 5",
+            "address": "13-15, đường Châu Văn Liêm, Quận 5"
+        },
+        {
+            "name": "Hải Thượng Lãn Ông",
+            "address": "210-212, đường Hải Thượng Lãn Ông, Quận 5"
+        },
+        {
+            "name": "Chợ Kim Biên",
+            "address": "5, đường Trang Tử, Quận 5"
+        },
+        {
+            "name": "Bến xe Miền Tây",
+            "address": "Bến xe Miền Tây, đường Kinh Dương Vương, Quận Bình Tân"
+        },
+        {
+            "name": "Chợ An Lạc ",
+            "address": "49-51 (317) - KIA , đường Kinh Dương Vương, Quận Bình Tân"
+        },
+        {
+            "name": "Kinh Dương Vương",
+            "address": "7, đường Kinh Dương Vương, Quận Bình Tân"
+        },
+        {
+            "name": "Mũi Tàu Phú Lâm",
+            "address": "1031C, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Đồng Quê",
+            "address": "904, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Bình Phú",
+            "address": "733-735, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Nguyễn Văn Luông",
+            "address": "517-519, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Chợ Hoa",
+            "address": "411, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Chợ Minh Phụng",
+            "address": "122, đường Minh Phụng, Quận 6"
+        },
+        {
+            "name": "Vòng xoay Cây Gõ",
+            "address": "242, đường Minh Phụng, Quận 6"
+        },
+        {
+            "name": "Vòng xoay Cây Gõ",
+            "address": "1559, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Thái Phiên",
+            "address": "1479, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Lò Siêu",
+            "address": "1375, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Xóm đất",
+            "address": "1293, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Hà Tôn Quyền",
+            "address": "1241, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Tạ Uyên",
+            "address": "1163, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Lê Đại Hành",
+            "address": "1007 (1029), đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Phú Thọ",
+            "address": "957, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Ngã ba Nguyễn Kim",
+            "address": "781, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Nhà thờ tin lành Nguyễn Tri Phương",
+            "address": "635, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Bệnh viện Nhi Đồng 1",
+            "address": "Đối diện 350, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Nhà thờ Vinh Sơn",
+            "address": "273-275, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Nhà hát Hòa Bình",
+            "address": "183A-183B, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Học viện Hành chính Quốc gia",
+            "address": "113, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Rạp Đại Đồng",
+            "address": "75, đường Cao Thắng, Quận 3"
+        },
+        {
+            "name": "Nguyễn Đình Chiểu",
+            "address": "31, đường Cao Thắng, Quận 3"
+        },
+        {
+            "name": "Chợ Thái Bình",
+            "address": "A43, đường Cống Quỳnh, Quận 1"
+        },
+        {
+            "name": "Tôn Thất Tùng",
+            "address": "277-279-275Y, đường Phạm Ngũ Lão, Quận 1"
+        },
+        {
+            "name": "Nguyễn Thị Nghĩa",
+            "address": "187, đường Phạm Ngũ Lão, Quận 1"
+        },
+        {
+            "name": "Trường Emst Thalmann",
+            "address": "Trường Emst Thalmann, đường Phạm Ngũ Lão, Quận 1"
+        },
+        {
+            "name": "Trạm Trung chuyển trên đường Hàm Nghi",
+            "address": "Hàm nghi 5, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Giao lộ Hàm Nghi - Tôn Thất Đạm",
+            "address": "81-83-83B, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Công Trường Mê Linh",
+            "address": "CÔNG TRƯỜNG MÊ LINH, đường Đông Du, Quận 1"
+        },
+        {
+            "name": "Trạm Trung chuyển trên đường Hàm Nghi",
+            "address": "Hàm Nghi 6, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Trạm Trung chuyển trên đường Hàm Nghi",
+            "address": "Hàm Nghi 8, đường Hàm Nghi, Quận 1"
+        },
+        {
+            "name": "Khách sạn New world",
+            "address": "40, đường Phạm Hồng Thái, Quận 1"
+        },
+        {
+            "name": "Nguyễn Trãi",
+            "address": "22, đường Nguyễn Trãi, Quận 1"
+        },
+        {
+            "name": "Tôn Thất Tùng",
+            "address": "136, đường Nguyễn Trãi, Quận 1"
+        },
+        {
+            "name": "Nhà thờ Huyện Sỹ",
+            "address": "206Bis, đường Nguyễn Trãi, Quận 1"
+        },
+        {
+            "name": "Chợ Thái Bình",
+            "address": "244, đường Cống Quỳnh, Quận 1"
+        },
+        {
+            "name": "Trung ương Hội Chữ thập đỏ TP",
+            "address": "464 - 466, đường Nguyễn Thị Minh Khai, Quận 3"
+        },
+        {
+            "name": "Nhà sách Minh Khai",
+            "address": "488, đường Nguyễn Thị Minh Khai, Quận 3"
+        },
+        {
+            "name": "Chợ Bàn Cờ",
+            "address": "82-84, đường Nguyễn Thiện Thuật, Quận 3"
+        },
+        {
+            "name": "Cao Thắng",
+            "address": "503-507, đường Điện Biên Phủ, Quận 3"
+        },
+        {
+            "name": "Cao Thắng",
+            "address": "156, đường Cao Thắng, Quận 10"
+        },
+        {
+            "name": "Học viện Hành chính Quốc gia",
+            "address": "10, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Học viện Hành chính Quốc gia",
+            "address": "Kế 10A, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Nhà hát Hòa Bình",
+            "address": "240, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Nhà thờ Vinh Sơn",
+            "address": "270, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Bệnh viện Nhi Đồng 1",
+            "address": "356, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Ngã ba Nguyễn Kim",
+            "address": "626-628, đường Đường 3/2, Quận 10"
+        },
+        {
+            "name": "Nhà sách Phương Nam",
+            "address": "940 (6B), đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Lê Đại Hành",
+            "address": "972-974(970), đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Tạ Uyên",
+            "address": "1114A-1116A, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Xóm Đất",
+            "address": "1196, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Hàn Hải Nguyên",
+            "address": "1274, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Thái Phiên",
+            "address": "1354, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Vòng xoay Cây Gõ",
+            "address": "1456, đường Đường 3/2, Quận 11"
+        },
+        {
+            "name": "Vòng xoay Cây Gõ",
+            "address": "201, đường Minh Phụng, Quận 6"
+        },
+        {
+            "name": "Chợ Minh Phụng",
+            "address": "101A-101, đường Minh Phụng, Quận 6"
+        },
+        {
+            "name": "Cầu Hậu Giang",
+            "address": "212A, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Chợ Hoa",
+            "address": "460-462, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Nguyễn Văn Luông",
+            "address": "620-622, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Bình Phú",
+            "address": "730-732, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Đồng Quê",
+            "address": "910, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Mũi Tàu Phú Lâm",
+            "address": "1054, đường Hậu Giang, Quận 6"
+        },
+        {
+            "name": "Vòng xoay Kinh Dương Vương",
+            "address": "212-214, đường Kinh Dương Vương, Quận Bình Tân"
+        },
+        {
+            "name": "Bến xe Miền Tây",
+            "address": "358-360, đường Kinh Dương Vương, Quận Bình Tân"
+        },
+        {
+            "name": "428, Kinh Dương Vương",
+            "address": "428, đường Kinh Dương Vương, Quận Bình Tân"
+        },
+        {
+            "name": "THẠNH LỘC",
+            "address": "4/38 Tổ 11 KP 1 Phường Thạnh Lộc Quận 12, đường Thạnh Lộc 29, Quận 12"
+        },
+        {
+            "name": "Trường tiểu học Hà Huy Giáp",
+            "address": "87A, đường Nguyễn Thị Sáu, Quận 12"
+        },
+        {
+            "name": "Trường Điện Lực 2",
+            "address": "327/27, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Chợ Thạnh Xuân",
+            "address": "59/2 , đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Ga ra Thanh Hậu",
+            "address": "79C, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Vườn kiểng Quang Dũng",
+            "address": "59/4, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Cây xăng Tài Lộc",
+            "address": "331, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Đình thần Giao Khẩu",
+            "address": "297, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Ngã tư Ga",
+            "address": "141-143A, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Nhà hàng Bến Xưa",
+            "address": "205, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Cầu An Lộc",
+            "address": "523-525, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Bến Đò",
+            "address": "451, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Bưu điện An Nhơn",
+            "address": "357, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Ngã tư An Nhơn",
+            "address": "257, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Đài Liệt sĩ",
+            "address": "197, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Trường Vinhempic",
+            "address": "189 (đối diện 234), đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Cư xá Lam Sơn",
+            "address": "189 (đối diện A4), đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Ngã tư Phan Văn Trị",
+            "address": "93 (2A), đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Cầu vượt ngã sáu Gò Vấp",
+            "address": "27-29, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Cầu vượt ngã sáu Gò Vấp",
+            "address": "1001, đường Nguyễn Kiệm, Quận Gò Vấp"
+        },
+        {
+            "name": "Bệnh Viện 175",
+            "address": "883-885, đường Nguyễn Kiệm, Quận Gò Vấp"
+        },
+        {
+            "name": "Chợ Tân Sơn Nhất",
+            "address": "79-81, đường Nguyễn Kiệm, Quận Gò Vấp"
+        },
+        {
+            "name": "Đầu công viên Gia Định",
+            "address": "Rạp xiếc, đường Hoàng Minh Giám, Quận Phú Nhuận"
+        },
+        {
+            "name": "Cuối công viên Gia Định",
+            "address": "Đối diện số 5, đường Hoàng Minh Giám, Quận Phú Nhuận"
+        },
+        {
+            "name": "Đầu Đường Đào Duy Anh",
+            "address": "155, đường Đào Duy Anh, Quận Phú Nhuận"
+        },
+        {
+            "name": "Cuối Đường Đào Duy Anh",
+            "address": "7-9, đường Đào Duy Anh, Quận Phú Nhuận"
+        },
+        {
+            "name": "Ngã ba Đào Duy Anh",
+            "address": "129, đường Hồ Văn Huê, Quận Phú Nhuận"
+        },
+        {
+            "name": "Tháp Nước",
+            "address": "43B, đường Hồ Văn Huê, Quận Phú Nhuận"
+        },
+        {
+            "name": "Trung tâm hội nghị tiệc cưới White Palace",
+            "address": "1B, đường Hồ Văn Huê, Quận Phú Nhuận"
+        },
+        {
+            "name": "Ngã tư Phú Nhuận",
+            "address": "59, đường Hoàng Văn Thụ, Quận Phú Nhuận"
+        },
+        {
+            "name": "Trường Cao đẳng Kinh tế Đối ngoại",
+            "address": "335, đường Phan Đình Phùng, Quận Phú Nhuận"
+        },
+        {
+            "name": "Chợ Phú Nhuận",
+            "address": "175-177, đường Phan Đình Phùng, Quận Phú Nhuận"
+        },
+        {
+            "name": "Cầu Kiệu",
+            "address": "55, đường Phan Đình Phùng, Quận Phú Nhuận"
+        },
+        {
+            "name": "Trần Quang Khải",
+            "address": "423 A, đường Hai Bà Trưng, Quận 3"
+        },
+        {
+            "name": "Chợ Tân Định",
+            "address": "295, đường Hai Bà Trưng, Quận 3"
+        },
+        {
+            "name": "Công viên Lê Văn Tám",
+            "address": "243, đường Hai Bà Trưng, Quận 3"
+        },
+        {
+            "name": "Trần Cao Vân",
+            "address": "157, đường Hai Bà Trưng, Quận 3"
+        },
+        {
+            "name": "Lê Duẩn",
+            "address": "Đối diện Lãnh sự quán Pháp, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Bệnh viện Nhi Đồng 2",
+            "address": "115Bis, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Nhà Hát Thành Phố",
+            "address": "101, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Công Trường Mê Linh",
+            "address": "Đối diện 2, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Khách sạn New World",
+            "address": "Đối diện cây xanh số 105, đường Lê Lai, Quận 1"
+        },
+        {
+            "name": "Nguyễn Thị Nghĩa",
+            "address": "94-96, đường Lê Lai, Quận 1"
+        },
+        {
+            "name": "Tôn Thất Tùng",
+            "address": "202-204, đường Lê Lai, Quận 1"
+        },
+        {
+            "name": "Bến xe buýt Sài Gòn",
+            "address": "BẾN XE BUÝT SÀI GÒN, đường Lê Lai, Quận 1"
+        },
+        {
+            "name": "Nhà Hát Thành Phố",
+            "address": "74/A2-74/A4, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Bệnh viện Nhi Đồng 2",
+            "address": "Đối diện 115Ter, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Bưu Điện Thành Phố",
+            "address": "86, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Sở Công Thương",
+            "address": "142, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Công viên Lê Văn Tám",
+            "address": "Đối diện 245, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Nhà thờ Tân Định",
+            "address": "298, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Chợ Tân Định",
+            "address": "372-374, đường Hai Bà Trưng, Quận 1"
+        },
+        {
+            "name": "Cầu Kiệu",
+            "address": "28 - 30, đường Phan Đình Phùng, Quận Phú Nhuận"
+        },
+        {
+            "name": "Chợ Phú Nhuận",
+            "address": "158 - 160, đường Phan Đình Phùng, Quận Phú Nhuận"
+        },
+        {
+            "name": "Trường Cao đẳng Kinh tế Đối ngoại",
+            "address": "312 - 314, đường Phan Đình Phùng, Quận Phú Nhuận"
+        },
+        {
+            "name": "Ngã tư Phú Nhuận",
+            "address": "392, đường Nguyễn Kiệm, Quận Phú Nhuận"
+        },
+        {
+            "name": "Nhà Truyền Thông",
+            "address": "466, đường Nguyễn Kiệm, Quận Phú Nhuận"
+        },
+        {
+            "name": "Ngã ba Hồ Văn Huê",
+            "address": "582, đường Nguyễn Kiệm, Quận Phú Nhuận"
+        },
+        {
+            "name": "Coop Mart Nguyễn Kiệm",
+            "address": "668-670, đường Nguyễn Kiệm, Quận Phú Nhuận"
+        },
+        {
+            "name": "Chùa Vạn Hạnh",
+            "address": "750, đường Nguyễn Kiệm, Quận Phú Nhuận"
+        },
+        {
+            "name": "Trường Cao đẳng Hải Quan",
+            "address": "780A, đường Nguyễn Kiệm, Quận Gò Vấp"
+        },
+        {
+            "name": "Cầu vượt Nguyễn Thái Sơn - Nguyễn Kiệm",
+            "address": "86 - 86C, đường Nguyễn Thái Sơn, Quận Gò Vấp"
+        },
+        {
+            "name": "Ngã ba Phạm Ngũ Lão",
+            "address": "182, đường Nguyễn Thái Sơn, Quận Gò Vấp"
+        },
+        {
+            "name": "Cầu vượt ngã sáu Gò Vấp",
+            "address": "140-142, đường Phạm Ngũ Lão , Quận Gò Vấp"
+        },
+        {
+            "name": "Cầu vượt ngã sáu Gò Vấp",
+            "address": "110-112, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Ngã tư Phan Văn Trị",
+            "address": "152, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Cư xá Lam Sơn",
+            "address": "214, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Đài Liệt sĩ",
+            "address": "Đối diện 197 (93), đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Ngã tư An Nhơn",
+            "address": "388, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Bến Đò",
+            "address": "538, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Cầu An Lộc",
+            "address": "604, đường Nguyễn Oanh, Quận Gò Vấp"
+        },
+        {
+            "name": "Nhà hàng Bến Xưa",
+            "address": "42, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Ngã tư Ga",
+            "address": "154, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Đình thần Giao Khẩu",
+            "address": "332, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Cây xăng Tài Lộc",
+            "address": "408B, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Vườn kiểng Quang Dũng",
+            "address": "452, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Ga ra Thanh Hậu",
+            "address": "508, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Chợ Thạnh Xuân",
+            "address": "Nhà văn hóa P. Thạnh Lộc, đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Trường Điện lực 2",
+            "address": "554 , đường Hà Huy Giáp, Quận 12"
+        },
+        {
+            "name": "Trường tiểu học Hà Huy Giáp",
+            "address": "78, đường Nguyễn Thị Sáu, Quận 12"
+        }
+    ],
+    "edges": [
+        {
+            "origin": 1,
+            "destination": 2,
+            "distance": 853.6236945323215,
+            "travelTime": 186.96176504621778
+        },
+        {
+            "origin": 2,
+            "destination": 3,
+            "distance": 285.7181387500781,
+            "travelTime": 62.57835609366643
+        },
+        {
+            "origin": 3,
+            "destination": 4,
+            "distance": 553.6273155866718,
+            "travelTime": 121.25617032759675
+        },
+        {
+            "origin": 4,
+            "destination": 5,
+            "distance": 136.4517491576332,
+            "travelTime": 29.88583849014621
+        },
+        {
+            "origin": 5,
+            "destination": 6,
+            "distance": 212.93785096615994,
+            "travelTime": 46.63792338097326
+        },
+        {
+            "origin": 6,
+            "destination": 7,
+            "distance": 182.23151303400024,
+            "travelTime": 39.91258155333397
+        },
+        {
+            "origin": 7,
+            "destination": 8,
+            "distance": 156.25361879716246,
+            "travelTime": 34.22286957625006
+        },
+        {
+            "origin": 8,
+            "destination": 9,
+            "distance": 159.14598305432514,
+            "travelTime": 34.85635893478058
+        },
+        {
+            "origin": 9,
+            "destination": 10,
+            "distance": 219.86345376743094,
+            "travelTime": 48.15477785915648
+        },
+        {
+            "origin": 10,
+            "destination": 11,
+            "distance": 188.12094189493945,
+            "travelTime": 41.20249187565532
+        },
+        {
+            "origin": 11,
+            "destination": 12,
+            "distance": 165.56258225237335,
+            "travelTime": 36.26173078580271
+        },
+        {
+            "origin": 12,
+            "destination": 13,
+            "distance": 169.6897477999372,
+            "travelTime": 37.16566791917063
+        },
+        {
+            "origin": 13,
+            "destination": 14,
+            "distance": 397.7573149556158,
+            "travelTime": 87.11732129798622
+        },
+        {
+            "origin": 14,
+            "destination": 15,
+            "distance": 267.4087471498356,
+            "travelTime": 58.56820947703674
+        },
+        {
+            "origin": 15,
+            "destination": 16,
+            "distance": 350.09404886241543,
+            "travelTime": 76.67805114448548
+        },
+        {
+            "origin": 16,
+            "destination": 17,
+            "distance": 264.7796401181427,
+            "travelTime": 57.99237905633827
+        },
+        {
+            "origin": 17,
+            "destination": 18,
+            "distance": 200.96698788513527,
+            "travelTime": 44.01604947436718
+        },
+        {
+            "origin": 18,
+            "destination": 19,
+            "distance": 490.4791538369492,
+            "travelTime": 107.42537831025408
+        },
+        {
+            "origin": 19,
+            "destination": 20,
+            "distance": 211.0398550049679,
+            "travelTime": 46.22222185203495
+        },
+        {
+            "origin": 20,
+            "destination": 21,
+            "distance": 409.2585069914877,
+            "travelTime": 89.63632724514446
+        },
+        {
+            "origin": 21,
+            "destination": 22,
+            "distance": 141.19598927650955,
+            "travelTime": 30.924928093808347
+        },
+        {
+            "origin": 22,
+            "destination": 23,
+            "distance": 263.02704670931473,
+            "travelTime": 57.60852378237898
+        },
+        {
+            "origin": 23,
+            "destination": 24,
+            "distance": 175.20409825365198,
+            "travelTime": 38.37342808388205
+        },
+        {
+            "origin": 24,
+            "destination": 25,
+            "distance": 242.56973698944364,
+            "travelTime": 53.12793736259863
+        },
+        {
+            "origin": 25,
+            "destination": 26,
+            "distance": 303.0332435963937,
+            "travelTime": 66.37073274014774
+        },
+        {
+            "origin": 26,
+            "destination": 27,
+            "distance": 195.66868667205665,
+            "travelTime": 42.855608693624305
+        },
+        {
+            "origin": 27,
+            "destination": 28,
+            "distance": 660.4043125734252,
+            "travelTime": 144.6426062370585
+        },
+        {
+            "origin": 28,
+            "destination": 29,
+            "distance": 130.35366606401777,
+            "travelTime": 28.55022844805913
+        },
+        {
+            "origin": 29,
+            "destination": 30,
+            "distance": 226.8998308184592,
+            "travelTime": 49.69589425671816
+        },
+        {
+            "origin": 29,
+            "destination": 91,
+            "distance": 114.23032279387415,
+            "travelTime": 25.747804332306764
+        },
+        {
+            "origin": 30,
+            "destination": 31,
+            "distance": 823.7174146919373,
+            "travelTime": 180.41165297606523
+        },
+        {
+            "origin": 31,
+            "destination": 32,
+            "distance": 299.11363518507187,
+            "travelTime": 65.51225503906635
+        },
+        {
+            "origin": 32,
+            "destination": 33,
+            "distance": 251.9103686626541,
+            "travelTime": 55.17373458619469
+        },
+        {
+            "origin": 32,
+            "destination": 92,
+            "distance": 138.94239968209587,
+            "travelTime": 31.317969108178126
+        },
+        {
+            "origin": 34,
+            "destination": 35,
+            "distance": 342.07670443596453,
+            "travelTime": 68.31835997056321
+        },
+        {
+            "origin": 35,
+            "destination": 36,
+            "distance": 267.02413643806653,
+            "travelTime": 53.32912425031728
+        },
+        {
+            "origin": 36,
+            "destination": 37,
+            "distance": 137.57372733090475,
+            "travelTime": 27.475742441398204
+        },
+        {
+            "origin": 37,
+            "destination": 93,
+            "distance": 209.51540605477084,
+            "travelTime": 41.84368226368958
+        },
+        {
+            "origin": 60,
+            "destination": 0,
+            "distance": 53.264149511429196,
+            "travelTime": 12.005874324821205
+        },
+        {
+            "origin": 61,
+            "destination": 62,
+            "distance": 276.84786048987377,
+            "travelTime": 62.40220956543859
+        },
+        {
+            "origin": 62,
+            "destination": 63,
+            "distance": 177.62470233720705,
+            "travelTime": 40.03705818651421
+        },
+        {
+            "origin": 63,
+            "destination": 64,
+            "distance": 416.40333663022375,
+            "travelTime": 93.85836766145977
+        },
+        {
+            "origin": 64,
+            "destination": 65,
+            "distance": 618.8629433209454,
+            "travelTime": 139.4932762458907
+        },
+        {
+            "origin": 65,
+            "destination": 66,
+            "distance": 309.89082087437794,
+            "travelTime": 69.85017660021266
+        },
+        {
+            "origin": 66,
+            "destination": 67,
+            "distance": 227.28508623258685,
+            "travelTime": 51.230634605909984
+        },
+        {
+            "origin": 67,
+            "destination": 68,
+            "distance": 601.5364599186046,
+            "travelTime": 135.58784296426163
+        },
+        {
+            "origin": 68,
+            "destination": 69,
+            "distance": 311.43365674944187,
+            "travelTime": 70.19793571755046
+        },
+        {
+            "origin": 69,
+            "destination": 70,
+            "distance": 262.7524428227086,
+            "travelTime": 59.225066691289484
+        },
+        {
+            "origin": 70,
+            "destination": 71,
+            "distance": 207.8463252766946,
+            "travelTime": 46.84908860907385
+        },
+        {
+            "origin": 71,
+            "destination": 72,
+            "distance": 271.2852692215085,
+            "travelTime": 61.14838739234614
+        },
+        {
+            "origin": 72,
+            "destination": 73,
+            "distance": 271.5936376257,
+            "travelTime": 61.2178944123667
+        },
+        {
+            "origin": 73,
+            "destination": 74,
+            "distance": 225.8665167919417,
+            "travelTime": 50.910885457906346
+        },
+        {
+            "origin": 74,
+            "destination": 75,
+            "distance": 207.64313826598743,
+            "travelTime": 46.80328974178014
+        },
+        {
+            "origin": 75,
+            "destination": 76,
+            "distance": 278.5348900212818,
+            "travelTime": 62.782470298448146
+        },
+        {
+            "origin": 76,
+            "destination": 77,
+            "distance": 234.40448359095816,
+            "travelTime": 52.83536481820276
+        },
+        {
+            "origin": 77,
+            "destination": 78,
+            "distance": 402.6028951830475,
+            "travelTime": 90.74771317506269
+        },
+        {
+            "origin": 78,
+            "destination": 79,
+            "distance": 444.9460878281356,
+            "travelTime": 100.2919761375181
+        },
+        {
+            "origin": 79,
+            "destination": 80,
+            "distance": 748.6395714204773,
+            "travelTime": 168.74525720407186
+        },
+        {
+            "origin": 80,
+            "destination": 81,
+            "distance": 204.122083862695,
+            "travelTime": 46.009635153383556
+        },
+        {
+            "origin": 81,
+            "destination": 82,
+            "distance": 321.63102846450744,
+            "travelTime": 72.49644915252597
+        },
+        {
+            "origin": 82,
+            "destination": 83,
+            "distance": 297.9089315116366,
+            "travelTime": 67.14942836368789
+        },
+        {
+            "origin": 83,
+            "destination": 84,
+            "distance": 414.6883967885425,
+            "travelTime": 93.47181587376181
+        },
+        {
+            "origin": 84,
+            "destination": 85,
+            "distance": 381.6770819573795,
+            "travelTime": 86.0309818269325
+        },
+        {
+            "origin": 85,
+            "destination": 86,
+            "distance": 646.9864797247566,
+            "travelTime": 145.83239264464672
+        },
+        {
+            "origin": 86,
+            "destination": 87,
+            "distance": 416.47865848132005,
+            "travelTime": 93.87534539763821
+        },
+        {
+            "origin": 87,
+            "destination": 88,
+            "distance": 337.88755194838575,
+            "travelTime": 76.16071075617869
+        },
+        {
+            "origin": 88,
+            "destination": 89,
+            "distance": 234.63862379895073,
+            "travelTime": 52.88814061463115
+        },
+        {
+            "origin": 89,
+            "destination": 90,
+            "distance": 642.1507539300469,
+            "travelTime": 144.74240779192465
+        },
+        {
+            "origin": 90,
+            "destination": 28,
+            "distance": 60.031244379268976,
+            "travelTime": 13.531194662659203
+        },
+        {
+            "origin": 91,
+            "destination": 30,
+            "distance": 112.68843862442816,
+            "travelTime": 25.40025973182783
+        },
+        {
+            "origin": 92,
+            "destination": 33,
+            "distance": 96.4582470738118,
+            "travelTime": 21.741933412683974
+        },
+        {
+            "origin": 93,
+            "destination": 94,
+            "distance": 48.39307607900203,
+            "travelTime": 9.664895471614928
+        },
+        {
+            "origin": 94,
+            "destination": 170,
+            "distance": 474.14130021553336,
+            "travelTime": 94.69383797545164
+        },
+        {
+            "origin": 129,
+            "destination": 130,
+            "distance": 225.02281557954086,
+            "travelTime": 44.9407677196286
+        },
+        {
+            "origin": 130,
+            "destination": 131,
+            "distance": 454.7734751185763,
+            "travelTime": 90.82576385738928
+        },
+        {
+            "origin": 131,
+            "destination": 132,
+            "distance": 259.5517407979519,
+            "travelTime": 51.8367635938804
+        },
+        {
+            "origin": 132,
+            "destination": 133,
+            "distance": 467.5714214420346,
+            "travelTime": 93.3817248230786
+        },
+        {
+            "origin": 133,
+            "destination": 134,
+            "distance": 344.51233513642984,
+            "travelTime": 68.80479559389543
+        },
+        {
+            "origin": 134,
+            "destination": 135,
+            "distance": 487.65792141339796,
+            "travelTime": 97.3933301671344
+        },
+        {
+            "origin": 135,
+            "destination": 136,
+            "distance": 438.2792729615478,
+            "travelTime": 87.53159963697229
+        },
+        {
+            "origin": 136,
+            "destination": 137,
+            "distance": 774.6755332411724,
+            "travelTime": 154.71548121823565
+        },
+        {
+            "origin": 137,
+            "destination": 138,
+            "distance": 506.34139675219905,
+            "travelTime": 101.12472835106509
+        },
+        {
+            "origin": 138,
+            "destination": 139,
+            "distance": 518.0603989055751,
+            "travelTime": 103.46520637025748
+        },
+        {
+            "origin": 139,
+            "destination": 140,
+            "distance": 223.00270988775532,
+            "travelTime": 44.537319294055315
+        },
+        {
+            "origin": 140,
+            "destination": 141,
+            "distance": 384.5937974754382,
+            "travelTime": 76.80972471275493
+        },
+        {
+            "origin": 141,
+            "destination": 142,
+            "distance": 300.07047237316146,
+            "travelTime": 59.92902259137663
+        },
+        {
+            "origin": 142,
+            "destination": 143,
+            "distance": 223.72072634729835,
+            "travelTime": 44.6807190237409
+        },
+        {
+            "origin": 143,
+            "destination": 144,
+            "distance": 294.013510384052,
+            "travelTime": 58.719347380717956
+        },
+        {
+            "origin": 144,
+            "destination": 145,
+            "distance": 228.81320232161596,
+            "travelTime": 45.697770469347304
+        },
+        {
+            "origin": 145,
+            "destination": 146,
+            "distance": 397.92159835585636,
+            "travelTime": 79.47150637270671
+        },
+        {
+            "origin": 146,
+            "destination": 147,
+            "distance": 416.61715241473263,
+            "travelTime": 83.20531687625864
+        },
+        {
+            "origin": 147,
+            "destination": 148,
+            "distance": 596.3627597356435,
+            "travelTime": 119.10347932004542
+        },
+        {
+            "origin": 148,
+            "destination": 149,
+            "distance": 412.32174841432004,
+            "travelTime": 82.34745385047017
+        },
+        {
+            "origin": 149,
+            "destination": 150,
+            "distance": 364.93993733499815,
+            "travelTime": 72.88452467874606
+        },
+        {
+            "origin": 150,
+            "destination": 151,
+            "distance": 422.16554054352764,
+            "travelTime": 84.31342149877138
+        },
+        {
+            "origin": 151,
+            "destination": 152,
+            "distance": 513.5021635622036,
+            "travelTime": 102.55485159023097
+        },
+        {
+            "origin": 152,
+            "destination": 153,
+            "distance": 284.2964071003623,
+            "travelTime": 56.77868158442862
+        },
+        {
+            "origin": 153,
+            "destination": 154,
+            "distance": 419.3738991484768,
+            "travelTime": 83.75588466781332
+        },
+        {
+            "origin": 154,
+            "destination": 155,
+            "distance": 194.38504886233656,
+            "travelTime": 38.821900377488596
+        },
+        {
+            "origin": 155,
+            "destination": 156,
+            "distance": 257.51845088041614,
+            "travelTime": 51.43068206096875
+        },
+        {
+            "origin": 156,
+            "destination": 157,
+            "distance": 351.1884372127666,
+            "travelTime": 70.13812329185558
+        },
+        {
+            "origin": 157,
+            "destination": 158,
+            "distance": 586.0932169498562,
+            "travelTime": 117.05248224344135
+        },
+        {
+            "origin": 158,
+            "destination": 159,
+            "distance": 192.1995047622445,
+            "travelTime": 38.38541117309268
+        },
+        {
+            "origin": 159,
+            "destination": 160,
+            "distance": 424.8876011827484,
+            "travelTime": 84.85706190514931
+        },
+        {
+            "origin": 160,
+            "destination": 161,
+            "distance": 375.52521500889503,
+            "travelTime": 74.99857922012752
+        },
+        {
+            "origin": 161,
+            "destination": 162,
+            "distance": 376.6366680698193,
+            "travelTime": 75.22055472831599
+        },
+        {
+            "origin": 162,
+            "destination": 163,
+            "distance": 350.5093345624593,
+            "travelTime": 70.00249529170527
+        },
+        {
+            "origin": 163,
+            "destination": 164,
+            "distance": 320.4591463257427,
+            "travelTime": 64.00097706343465
+        },
+        {
+            "origin": 164,
+            "destination": 165,
+            "distance": 563.3367113737344,
+            "travelTime": 112.50763274196747
+        },
+        {
+            "origin": 165,
+            "destination": 166,
+            "distance": 364.25718881565615,
+            "travelTime": 72.74816853841583
+        },
+        {
+            "origin": 166,
+            "destination": 167,
+            "distance": 409.10401328733377,
+            "travelTime": 81.70481907340213
+        },
+        {
+            "origin": 167,
+            "destination": 168,
+            "distance": 261.7430886190215,
+            "travelTime": 52.274411897080086
+        },
+        {
+            "origin": 168,
+            "destination": 169,
+            "distance": 321.15897114088216,
+            "travelTime": 64.14074362168613
+        },
+        {
+            "origin": 169,
+            "destination": 34,
+            "distance": 354.3762206308187,
+            "travelTime": 70.77477621863635
+        },
+        {
+            "origin": 170,
+            "destination": 171,
+            "distance": 298.71738082089854,
+            "travelTime": 59.65878789096624
+        },
+        {
+            "origin": 171,
+            "destination": 172,
+            "distance": 370.8182749565928,
+            "travelTime": 74.05852565704356
+        },
+        {
+            "origin": 172,
+            "destination": 173,
+            "distance": 215.7510308783074,
+            "travelTime": 43.08903938918626
+        }
+    ]
+}
