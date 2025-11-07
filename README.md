@@ -23,7 +23,7 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 - Time elapsed: 0.228 s
 - Current memory usage: 5.80 MB; Peak: 19.49 MB
 
-## 1.Technical details:
+## 1. Technical details:
 
 ### 1.1 The method to approximate the geographical distance:
 - The idea is to create a 3D point ($L_{i}$) for each geographical location:
