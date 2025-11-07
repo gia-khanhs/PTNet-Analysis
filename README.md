@@ -6,7 +6,7 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 ## Table of Contents
 - [0. Overview](#0-overview)
 - [1. Technical details](#1-technical-details)
- - [1.1 The method to approximate the geographical distance](#11-the-method-to-approximate-the-geographical-distance)
+  - [1.1 The method to approximate the geographical distance](#11-the-method-to-approximate-the-geographical-distance)
 
 ## 0. Overview:
 ### Graph stats: 4370 nodes / 5442 edges (vs. paper 4350/5397).
