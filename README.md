@@ -1,7 +1,5 @@
 # PTNet-Analysis
-This is my own implementation of the research paper "A comparative study of topological analysis and temporal network analysis of a public transport system"!
-
-Link to the paper: [A comparative study of topological analysis and temporal network analysis of a public transport system](https://www.sciencedirect.com/science/article/pii/S204604302100037X)
+This is my own implementation of the research paper [A comparative study of topological analysis and temporal network analysis of a public transport system](https://www.sciencedirect.com/science/article/pii/S204604302100037X)
 
 Read more about L-space graph: [Statistical analysis of 22 public transport networks in Poland](https://arxiv.org/pdf/physics/0506074)
 
