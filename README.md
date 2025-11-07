@@ -27,6 +27,6 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 - Knowing these, we can calculate the 3D position as follow:
 Let L<sub>i</sub>(x, y, z).
 <p align="center"> z = $R_{Earth}$ * cos(lat) <p>
-<p align="center"> pj = $$\sqrt{R_{Earth}² - z²}$$ = R<sub>Earth</sub> * sin(lat) <p>
+<p align="center"> pj = $$\sqrt{R_{Earth}² - z²}$$ = R_{Earth} * sin(lat) <p>
 <p align="center"> x = pj * cos(lng) <p>
 <p align="center"> y = pj * sin(lng) <p>
