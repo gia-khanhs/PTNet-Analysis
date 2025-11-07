@@ -8,7 +8,7 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 ## Some notes on my implementation:
 
 ### Graph comparision with the paper:
-- My graph is a directed single graph. Between stop pairs in walk distance, an edge will be created, and if there is already one (in a bus route), it will be overwritten so that the time weight is minimum.
+- My implemented graph is a directed single graph. Between stop pairs in walk distance, an edge will be created, and if there is already one (in a bus route), it will be overwritten so that the time weight is minimum. Meanwhile, the graph from the paper does not include edges between stop pairs in walk distance.
 - My topological graph has 4370 nodes and 5442 edges (without taking edges between stop pair in walk distance into consideration), while the author's has 4350 nodes and 5397.
 
 ### Resources taken to build the graph:
@@ -26,7 +26,7 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 
 ### 1. The method to approximate the geographical distance:
 - The idea is to create a 3D point for each geographical location ($L_{i}$):
-- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the projection $pj$).
+- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the length of the projection $pj$).
 - Knowing these, we can calculate the 3D position as follow:
 Let $L_{i}(x, y, z)$
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
