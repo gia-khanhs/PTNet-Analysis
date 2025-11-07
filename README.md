@@ -22,11 +22,11 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 ## Technical details:
 
 ### 1. The method to approximate the geographical distance:
-- The idea is to create a 3D point for each geographical location (L~i~):
-+ Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line (sc) of O and L~i~, the longitude will be the angle between Ox and the projection of (sc) on Oxy (lets call the projection pj).
-+ Knowing these, we can calculate the 3D position as follow:
-Let L~i~(x, y, z).
-<p align="center"> z = R~Earth~ * cos(lat) <p>
-<p align="center"> pj = $\sqrt{R~Earth~² - z²}$ = R~Earth~ * sin(lat) <p>
+- The idea is to create a 3D point for each geographical location (L<sub>i</sub>):
+- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line (sc) of O and L<sub>i</sub>, the longitude will be the angle between Ox and the projection of (sc) on Oxy (lets call the projection pj).
+- Knowing these, we can calculate the 3D position as follow:
+Let L<sub>i</sub>(x, y, z).
+<p align="center"> z = R<sub>Earth</sub> * cos(lat) <p>
+<p align="center"> pj = $\sqrt{R<sub>Earth</sub>² - z²}$ = R<sub>Earth</sub> * sin(lat) <p>
 <p align="center"> x = pj * cos(lng) <p>
 <p align="center"> y = pj * sin(lng) <p>
