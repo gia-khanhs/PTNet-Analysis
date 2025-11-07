@@ -27,7 +27,7 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 
 ### 1.1 The method to approximate the geographical distance:
 - The idea is to create a 3D point ($L_{i}$) for each geographical location:
-- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the length of the projection $pj$).
+- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude ($lat$) will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude ($lng$) will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the length of the projection $pj$).
 - Knowing these, we can calculate the 3D position as follow:
 Let $L_{i}(x, y, z)$
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
