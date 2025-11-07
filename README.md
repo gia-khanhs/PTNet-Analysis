@@ -26,12 +26,12 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 - Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line (sc) of O and $L_{i}$, the longitude will be the angle between Ox and the projection of (sc) on Oxy (lets call the projection pj).
 - Knowing these, we can calculate the 3D position as follow:
 Let $L_{i}(x, y, z)$
-<center> $z = R_{Earth} * cos(lat) \end{center}$ </center>
-<center> $pj = \sqrt{R_{Earth}² - z²} = R_{Earth} * sin(lat)$ </center>
-<center> $x = pj * cos(lng)$ </center>
-<center> $y = pj * sin(lng)$ </center>
+<p align="center"> $z = R_{Earth} * cos(lat) \end{center}$ </p>
+<p align="center"> $pj = \sqrt{R_{Earth}² - z²} = R_{Earth} * sin(lat)$ </p>
+<p align="center"> $x = pj * cos(lng)$ </p>
+<p align="center"> $y = pj * sin(lng)$ </p>
 Simplifying these, we get:
-<center> $x = R_{Earth} * sin(lat) * cos(lng)$ </center>
-<center> $y = R_{Earth} * sin(lat) * sin(lng)$ </center>
-<center> $z = R_{Earth} * cos(lat)$ </center>
+<p align="center"> $x = R_{Earth} * sin(lat) * cos(lng)$ </p>
+<p align="center"> $y = R_{Earth} * sin(lat) * sin(lng)$ </p>
+<p align="center"> $z = R_{Earth} * cos(lat)$ </p>
 - Then we can calculate the angle between two points in the 3D space using dot product, which then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
