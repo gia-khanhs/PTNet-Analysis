@@ -61,6 +61,7 @@ def buildTopoGraph():
     edges = {i: [] for i in range(N)} #Adjacent list to store edges of 4362 nodes
     adj = [{} for i in range (N)] #Dictionary to take the minimum weight edge
 
+    #============================================
     #Add consecutive edges in a route to the graph
     tmp = set()
 
@@ -103,15 +104,16 @@ def buildTopoGraph():
                 adj[preId][cId] = (station['dist'], station['time'] + dwellTime)    
             
             preId = cId
-            
+    #============================================
 
+    #============================================
+    #Add edges between stops within walking distance to the graph
     def relax(u, v, dist_m, time_s):
         #Create or update u->v with a smaller travel time.
         cur = adj[u].get(v)
         if cur is None or time_s < cur[1]:
             adj[u][v] = [dist_m, time_s]
 
-    #Add edges between stops that are in walk distance to the graph
     for u in range(1, N - 2):
         origin = nodes[0][u]
 
@@ -134,5 +136,6 @@ def buildTopoGraph():
             if adj[v].get(u) != None:
                 tmpEdge = topoEdge(u, adj[v][u][0], adj[v][u][1])
                 edges[v].append(tmpEdge)
-    
+    #Add edges between stops that are in walk distance to the graph
+
     return (nodes[0], edges) #(nodes, edges, id, compactedId)
