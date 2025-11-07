@@ -1,4 +1,5 @@
 from utilities.topologicalGraph import buildTopoGraph
+from utilities.topologicalGraph import topoEdge
 import json
 import tracemalloc, time
 
@@ -27,12 +28,27 @@ def buildAndSave():
     with open("topoGraph.json", 'w', encoding = 'utf-8') as file:
         json.dump(graph, file, indent = 4, ensure_ascii = False)
 
+def loadGraph():
+    with open("topoGraph.json", 'r', encoding = 'utf-8') as file:
+        data = file.read()
+        data = json.loads(data)
+        file.close()
+
+    nodes = data["nodes"]
+    adj = {i: [] for i in range(len(nodes))}
+
+    for edge in data["edges"]:
+        newEdge = topoEdge(edge["destination"], edge["distance"], edge["travelTime"])
+        adj[edge["origin"]].append(newEdge)
+
+    return (nodes, adj)
+
 tracemalloc.start()
 start_time = time.time()
 
 #=================================================================
 # Start the main code
-
+graph = loadGraph()
 # End the main code
 #=================================================================
 

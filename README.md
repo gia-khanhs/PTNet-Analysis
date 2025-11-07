@@ -20,7 +20,8 @@ Time elapsed: 154.249 s
 Current memory usage: 0.27 MB; Peak: 11.62 MB
 
 ### Resources taken to load the graph:
-
+Time elapsed: 0.228 s
+Current memory usage: 5.80 MB; Peak: 19.49 MB
 
 ## Technical details:
 
