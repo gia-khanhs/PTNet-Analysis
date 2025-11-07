@@ -38,4 +38,4 @@ Simplifying these, we get:
 <p align="center"> $y = R_{Earth} * sin(lat) * sin(lng)$ </p>
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
 
-- The rest is trivialThen we can calculate the angle between two points in the 3D space using dot product, which then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
+- The rest is trivial: Then we can calculate the angle between two points in the 3D space using dot product, which then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
