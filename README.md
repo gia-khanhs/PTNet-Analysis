@@ -30,7 +30,8 @@ Let $L_{i}(x, y, z)$
 <p align="center"> $pj = \sqrt{R_{Earth}² - z²} = R_{Earth} * sin(lat)$ <p>
 <p align="center"> $x = pj * cos(lng)$ <p>
 <p align="center"> $y = pj * sin(lng)$ <p>
-<p align="center"> Simplifying these, we get: <p>
+Simplifying these, we get:
 <p align="center"> $x = R_{Earth} * sin(lat) * cos(lng)$ <p>
 <p align="center"> $y = R_{Earth} * sin(lat) * sin(lng)$ <p>
 <p align="center"> $z = R_{Earth} * cos(lat)$ <p>
+- Then we can calculate the angle between two points in the 3D space using dot product, which then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
