@@ -8,7 +8,7 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 ## Some notes on my implementation:
 
 ### Graph comparision with the paper:
-- My implemented graph is a directed single graph. Between stop pairs in walk distance, an edge will be created, and if there is already one (in a bus route), it will be overwritten so that the time weight is minimum. Meanwhile, the graph from the paper does not include edges between stop pairs in walk distance.
+- My implemented graph is a directed single graph. Between stop pairs in walk distance, an edge will be created, and if there is already one (in a bus route), it will be overwritten so that the time weight is minimum.
 - My topological graph has 4370 nodes and 5442 edges (without taking edges between stop pair in walk distance into consideration), while the author's has 4350 nodes and 5397.
 
 ### Resources taken to build the graph:
