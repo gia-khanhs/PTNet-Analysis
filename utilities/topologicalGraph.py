@@ -111,7 +111,6 @@ def buildTopoGraph():
         if cur is None or time_s < cur[1]:
             adj[u][v] = [dist_m, time_s]
 
-    
     #Add edges between stops that are in walk distance to the graph
     for u in range(1, N - 2):
         origin = nodes[0][u]
