@@ -7,6 +7,7 @@ path = dataPath()
 
 walkDistance = 300
 walkSpeed = 1.3
+dwellTime = 6
 
 class topoNode:
     def __init__(self, name, address, pos):
@@ -26,7 +27,7 @@ class topoEdge:
 
 def buildNodes():
     tmp = set()
-    nodes = [topoNode(0, 0, (0, 0))]
+    nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", (0, 0))]
     id = [0]
     compactedId = [0] * 7620 #The maximum id is 7617
 
@@ -40,7 +41,7 @@ def buildNodes():
             if data[0]['RouteId'] == 335: continue #Route 72-1  
 
             for station in data:
-                newNode = (station['StationName'], station['Address'])
+                newNode = station['StationId']
                 if not newNode in tmp:
                     tmp.add(newNode)
                     newNode = topoNode(station['StationName'], station['Address'], geoPos(station['Lat'], station['Lng']))
@@ -54,9 +55,11 @@ def buildNodes():
     return (nodes, id, compactedId)
 
 def buildTopoGraph():
-    edges = {i: [] for i in range(4363)} #Adjacent list to store edges of 4362 nodes
-    
     nodes = buildNodes()
+
+    N = len(nodes[0])
+    edges = {i: [] for i in range(N)} #Adjacent list to store edges of 4362 nodes
+    
     #Add edges to the graph
     tmp = set()
 
@@ -76,7 +79,21 @@ def buildTopoGraph():
 
             #Add edges (consecutive stops) to the graph
             cId = nodes[2][station['StationId']]
-            newEdge = topoEdge(cId, station['dist'], station['time'])
+            newEdge = topoEdge(cId, station['dist'], station['time'] + dwellTime)
+            if not (preId, cId) in tmp:
+                tmp.add((preId, cId))
+                edges[preId].append(newEdge)
+            preId = cId
+
+        for station in route['OutboundSeq']:
+            #The first station of the route
+            if station['dist'] == 0:
+                preId = nodes[2][station['StationId']]
+                continue
+
+            #Add edges (consecutive stops) to the graph
+            cId = nodes[2][station['StationId']]
+            newEdge = topoEdge(cId, station['dist'], station['time'] + dwellTime)
             if not (preId, cId) in tmp:
                 tmp.add((preId, cId))
                 edges[preId].append(newEdge)
@@ -84,7 +101,7 @@ def buildTopoGraph():
             
 
     #Add edges between stops that are in walk distance to the graph
-    
+    '''
     for u in range(1, len(nodes[0]) - 2):
         origin = nodes[0][u]
 
@@ -97,5 +114,5 @@ def buildTopoGraph():
                 edges[u].append(tmpEdge)
                 tmpEdge = topoEdge(u, distance, distance / walkSpeed)
                 edges[v].append(tmpEdge)
-                
+    '''
     return (nodes[0], edges) #(nodes, edges, id, compactedId)

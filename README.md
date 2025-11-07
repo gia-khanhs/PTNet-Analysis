@@ -5,6 +5,12 @@ Link to the paper: https://www.sciencedirect.com/science/article/pii/S2046043021
 
 Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 
+## Some notes on my implementation:
+
+### Graph comparision with the paper:
+- My graph is a directed single graph. Between stop pairs in walk distance, an edge will be created, and if there is already one (in a bus route), it will be overwritten so that the time weight is minimum.
+- My topological graph has 4370 nodes and 5442 edges (without taking edges between stop pair in walk distance into consideration), while the author's has 4350 nodes and 5397.
+
 ### Resources taken to build the graph:
 - Time elapsed: 199.307 s
 - Current memory usage: 5.79 MB; Peak: 6.24 MB
@@ -12,3 +18,15 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 ### Resources taken to build and save the graph:
 - Time elapsed: 142.263 s
 - Current memory usage: 10.24 MB; Peak: 10.30 MB
+
+## Technical details:
+
+### 1. The method to approximate the geographical distance:
+- The idea is to create a 3D point for each geographical location (L~i~):
++ Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line (sc) of O and L~i~, the longitude will be the angle between Ox and the projection of (sc) on Oxy (lets call the projection pj).
++ Knowing these, we can calculate the 3D position as follow:
+Let L~i~(x, y, z).
+<p align="center"> z = R~Earth~ * cos(lat) <p>
+<p align="center"> pj = $\sqrt{R~Earth~² - z²}$ = R~Earth~ * sin(lat) <p>
+<p align="center"> x = pj * cos(lng) <p>
+<p align="center"> y = pj * sin(lng) <p>

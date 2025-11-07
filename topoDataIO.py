@@ -19,12 +19,14 @@ for node in topoGraph[0]:
     nodes.append(tmpNode)
 
 #Create edges data to save
-for origin in range(1, 4362):
+for origin in range(1, len(nodes) - 1):
     if not origin: continue
     
     for edge in topoGraph[1][origin]:
         tmpEdge = {"origin": origin, "destination": edge.destination, "distance": edge.distance, "travelTime": edge.travelTime}
         edges.append(tmpEdge)
+
+print(len(edges))
 
 #Save the data of the graph
 graph = {"nodes": nodes, "edges": edges}

@@ -24,8 +24,9 @@ class point3D:
         
 class geoPos:
     def __init__(self, lat, lng):
-        self.pos = (lat, lng)
-    
+        self.pos = (math.radians(lat), math.radians(lng))
+        self.pos3D = self.geoPosTo3D()
+
     def toRadian(self):
         return geoPos(math.radians(self.pos[0]), math.radians(self.pos[1]))
 
@@ -47,14 +48,9 @@ class geoPos:
         return point3D(x, y, z)
     
     def arcLen(self, B):
-        pos1 = self.toRadian()
-        pos1 = pos1.geoPosTo3D()
-
-        pos2 = B.toRadian()
-        pos2 = pos2.geoPosTo3D()
-
-        angle = pos1.angleAtOrigin(pos2)
+        angle = self.pos3D.angleAtOrigin(B.pos3D)
         len = EARTH_CIRCUMFRENCE * angle / (2 * PI)
+
         return len
     
 
