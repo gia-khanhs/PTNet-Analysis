@@ -21,13 +21,13 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 
 ### 1.1 The method to approximate the geographical distance:
 - The idea is to create a 3D point ($L_{i}$) for each geographical location:
-- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude ($lat$) will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude ($lng$) will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the length of the projection $pj$).
+- Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude ($lat$) will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude ($lng$) will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the length of the projection $p$).
 - Knowing these, we can calculate the 3D position as follow:
 Let $L_{i}(x, y, z)$
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
-<p align="center"> $pj = \sqrt{R_{Earth}² - z²} = R_{Earth} * sin(lat)$ </p>
-<p align="center"> $x = pj * cos(lng)$ </p>
-<p align="center"> $y = pj * sin(lng)$ </p>
+<p align="center"> $p = \sqrt{R_{Earth}² - z²} = R_{Earth} * sin(lat)$ </p>
+<p align="center"> $x = p * cos(lng)$ </p>
+<p align="center"> $y = p * sin(lng)$ </p>
 Simplifying these, we get:
 <p align="center"> $x = R_{Earth} * sin(lat) * cos(lng)$ </p>
 <p align="center"> $y = R_{Earth} * sin(lat) * sin(lng)$ </p>
