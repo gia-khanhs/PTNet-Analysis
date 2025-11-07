@@ -9,9 +9,9 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
-| Build              | 107.308         | 6.97 / 10.49        |
-| Build + Save       | 154.249         | 0.27 / 11.62        |
-| Load               | 0.228           | 5.80 / 19.49        |
+| **Build**          | 107.308         | 6.97 / 10.49        |
+| **Build + Save**   | 154.249         | 0.27 / 11.62        |
+| **Load**           | 0.228           | 5.80 / 19.49        |
 
 ## 1. Technical details:
 
