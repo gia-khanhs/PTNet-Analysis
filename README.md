@@ -6,13 +6,11 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 ## 0. Results:
 ### Graph stats: 4370 nodes / 5442 edges (vs. paper 4350/5397).
 ### Build time & memory:
-<table align="center">
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
 | **Build**          | 107.308         | 6.97 / 10.49        |
 | **Build + Save**   | 154.249         | 0.27 / 11.62        |
 | **Load**           | 0.228           | 5.80 / 19.49        |
-</table>
 
 ## 1. Technical details:
 
