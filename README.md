@@ -3,21 +3,14 @@ This is my own implementation of the research paper [A comparative study of topo
 
 Read more about L-space graph: [Statistical analysis of 22 public transport networks in Poland](https://arxiv.org/pdf/physics/0506074)
 
-## 0. Some notes on my implementation:
+## 0. Results:
+### Graph stats: 4370 nodes / 5442 edges (vs. paper 4350/5397).
+### Build time & memory:
+- Build     : 107.308 s; Mem: 6.97 MB (peak 10.49 MB)
+- Build+save: 154.249 s; Mem: 0.27 MB (peak 11.62 MB)
+- Load      : 0.228 s  ; Mem: 5.80 MB (peak 19.49 MB)
 
-### 0.1 Graph comparision with the paper:
-- My implemented graph is a directed single graph. Between stop pairs in walk distance, an edge will be created, and if there is already one (in a bus route), it will be overwritten so that the time weight is minimum.
-- My topological graph has 4370 nodes and 5442 edges (without taking edges between stop pair in walk distance into consideration), while the author's has 4350 nodes and 5397.
-
-### 0.2 Resources taken to build the graph:
-- Time elapsed: 107.308 s
-- Memory usage after building: 6.97 MB; Peak: 10.49 MB
-
-### 0.2 Resources taken to build and save the graph:
-- Time elapsed: 154.249 s
-- Memory usage after building and saving: 0.27 MB; Peak: 11.62 MB
-
-### 0.3 Resources taken to load the graph:
+### 0.4 Resources taken to load the graph:
 - Time elapsed: 0.228 s
 - Memory usage after loading: 5.80 MB; Peak: 19.49 MB
 
