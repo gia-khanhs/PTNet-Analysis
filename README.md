@@ -26,7 +26,7 @@ Current memory usage: 5.80 MB; Peak: 19.49 MB
 ## Technical details:
 
 ### 1. The method to approximate the geographical distance:
-- The idea is to create a 3D point for each geographical location ($L_{i}$):
+- The idea is to create a 3D point ($L_{i}$) for each geographical location:
 - Assume Earth is a sphere in the 3D space, with the origin O located at the middle of the sphere. The latitude will be the angle between Oz and the secant line ($sc$) of O and $L_{i}$, the longitude will be the angle between Ox and the projection of ($sc$) on Oxy (lets call the length of the projection $pj$).
 - Knowing these, we can calculate the 3D position as follow:
 Let $L_{i}(x, y, z)$
