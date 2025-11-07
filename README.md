@@ -12,12 +12,12 @@ Read more about L-space graph: https://arxiv.org/pdf/physics/0506074
 - My topological graph has 4370 nodes and 5442 edges (without taking edges between stop pair in walk distance into consideration), while the author's has 4350 nodes and 5397.
 
 ### Resources taken to build the graph:
-- Time elapsed: 199.307 s
-- Current memory usage: 5.79 MB; Peak: 6.24 MB
+Time elapsed: 107.308 s
+Current memory usage: 6.97 MB; Peak: 10.49 MB
 
 ### Resources taken to build and save the graph:
-- Time elapsed: 142.263 s
-- Current memory usage: 10.24 MB; Peak: 10.30 MB
+Time elapsed: 154.249 s
+Current memory usage: 0.27 MB; Peak: 11.62 MB
 
 ### Resources taken to load the graph:
 
