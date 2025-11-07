@@ -3,7 +3,11 @@ This is my own implementation of the research paper [A comparative study of topo
 
 Read more about L-space graph: [Statistical analysis of 22 public transport networks in Poland](https://arxiv.org/pdf/physics/0506074)
 
-## 0. Results:
+## Table of Contents
+- [0. Overview](#0-overview)
+- [1. Technical details](#1-technical-details)
+
+## 0. Overview:
 ### Graph stats: 4370 nodes / 5442 edges (vs. paper 4350/5397).
 ### Build time & memory:
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
