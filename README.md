@@ -37,5 +37,8 @@ Simplifying these, we get:
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
 
 - Having the 3D coordinates, we can calculate the angle between two points A and B in the 3D space using dot product:
-<p align="center"> $cos(θ) = \frac{\vec{OA}.\vec{OB}}{|OA|.|OB|}$
-- This then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
+<p align="center"> $cos(θ) = \frac{\vec{OA}.\vec{OB}}{|OA|.|OB|}$ </p>
+<p align="center"> $<=> θ = cos^{-1}(\frac{\vec{OA}.\vec{OB}}{|OA|.|OB|})$ </p>
+
+- This then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance):
+<p align="center"> $d = \frac{θ}{2π}.R_{Earth}$ </p>
