@@ -13,7 +13,7 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 ## 0. Overview:
 
 ### Topological graph stats: 
-- The graph is a single graph (If there are multiple edges from u to v, the one with the least travel time will overwrite others), saved in "topoGraph.json".
+- The graph is a single graph (If there are multiple edges from $u$ to $v$, the one with the least travel time will overwrite others), saved in "topoGraph.json".
 - It has 4370 nodes / 5442 edges (vs. paper 4350/5397):
   - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18819).
   - The nodes in the saved file are numbered from 1 to whatever the number of nodes is, with an extra at the beginning just for ease of assigning the node ID with its relevant data.
