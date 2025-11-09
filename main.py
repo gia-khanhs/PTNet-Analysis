@@ -1,5 +1,6 @@
-from utilities.topologicalGraph import buildTopoGraph
+from topoDataIO import buildAndSave, loadGraph
 
-dict = [{} for i in range(5)]
-dict[1][2] = (1, 2)
-print(len(dict[1][2]))
+graph = loadGraph()
+
+# graph[0] = node list
+# graph[1] = graph's adjacency list

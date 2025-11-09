@@ -9,7 +9,10 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
   - [1.1 The method to approximate the geographical distance](#11-the-method-to-approximate-the-geographical-distance)
 
 ## 0. Overview:
-### Graph stats: 4370 nodes / 5442 edges (vs. paper 4350/5397).
+
+### Graph stats: 
+- 4370 nodes / 5442 edges (vs. paper 4350/5397).
+- The edges are saved using an adjacency list.
 ### Build time & memory:
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
@@ -33,4 +36,6 @@ Simplifying these, we get:
 <p align="center"> $y = R_{Earth} * sin(lat) * sin(lng)$ </p>
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
 
-- The rest is trivial: Then we can calculate the angle between two points in the 3D space using dot product, which then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
+- Having the 3D coordinates, we can calculate the angle between two points A and B in the 3D space using dot product:
+<p align="center"> $cos(θ) = \frac{\vec{OA}.\vec{OB}}{|OA|.|OB|}$
+- This then can be used to calculate the length of the arc between those two points (which is the approximation of the geographical distance).
