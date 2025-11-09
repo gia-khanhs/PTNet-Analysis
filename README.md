@@ -35,7 +35,7 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 - Knowing these, we can calculate the 3D position as follow:
 Let $L_{i}(x, y, z)$
 <p align="center"> $z = R_{Earth} * cos(lat)$ </p>
-<p align="center"> $p = \sqrt{R_{Earth}² - z²} = R_{Earth} * sin(lat)$ </p>
+<p align="center"> $p = \sqrt{R_{Earth}^2 - z^2} = R_{Earth} * sin(lat)$ </p>
 <p align="center"> $x = p * cos(lng)$ </p>
 <p align="center"> $y = p * sin(lng)$ </p>
 Simplifying these, we get:
