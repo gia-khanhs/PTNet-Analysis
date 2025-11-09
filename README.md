@@ -1,4 +1,6 @@
 # PTNet-Analysis
+A recursive link to the repo: [PTNet-Analysis](https://github.com/gia-khanhs/PTNet-Analysis)
+
 This is my own implementation of the research paper [A comparative study of topological analysis and temporal network analysis of a public transport system](https://www.sciencedirect.com/science/article/pii/S204604302100037X)
 
 Read more about L-space graph: [Statistical analysis of 22 public transport networks in Poland](https://arxiv.org/pdf/physics/0506074)
@@ -13,9 +15,9 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 ### Topological graph stats: 
 - The graph is a single graph (If there are multiple edges from u to v, the one with the least travel time will overwrite others), saved in "topoGraph.json".
 - It has 4370 nodes / 5442 edges (vs. paper 4350/5397):
- - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18819).
- - The nodes in the saved file are numbered from 1 to whatever the number of nodes is, with an extra at the beginning just for ease of assigning the node ID with its relevant data.
- - The edges are saved using an adjacency list.
+  - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18819).
+  - The nodes in the saved file are numbered from 1 to whatever the number of nodes is, with an extra at the beginning just for ease of assigning the node ID with its relevant data.
+  - The edges are saved using an adjacency list.
 
 ### Build time & memory:
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
