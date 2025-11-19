@@ -7,26 +7,28 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 
 ## Table of Contents
 - [0. Overview](#0-overview)
+  - [0.1 Topological graph stats](#01-topological-graph-stats)
 - [1. Technical details](#1-technical-details)
   - [1.1 The method to approximate the geographical distance](#11-the-method-to-approximate-the-geographical-distance)
 
 ## 0. Overview:
 
-### Topological graph stats:
+### 0.1 Topological graph stats:
 - The code to build, save and load the code can be found and run in "topoDataIO.py".
 - The graph is a single graph (If there are multiple edges from $u$ to $v$, the one with the least travel time will overwrite others), saved in "topoGraph.json".
-- It has 4370 nodes / 5442 edges (vs. paper 4350/5397):
-  - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18819).
+- It has 4355 nodes / 5425 edges (vs. paper 4350/5397):
+  - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18723).
   - The nodes in the saved file are numbered from 1 to whatever the number of nodes is, with an extra at the beginning just for ease of assigning the node ID with its relevant data.
   - The edges are saved using an adjacency list.
+- A possible explanation for the difference: With my code version on 9th November, I used different StationId to mark distinct nodes, resulting in 4370 nodes, while using the Address results in 4355. This means that the author may have another way of choosing how to merge nodes. As a result, more edges will be created instead of being overwritten, creating some more of them.
 
-### Build time & memory:
+| Build time & memory:                                       |
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
-| **Build**          | 107.308         | 6.97 / 10.49        |
-| **Build + Save**   | 154.249         | 0.27 / 11.62        |
-| **Load**           | 0.228           | 5.80 / 19.49        |
-
+| **Build**          | 72.011          | 6.97 / 10.49        |
+| **Build + Save**   | 145.754         | 0.27 / 11.57        |
+| **Load**           | 0.228           | 5.77 / 19.39        |
+- Disk usage: 3.75 MB (To save the topological graph).
 ## 1. Technical details:
 
 ### 1.1 The method to approximate the geographical distance:

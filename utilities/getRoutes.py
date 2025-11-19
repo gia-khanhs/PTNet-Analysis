@@ -22,6 +22,7 @@ def getStopSeq():
 routeTimetable = getRouteTimetable()
 allRouteStopSeq = getStopSeq()
 allRouteInfo = []
+routeCnt = 0
 '''
 The structure of allRouteInfo:
 allRouteInfo:
@@ -48,9 +49,7 @@ with open(path.allRouteJson, 'r', encoding = 'utf-8') as file:
 for route in allRouteInfo:
     route['RouteNo'] = route['RouteNo'].lstrip('0')
 
-    if route['RouteNo'] == "DL01": continue
-    if route['RouteNo'] == "72-1": continue
-    if route['RouteNo'] == "70-5": continue
+    if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
     tmpPath = path.stopSeq + "route" + route['RouteNo'] + ".json"
     with open(tmpPath, 'r', encoding = "utf-8") as file:
@@ -65,9 +64,10 @@ for route in allRouteInfo:
 
         #Calculating distance to travel between stations in a route
         prePoint = geoPos(routeSeq[0]['Lat'], routeSeq[0]['Lng'])
+        
         for station in routeSeq:
-            #The order of the station resets to 0 indicating the reversed route
-            if len(route['InboundSeq']) and not station['StationOrder']:
+            #Reversed direction
+            if station['StationDirection']:
                 curSeq = 'OutboundSeq'
 
             route[curSeq].append(station)
@@ -107,3 +107,9 @@ for route in allRouteInfo:
     for weight in route['OutboundSeq']:
         weight['time'] = route['avgTripTime'] * (weight['dist'] / route['OutboundDist'])
     #print(routeSeq)
+
+#Count the number of directed routes
+for route in allRouteInfo:
+    if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
+    if(len(route['InboundSeq'])): routeCnt += 1
+    if(len(route['OutboundSeq'])): routeCnt += 1

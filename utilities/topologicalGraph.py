@@ -37,11 +37,16 @@ def buildNodes():
             data = file.read()
             data = json.loads(data)
 
+            '''
             if data[0]['RouteId'] == 110: continue #Route 70-5
-            if data[0]['RouteId'] == 335: continue #Route 72-1  
+            if data[0]['RouteId'] == 335: continue #Route 72-1 
+            if data[0]['RouteId'] == 87: continue  #Route 61-4
+            if data[0]['RouteId'] == 89: continue #Route 61-7 
+            '''
+            if data[0]['RouteId'] in {110, 335, 87, 89}: continue;
 
             for station in data:
-                newNode = station['StationId']
+                newNode = station['Address']
                 if not newNode in tmp:
                     tmp.add(newNode)
                     newNode = topoNode(station['StationName'], station['Address'], geoPos(station['Lat'], station['Lng']))
@@ -66,12 +71,9 @@ def buildTopoGraph():
     tmp = set()
 
     for route in allRouteInfo:
-        #Skipped routes
-        if route['RouteNo'] == "DL01": continue
-        if route['RouteNo'] == "72-1": continue
-        if route['RouteNo'] == "70-5": continue
-
         preId = 0
+
+        if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
         for station in route['InboundSeq']:
             #The first station of the route
@@ -113,7 +115,7 @@ def buildTopoGraph():
         cur = adj[u].get(v)
         if cur is None or time_s < cur[1]:
             adj[u][v] = [dist_m, time_s]
-
+    
     for u in range(1, N - 2):
         origin = nodes[0][u]
 
@@ -137,5 +139,10 @@ def buildTopoGraph():
                 tmpEdge = topoEdge(u, adj[v][u][0], adj[v][u][1])
                 edges[v].append(tmpEdge)
     #Add edges between stops that are in walk distance to the graph
-
+    
+    print(len(nodes[0]))
+    sum = 0
+    for i in range(1, len(nodes[0]) - 1):
+        sum += len(edges[i])
+    print(sum)
     return (nodes[0], edges) #(nodes, edges, id, compactedId)

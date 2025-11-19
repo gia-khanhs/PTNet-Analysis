@@ -16,7 +16,7 @@ def buildAndSave():
         nodes.append(tmpNode)
 
     #Create edges data to save
-    for origin in range(1, len(nodes) - 1):
+    for origin in range(1, len(nodes)):
         if not origin: continue
         
         for edge in topoGraph[1][origin]:
@@ -48,9 +48,9 @@ start_time = time.time()
 
 #=================================================================
 # Start the main code
-'''
+
 graph = loadGraph()
-'''
+
 # End the main code
 #=================================================================
 
