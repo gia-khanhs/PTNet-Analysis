@@ -49,7 +49,7 @@ start_time = time.time()
 #=================================================================
 # Start the main code
 
-graph = loadGraph()
+#graph = loadGraph()
 
 # End the main code
 #=================================================================

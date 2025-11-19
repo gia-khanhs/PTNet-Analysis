@@ -1,6 +1,6 @@
 from topoDataIO import buildAndSave, loadGraph
 
-graph = loadGraph()
+#graph = loadGraph()
 
 # graph[0] = node list
 # graph[0][i].name/address = Attributes of the node ith
