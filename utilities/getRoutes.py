@@ -1,6 +1,8 @@
 from .dataPath import dataPath
-from .coords import *
+#from .coords import *
 from pathlib import Path
+from turfpy import measurement
+from geojson import Feature, Point
 import json
 
 path = dataPath()
@@ -63,7 +65,8 @@ for route in allRouteInfo:
         #pathPoints format: lng1, lat1, lng2, lat2, lng3, lat3, ... lng_n, lat_n
 
         #Calculating distance to travel between stations in a route
-        prePoint = geoPos(routeSeq[0]['Lat'], routeSeq[0]['Lng'])
+        #prePoint = geoPos(routeSeq[0]['Lat'], routeSeq[0]['Lng'])
+        prePoint = Feature(geometry=Point((routeSeq[0]['Lng'], routeSeq[0]['Lat'])))
         
         for station in routeSeq:
             #Reversed direction
@@ -79,9 +82,11 @@ for route in allRouteInfo:
                 point = point.split(',')
                 point[0] = float(point[0])
                 point[1] = float(point[1])
-                point = geoPos(point[1], point[0])
+                #point = geoPos(point[1], point[0])
+                point = Feature(geometry=Point((point[0], point[1])))
 
-                dist = dist + prePoint.arcLen(point)
+                #dist = dist + prePoint.arcLen(point)
+                dist = dist + measurement.distance(prePoint, point) * 1000
                 prePoint = point
             #dist: the distance to traverse from the previous station to the current
             route[curSeq][-1]['dist'] = dist
@@ -90,6 +95,7 @@ for route in allRouteInfo:
     dist = 0
     for weight in route['InboundSeq']: dist = dist + weight['dist']
     route['InboundDist'] = dist
+    
     dist = 0
     for weight in route['OutboundSeq']: dist = dist + weight['dist']
     route['OutboundDist'] = dist

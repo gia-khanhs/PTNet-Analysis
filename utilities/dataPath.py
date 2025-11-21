@@ -3,3 +3,5 @@ class dataPath:
     routeTimetable = data + "routeInfo/"
     stopSeq = data + "stopSeq/"
     allRouteJson = data + "allRouteInfo.json"
+
+saves = "saves/"

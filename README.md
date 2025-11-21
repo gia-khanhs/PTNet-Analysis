@@ -17,8 +17,8 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 ### 0.1 Topological graph stats:
 - The code to build, save and load the code can be found and run in "topoDataIO.py".
 - The graph is a single graph (If there are multiple edges from $u$ to $v$, the one with the least travel time will overwrite others), saved in "topoGraph.json".
-- It has 4355 nodes / 5425 edges (vs. paper 4350/5397):
-  - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18723).
+- It has 4342 nodes / 5390 edges (vs. paper 4350/5397):
+  - Note that this is the number of edges in connecting consecutive stops in a route (edges within walking distance not considered), counted for the sake of comparision with the paper. In fact, the saved graph has many more edges (18740).
   - The nodes in the saved file are numbered from 1 to whatever the number of nodes is, with an extra at the beginning just for ease of assigning the node ID with its relevant data.
   - The edges are saved using an adjacency list.
 - A possible explanation for the difference: With my code version on 9th November, I used different StationId to mark distinct nodes, resulting in 4370 nodes, while using the Address results in 4355. This means that the author may have another way of choosing how to merge nodes. As a result, more edges will be created instead of being overwritten, creating some more of them.
@@ -26,16 +26,15 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 | Build time & memory:                                       |
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
-| **Build**          | 72.011          | 6.97 / 10.49        |
-| **Build + Save**   | 145.754         | 0.27 / 11.57        |
-| **Load**           | 0.228           | 5.77 / 19.39        |
+| **Build**          | 161.732         | 7.76 / 11.27        |
+| **Build + Save**   | 196.937         | 0.14 / 12.40        |
+| **Load**           | 0.250           | 0.02 / 19.40        |
 - Disk usage: 3.75 MB (To save the topological graph).
 ## 1. Technical details:
 
 ### 1.1 Included libraries:
-- To make the coding process easier, these libraries were used: geojson, turfpy.
+- To make the coding process easier, these libraries were used: turfpy (to work with geographical information).
 - Installation: 
-```pip install geojson```
 ```pip install turfpy```
 
 ### 1.2 The method to approximate the geographical distance:

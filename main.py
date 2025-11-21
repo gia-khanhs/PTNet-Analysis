@@ -1,4 +1,11 @@
 from topoDataIO import buildAndSave, loadGraph
+from utilities.hcmcRegion import inHcmc
+from turfpy import measurement
+from geojson import Feature, Point
+
+pt = Feature(geometry=Point((106.78744506835938,10.868183135986328)))
+end = Feature(geometry=Point((106.65222168,10.75125313)))
+print(inHcmc(pt))
 
 #graph = loadGraph()
 

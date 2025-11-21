@@ -1,7 +1,10 @@
 import json
 from .dataPath import dataPath
 from .getRoutes import allRouteInfo, allRouteStopSeq
-from .coords import geoPos
+from .hcmcRegion import inHcmc
+#from .coords import geoPos
+from turfpy import measurement
+from geojson import Feature, Point
 
 path = dataPath()
 
@@ -45,16 +48,23 @@ def buildNodes():
             '''
             if data[0]['RouteId'] in {110, 335, 87, 89}: continue;
 
-            for station in data:
-                newNode = station['Address']
-                if not newNode in tmp:
-                    tmp.add(newNode)
-                    newNode = topoNode(station['StationName'], station['Address'], geoPos(station['Lat'], station['Lng']))
-                    nodes.append(newNode)
+            for i, station in enumerate(data): 
+                newNode = station['StationId']
 
-                    compactedId[station['StationId']] = len(id)
-                    id.append(station['StationId'])
+                if newNode in tmp: continue
 
+                pos = Feature(geometry=Point((station['Lng'], station['Lat'])))
+
+                if i == 0 or i == len(data) - 1\
+                or station['StationDirection'] != data[i + 1]['StationDirection']\
+                or station['StationDirection'] != data[i - 1]['StationDirection']:
+                    if not inHcmc(pos): continue
+
+                tmp.add(newNode)
+                newNode = topoNode(station['StationName'], station['Address'], pos)
+                nodes.append(newNode)
+                compactedId[station['StationId']] = len(id)
+                id.append(station['StationId'])
             file.close()
 
     return (nodes, id, compactedId)
@@ -117,11 +127,12 @@ def buildTopoGraph():
             adj[u][v] = [dist_m, time_s]
     
     for u in range(1, N - 2):
-        origin = nodes[0][u]
+        origin = nodes[0][u].pos
 
         for v in range(u + 1, N - 1):
-            destination = nodes[0][v]
-            distance = origin.pos.arcLen(destination.pos)
+            destination = nodes[0][v].pos
+            #distance = origin.pos.arcLen(destination.pos)
+            distance = measurement.distance(origin, destination) * 1000
             
             if distance <= walkDistance:
                 #tmpEdge = topoEdge(v, distance, distance / walkSpeed)
