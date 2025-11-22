@@ -24,7 +24,6 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
   - The edges are saved using an adjacency list.
   - The weights of each edge include: distance and travel time (first the distance $d$ between two consecutive stops in a route is calculated, and the travel time will be approximated by $t = \frac{d}{\sum{d}} * \sum{t}$, where $\sum{d}$ and $\sum{t}$ are the total travel distance and time of the bus route respectively).
 
-| Build time & memory:                                       |
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
 | **Build**          | 192.107         | 8.13 / 8.23         |
