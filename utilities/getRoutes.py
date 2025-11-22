@@ -72,6 +72,8 @@ for route in allRouteInfo:
             #Reversed direction
             if station['StationDirection']:
                 curSeq = 'OutboundSeq'
+                dist = 0
+                prePoint = Feature(geometry=Point((station['Lng'], station['Lat'])))
 
             route[curSeq].append(station)
             #Initialising dist: the distance to traverse from the previous station to the current
@@ -95,7 +97,7 @@ for route in allRouteInfo:
     dist = 0
     for weight in route['InboundSeq']: dist = dist + weight['dist']
     route['InboundDist'] = dist
-    
+
     dist = 0
     for weight in route['OutboundSeq']: dist = dist + weight['dist']
     route['OutboundDist'] = dist

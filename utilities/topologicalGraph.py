@@ -13,10 +13,11 @@ walkSpeed = 1.3
 dwellTime = 6
 
 class topoNode:
-    def __init__(self, name, address, pos):
+    def __init__(self, name, address, pos, id):
         self.name = name
         self.address = address
         self.pos = pos
+        self.id = id
 
     def pyout(self):
         print("Name: " + str(self.name) + " | Address: " + str(self.address))# + " | Pos: " + str(self.pos))
@@ -30,7 +31,7 @@ class topoEdge:
 
 def buildNodes():
     tmp = set()
-    nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", (0, 0))]
+    nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", (0, 0), 0)]
     id = [0]
     compactedId = [0] * 7620 #The maximum id is 7617
 
@@ -61,7 +62,7 @@ def buildNodes():
                     if not inHcmc(pos): continue
 
                 tmp.add(newNode)
-                newNode = topoNode(station['StationName'], station['Address'], pos)
+                newNode = topoNode(station['StationName'], station['Address'], pos, station['StationId'])
                 nodes.append(newNode)
                 compactedId[station['StationId']] = len(id)
                 id.append(station['StationId'])
@@ -69,91 +70,91 @@ def buildNodes():
 
     return (nodes, id, compactedId)
 
-def buildTopoGraph():
-    nodes = buildNodes()
+def buildLGraph():
+    nodes, id, compactedId = buildNodes()
 
-    N = len(nodes[0])
-    edges = {i: [] for i in range(N)} #Adjacent list to store edges of 4362 nodes
-    adj = [{} for i in range (N)] #Dictionary to take the minimum weight edge
+    N = len(nodes) - 1
+    edges = {i: [] for i in range(1, N + 1)}
+    adjMat = [{} for i in range(N + 1)]
 
-    #============================================
-    #Add consecutive edges in a route to the graph
-    tmp = set()
+    edgeSet = set()
 
     for route in allRouteInfo:
-        preId = 0
-
         if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
-        for station in route['InboundSeq']:
-            #The first station of the route
-            if station['dist'] == 0:
-                preId = nodes[2][station['StationId']]
-                continue
+        for sequence in ['InboundSeq', 'OutboundSeq']:
+            origin = 0
+            for station in route[sequence]:
+                #The first station of the route
+                if station['StationOrder'] == 0:
+                    origin = compactedId[station['StationId']]
+                    continue
 
-            #Add edges (consecutive stops) to the graph
-            cId = nodes[2][station['StationId']]
-            newEdge = topoEdge(cId, station['dist'], station['time'] + dwellTime)
-            if not (preId, cId) in tmp:
-                tmp.add((preId, cId))
-                #edges[preId].append(newEdge)
-                adj[preId][cId] = (station['dist'], station['time'] + dwellTime)  
+                #Add edges (consecutive stops) to the graph
+                destination = compactedId[station['StationId']]
+                newEdge = topoEdge(destination, station['dist'], station['time'] + dwellTime)
+                if not (origin, destination) in edgeSet and min(origin, destination) != 0:
+                    edgeSet.add((origin, destination))
+                    edges[origin].append(newEdge)
+                    adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime)
 
-            preId = cId
+                origin = destination
 
-        for station in route['OutboundSeq']:
-            #The first station of the route
-            if station['dist'] == 0:
-                preId = nodes[2][station['StationId']]
-                continue
+    print("==== Built L-space graph attributes ====")
+    print("Node count: " + str(N))
+    sum = 0
+    for i in range(1, N + 1):
+        sum += len(edges[i])
+    print("Edge count: " + str(sum))
+    print("========================================")
+    return (nodes, edges, adjMat, id, compactedId)
+        
 
-            #Add edges (consecutive stops) to the graph
-            cId = nodes[2][station['StationId']]
-            newEdge = topoEdge(cId, station['dist'], station['time'] + dwellTime)
-            if not (preId, cId) in tmp:
-                tmp.add((preId, cId))
-                #edges[preId].append(newEdge)
-                adj[preId][cId] = (station['dist'], station['time'] + dwellTime)    
-            
-            preId = cId
-    #============================================
+
+
+def buildTopoGraph():
+    nodes, LEdges, adjMat, id, compactedId = buildLGraph()
+
+    N = len(nodes) - 1
+    edges = {i: [] for i in range(1, N + 1)}
+
+    #Function to update the adjMat so that the graph is a single graph
+    def updateEdge(origin, destination, distance, travelTime):
+        e = adjMat[origin].get(destination)
+        if e is None or travelTime < e[1]:
+            adjMat[origin][destination] = [distance, travelTime]
 
     #============================================
     #Add edges between stops within walking distance to the graph
-    def relax(u, v, dist_m, time_s):
-        #Create or update u->v with a smaller travel time.
-        cur = adj[u].get(v)
-        if cur is None or time_s < cur[1]:
-            adj[u][v] = [dist_m, time_s]
-    
-    for u in range(1, N - 2):
-        origin = nodes[0][u].pos
+    for origin in range(1, N):
+        originPos = nodes[origin].pos
 
-        for v in range(u + 1, N - 1):
-            destination = nodes[0][v].pos
+        for destination in range(origin + 1, N + 1):
+            destinationPos = nodes[destination].pos
             #distance = origin.pos.arcLen(destination.pos)
-            distance = measurement.distance(origin, destination) * 1000
+            distance = measurement.distance(originPos, destinationPos) * 1000
             
             if distance <= walkDistance:
-                #tmpEdge = topoEdge(v, distance, distance / walkSpeed)
-                relax(u, v, distance, distance / walkSpeed)
-                #edges[u].append(tmpEdge)
-                #tmpEdge = topoEdge(u, distance, distance / walkSpeed) 
-                relax(v, u, distance, distance / walkSpeed)
-                #edges[v].append(tmpEdge)
+                updateEdge(origin, destination, distance, distance / walkSpeed)
+                updateEdge(destination, origin, distance, distance / walkSpeed)
+
+            #Add edges to the graph
+            if adjMat[origin].get(destination) != None: #If the edge exists
+                newEdge = topoEdge(destination, adjMat[origin][destination][0], adjMat[origin][destination][1])
+                edges[origin].append(newEdge)
             
-            #Add edge to the return list
-            if adj[u].get(v) != None: #If the edge exists
-                tmpEdge = topoEdge(v, adj[u][v][0], adj[u][v][1])
-                edges[u].append(tmpEdge)
-            if adj[v].get(u) != None:
-                tmpEdge = topoEdge(u, adj[v][u][0], adj[v][u][1])
-                edges[v].append(tmpEdge)
-    #Add edges between stops that are in walk distance to the graph
+            if adjMat[destination].get(origin) != None:
+                newEdge = topoEdge(origin, adjMat[destination][origin][0], adjMat[destination][origin][1])
+                edges[destination].append(newEdge)
+            
+
+            
     
-    print(len(nodes[0]))
+    print("==== Built topological graph attributes ====")
+    print("Node count: " + str(N))
     sum = 0
-    for i in range(1, len(nodes[0]) - 1):
+    for i in range(1, N + 1):
         sum += len(edges[i])
-    print(sum)
-    return (nodes[0], edges) #(nodes, edges, id, compactedId)
+    print("Edge count: " + str(sum))
+    print("============================================")
+    return (nodes, edges) #(nodes, edges, id, compactedId)
