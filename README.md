@@ -31,6 +31,9 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
 | **Load**           | 0.256           | 5.87 / 19.94        |
 - Disk usage: 3.86 MB (To save the topological graph in "saves/topoGraph.json").
 
-- Resources taken to produce "saves/table4.json":
-  - Time elapsed: 431.142 s
-  - Current memory usage: 0.26 MB; Peak: 1.63 MB
+- Resources taken to produce "saves/table4.json" on the topological graph:
+  - Time elapsed: 175.655 s
+  - Current memory usage: 0.26 MB; Peak: 1.32 MB
+- Resources taken to produce "saves/table4.json" on the L-space graph:
+  - Time elapsed: 227.833 s
+  - Current memory usage: 0.26 MB; Peak: 1.28 MB

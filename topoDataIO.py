@@ -1,4 +1,4 @@
-from utilities.topologicalGraph import buildTopoGraph
+from utilities.topologicalGraph import buildLGraph, buildTopoGraph
 from utilities.topologicalGraph import topoEdge
 from utilities.dataPath import saves
 import json
@@ -29,7 +29,7 @@ def buildAndSave():
         json.dump(graph, file, indent = 4, ensure_ascii = False)
 
 def loadGraph():
-    with open(saves + "topoGraph.json", 'r', encoding = 'utf-8') as file:
+    with open(saves + "LGraph.json", 'r', encoding = 'utf-8') as file:
         data = file.read()
         data = json.loads(data)
         file.close()

@@ -20,8 +20,8 @@ start_time = time.time()
 #buildLGraph()
 #topoGraph = buildTopoGraph()
 #buildAndSave()
-graph = loadGraph()
-#exportTable4()
+#graph = loadGraph()
+exportTable4()
 
 # End the main code
 #=================================================================
