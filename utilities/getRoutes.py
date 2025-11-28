@@ -7,6 +7,10 @@ import json
 
 path = dataPath()
 
+walkDistance = 300
+walkSpeed = 1.3
+dwellTime = 6
+
 def getRouteJson(folderPath):
     folderPath = Path(folderPath)
     filePattern = "route*.json"

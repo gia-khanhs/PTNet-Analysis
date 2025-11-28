@@ -17,11 +17,11 @@ start_time = time.time()
 #=================================================================
 # Start the main code
 
-#buildLGraph()
+#LGraph = buildLGraph()
 #topoGraph = buildTopoGraph()
 #buildAndSave()
-#graph = loadGraph()
-exportTable4()
+#nodes, edges = loadGraph()
+#exportTable4()
 
 # End the main code
 #=================================================================

@@ -23,14 +23,23 @@ Read more about L-space graph: [Statistical analysis of 22 public transport netw
   - The nodes in the saved file are numbered from 1 to whatever the number of nodes is, with an extra at the beginning just for ease of assigning the node ID with its relevant data.
   - The edges are saved using an adjacency list.
   - The weights of each edge include: distance and travel time (first the distance $d$ between two consecutive stops in a route is calculated, and the travel time will be approximated by $t = \frac{d}{\sum{d}} * \sum{t}$, where $\sum{d}$ and $\sum{t}$ are the total travel distance and time of the bus route respectively).
-
+Time elapsed: 205.388 s
+Current memory usage: 0.27 MB; Peak: 12.80 MB
 |  Action(s) \ Stats | Time (seconds)  | Mem / Peak mem (MB) |
 | :----------------- | :-------------: | :-----------------: |
 | **Build**          | 192.107         | 8.13 / 8.23         |
 | **Build + Save**   | 199.855         | 0.14 / 12.54        |
 | **Load**           | 0.256           | 5.87 / 19.94        |
 - Disk usage: 3.86 MB (To save the topological graph in "saves/topoGraph.json").
-
+- L-graph (build and save):
+Time elapsed: 2.196 s
+Current memory usage: 0.14 MB; Peak: 9.34 MB
+- L-graph (build):
+Time elapsed: 1.735 s
+Current memory usage: 7.44 MB; Peak: 8.16 MB
+- L-graph (load):
+Time elapsed: 0.324 s
+Current memory usage: 6.13 MB; Peak: 10.24 MB
 - Resources taken to produce "saves/table4.json" on the topological graph:
   - Time elapsed: 175.655 s
   - Current memory usage: 0.26 MB; Peak: 1.32 MB

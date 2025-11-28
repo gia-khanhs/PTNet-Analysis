@@ -1,6 +1,7 @@
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph
 from utilities.topologicalGraph import topoEdge
 from utilities.dataPath import saves
+from geojson import Feature, Point
 import json
 
 def buildAndSave():
@@ -8,11 +9,10 @@ def buildAndSave():
 
     nodes = []
     edges = []
-
     #Create nodes data to save
     for node in topoGraph[0]:
-        tmpNode = {"name": node.name, "address": node.address, "id": node.id}
-        if tmpNode["name"] == 0: continue
+        lng, lat  = node.pos.geometry.coordinates
+        tmpNode = {"name": node.name, "address": node.address, "id": node.id, "pos": (lng, lat)}
         nodes.append(tmpNode)
 
     #Create edges data to save
@@ -29,12 +29,15 @@ def buildAndSave():
         json.dump(graph, file, indent = 4, ensure_ascii = False)
 
 def loadGraph():
-    with open(saves + "LGraph.json", 'r', encoding = 'utf-8') as file:
+    with open(saves + "topoGraph.json", 'r', encoding = 'utf-8') as file:
         data = file.read()
         data = json.loads(data)
         file.close()
 
     nodes = data["nodes"]
+    for node in nodes:
+        node["pos"] = Feature(geometry=Point((node["pos"][0], node["pos"][1])))
+        
     adj = {i: [] for i in range(len(nodes))}
 
     for edge in data["edges"]:

@@ -1,16 +1,12 @@
 import json
 from .dataPath import dataPath
-from .getRoutes import allRouteInfo, allRouteStopSeq
+from .getRoutes import allRouteInfo, allRouteStopSeq, walkDistance, walkSpeed, dwellTime
 from .hcmcRegion import inHcmc
 #from .coords import geoPos
 from turfpy import measurement
 from geojson import Feature, Point
 
 path = dataPath()
-
-walkDistance = 300
-walkSpeed = 1.3
-dwellTime = 6
 
 class topoNode:
     def __init__(self, name, address, pos, id):
@@ -31,7 +27,8 @@ class topoEdge:
 
 def buildNodes():
     tmp = set()
-    nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", (0, 0), 0)]
+    O = Feature(geometry=Point((0, 0)))
+    nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", O, 0)]
     id = [0]
     compactedId = [0] * 7620 #The maximum id is 7617
 
@@ -93,12 +90,21 @@ def buildLGraph():
                 #Add edges (consecutive stops) to the graph
                 destination = compactedId[station['StationId']]
                 newEdge = topoEdge(destination, station['dist'], station['time'] + dwellTime)
+
                 if not (origin, destination) in edgeSet and min(origin, destination) != 0:
                     edgeSet.add((origin, destination))
-                    edges[origin].append(newEdge)
-                    adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime)
+                    if adjMat[origin].get(destination) == None: adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
+                    else:
+                        d, t, cnt = adjMat[origin][destination]
+                        adjMat[origin][destination] = (d + newEdge.distance, t + newEdge.travelTime, cnt + 1)
 
                 origin = destination
+    
+    for origin in range (1, N + 1):
+        for destination in adjMat[origin]:
+            d, t, cnt = adjMat[origin][destination]
+            newEdge = topoEdge(destination, d / cnt, t / cnt)
+            edges[origin].append(newEdge)
 
     print("==== Built L-space graph attributes ====")
     print("Node count: " + str(N))

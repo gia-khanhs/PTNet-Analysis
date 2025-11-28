@@ -1,6 +1,9 @@
 from topoDataIO import loadGraph
 from utilities.topologicalGraph import topoEdge
 from utilities.dataPath import saves
+from utilities.getRoutes import walkDistance
+from geojson import Feature, Point
+from turfpy import measurement
 import heapq
 import json
 
@@ -34,25 +37,52 @@ def dijkstra(s):
     return (shortest, trace)
 
 def exportTable4():
+    #Building shortest-path tree
     totalPasses = [0] * (N + 1)
+    geoDis = [{} for i in range (N + 1)]
     for s in range(1, N + 1):
         shortest, trace = dijkstra(s)
     
-        topoSort = [(shortest[i], i) for i in range(1, N + 1) if shortest[i] != INT_MAX]
+        topoSort = [(shortest[i], i) for i in range(1, N + 1) if i != s and shortest[i] != INT_MAX]
         topoSort.sort()
         passes = [0] * (N + 1)
 
+        srcNode = nodes[s]
+
         for i in range(len(topoSort) - 1, -1, -1):
             nodeId = topoSort[i][1]
+            destNode = nodes[nodeId]
             parent = trace[nodeId]
-            passes[nodeId] += 1
+
+            sNode, lNode = min(nodeId, parent), max(nodeId, parent)
+            if geoDis[sNode].get(lNode): tmpDis = geoDis[sNode][lNode] 
+            else:
+                tmpDis = measurement.distance(srcNode["pos"], destNode["pos"]) * 1000
+                geoDis[sNode][lNode] = tmpDis
+            
+            #the path is only counted when the distance between the stop pair is longer than walking distance
             totalPasses[nodeId] += passes[nodeId]
+            if tmpDis > walkDistance: passes[nodeId] += 1
             passes[parent] += passes[nodeId]
 
-    table4 = []
+    passCnt = []
     for i in range(1, N + 1):
-        table4.append((totalPasses[i], nodes[i]['name'], nodes[i]['address'], nodes[i]['id']))
+        passCnt.append((totalPasses[i], nodes[i]['name'], nodes[i]['address'], nodes[i]['id']))
         
-    table4.sort(reverse = True)
-    with open(saves + "table4.json", 'w', encoding = 'utf-8') as file:
-        json.dump(table4, file, indent = 4, ensure_ascii = False)
+    passCnt.sort(reverse = True)
+
+    print("====Reproduced table 4====")
+    toPrint = []
+    for node in passCnt[:10]:
+        toPrint.append(str(round(100 * node[0] / ((N - 1) * (N - 2)), 2)) + "% - " + node[1] + " - " + node[2] + " (stop ID " + str(node[3]) + ")")
+    
+    table4 = ""
+    for info in toPrint:
+        print(info)
+        table4 = table4 + info + "\n"
+    print("==========================")
+
+    with open(saves + "passCount.json", 'w', encoding = 'utf-8') as file:
+        json.dump(passCnt, file, indent = 4, ensure_ascii = False)
+    with open(saves + "table4.txt", 'w', encoding = 'utf-8') as file:
+        file.write(table4)
