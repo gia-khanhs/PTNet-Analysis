@@ -1,4 +1,4 @@
-from topoDataIO import buildAndSave, loadGraph
+from utilities.topoDataIO import buildAndSaveLGraph, loadGraph
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph
 #graph = loadGraph()
 
@@ -8,7 +8,7 @@ from utilities.topologicalGraph import buildLGraph, buildTopoGraph
 # graph[1] = graph's adjacency list
 # graph[1][u] = a list of edges that connect u and graph[1][u][i]
 # graph[1][u][i].destination/distance/travelTime = self-explainatory
-from analyseTopo import exportTable4
+from utilities.analyseTopo import exportTable4
 import tracemalloc, time
 
 tracemalloc.start()
@@ -17,11 +17,14 @@ start_time = time.time()
 #=================================================================
 # Start the main code
 
+#=======Topological Graph=====
 #LGraph = buildLGraph()
 #topoGraph = buildTopoGraph()
-#buildAndSave()
+#buildAndSaveLGraph()
 #nodes, edges = loadGraph()
 #exportTable4()
+#=============================
+
 
 # End the main code
 #=================================================================

@@ -1,11 +1,11 @@
-from utilities.topologicalGraph import buildLGraph, buildTopoGraph
-from utilities.topologicalGraph import topoEdge
-from utilities.dataPath import saves
+from .topologicalGraph import buildLGraph, buildTopoGraph
+from .topologicalGraph import topoEdge
+from .dataPath import saves
 from geojson import Feature, Point
 import json
 
-def buildAndSave():
-    topoGraph = buildTopoGraph()
+def buildAndSaveLGraph():
+    topoGraph = buildLGraph()
 
     nodes = []
     edges = []

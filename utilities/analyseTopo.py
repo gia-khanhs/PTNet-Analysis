@@ -1,7 +1,7 @@
-from topoDataIO import loadGraph
-from utilities.topologicalGraph import topoEdge
-from utilities.dataPath import saves
-from utilities.getRoutes import walkDistance
+from .topoDataIO import loadGraph
+from .topologicalGraph import topoEdge
+from .dataPath import saves
+from .getRoutes import walkDistance
 from geojson import Feature, Point
 from turfpy import measurement
 import heapq
