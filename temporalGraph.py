@@ -3,7 +3,6 @@ from utilities.dataPath import saves
 from utilities.topoDataIO import saveGraph, buildLGraph
 from utilities.getRoutes import dwellTime
 
-from bisect import bisect_right
 import json
 
 maxWaitTime = 60 * 60
@@ -80,7 +79,9 @@ def buildTransitGraph():
                 #=============================
                 #if current node is not the first node => Add transit edge
                 if station != allRouteInfo[routeId][seq][0]:
-                    transitEdges.append((curN - 1, curN))
+                    if station == allRouteInfo[routeId][seq][1]:
+                        if compactedId[allRouteInfo[routeId][seq][0]['StationId']]: transitEdges.append((curN - 1, curN))
+                    else: transitEdges.append((curN - 1, curN))
                 #=============================
                 nodes.append(newNode)
                 if station != firstStation and station != lastStation:
@@ -88,7 +89,9 @@ def buildTransitGraph():
                     newNode = (time, (routeId, seq), compactedId[station['StationId']], 1)
                     #===================================
                     curN = len(nodes)
-                    transitEdges.append((curN - 1, curN))
+                    if station == allRouteInfo[routeId][seq][1]:
+                        if compactedId[allRouteInfo[routeId][seq][0]['StationId']]: transitEdges.append((curN - 1, curN))
+                    else: transitEdges.append((curN - 1, curN))
                     #===================================
                     nodes.append(newNode)
     
