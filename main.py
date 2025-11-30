@@ -29,7 +29,7 @@ start_time = time.time()
 
 
 # ============Temporal Graph==========
-buildTransitGraph()
+# buildTransitGraph()
 # buildWaitingEdge()
 #====================================
 
