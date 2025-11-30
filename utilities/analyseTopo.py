@@ -1,9 +1,8 @@
-from .topoDataIO import loadGraph
+from .topoDataIO import loadGraph, loadWalkableNodes
 from .topologicalGraph import topoEdge
 from .dataPath import saves
 from .getRoutes import walkDistance
-from geojson import Feature, Point
-from turfpy import measurement
+from threading import Thread
 import heapq
 import json
 
@@ -38,32 +37,61 @@ def dijkstra(s):
 
 def exportTable4():
     #Building shortest-path tree
+    global N, nodes, adj
+    if not N:
+        nodes, adj = loadGraph()
+        N = len(nodes) - 1
+    walkableNodes = loadWalkableNodes()
+
     totalPasses = [0] * (N + 1)
     geoDis = [{} for i in range (N + 1)]
-    for s in range(1, N + 1):
-        shortest, trace = dijkstra(s)
+
+    def runChunk(l, r):
+        for s in range(l, r):
+            shortest, trace = dijkstra(s)
+        
+            topoSort = [(shortest[i], i) for i in range(1, N + 1) if shortest[i] != INT_MAX]
+            topoSort.sort()
+            passes = [0] * (N + 1)
+
+            for i in range(len(topoSort) - 1, -1, -1):
+                nodeId = topoSort[i][1]
+                parent = trace[nodeId]
+
+                #the path is only counted when the distance between the stop pair is longer than walking distance
+                if walkableNodes[parent].get(nodeId) == None: passes[nodeId] += 1
+                totalPasses[nodeId] += passes[nodeId]
+                passes[parent] += passes[nodeId]
+
+            #add shortest paths between nodes within walking distance
+            for destination in walkableNodes[s]:
+                totalPasses[s] += 1
+                totalPasses[int(destination)] += 1
+
+    runChunk(1, N + 1)
+     #======Multi-threading=====
+    '''
+    nThreads = 4
+    chunkSize = int(N / nThreads)
+    chunk = []
+    preR = 0
+    for i in range(nThreads):
+        if i == nThreads - 1: chunk.append((preR + 1, N + 1))
+        else: 
+            chunk.append((preR + 1, preR + 1 + chunkSize))
+            preR = preR + 1 + chunkSize
+
+    threads = []
+    for i in range(nThreads):
+        l, r = chunk[i]
+        thread = Thread(target=runChunk, args=(l, r))
+        thread.start()
+        threads.append(thread)
     
-        topoSort = [(shortest[i], i) for i in range(1, N + 1) if i != s and shortest[i] != INT_MAX]
-        topoSort.sort()
-        passes = [0] * (N + 1)
-
-        srcNode = nodes[s]
-
-        for i in range(len(topoSort) - 1, -1, -1):
-            nodeId = topoSort[i][1]
-            destNode = nodes[nodeId]
-            parent = trace[nodeId]
-
-            sNode, lNode = min(nodeId, parent), max(nodeId, parent)
-            if geoDis[sNode].get(lNode): tmpDis = geoDis[sNode][lNode] 
-            else:
-                tmpDis = measurement.distance(srcNode["pos"], destNode["pos"]) * 1000
-                geoDis[sNode][lNode] = tmpDis
-            
-            #the path is only counted when the distance between the stop pair is longer than walking distance
-            totalPasses[nodeId] += passes[nodeId]
-            if tmpDis > walkDistance: passes[nodeId] += 1
-            passes[parent] += passes[nodeId]
+    for thread in threads:
+        thread.join()
+    #==================================
+    '''
 
     passCnt = []
     for i in range(1, N + 1):
@@ -82,7 +110,9 @@ def exportTable4():
         table4 = table4 + info + "\n"
     print("==========================")
 
-    with open(saves + "passCount.json", 'w', encoding = 'utf-8') as file:
-        json.dump(passCnt, file, indent = 4, ensure_ascii = False)
+    # with open(saves + "passCount.json", 'w', encoding = 'utf-8') as file:
+    #     json.dump(passCnt, file, indent = 4, ensure_ascii = False)
+    #     file.close()
     with open(saves + "table4.txt", 'w', encoding = 'utf-8') as file:
         file.write(table4)
+        file.close()

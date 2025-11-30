@@ -29,6 +29,7 @@ routeTimetable = getRouteTimetable()
 allRouteStopSeq = getStopSeq()
 allRouteInfo = []
 routeCnt = 0
+
 '''
 The structure of allRouteInfo:
 allRouteInfo:
@@ -38,11 +39,11 @@ allRouteInfo:
         avgTravelTime
         InboundDist
         [InboundSeq]:
-            [dist]    #Weight
-            [time]    #Weight
+            dist    #Weight
+            time    #Weight
         [OutboundSeq]:
-            [dist]
-            [time]
+            dist
+            time
         OutboundDist
 '''
 #Get information about all routes
@@ -57,45 +58,61 @@ for route in allRouteInfo:
 
     if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
-    tmpPath = path.stopSeq + "route" + route['RouteNo'] + ".json"
-    with open(tmpPath, 'r', encoding = "utf-8") as file:
+    seqPath = path.stopSeq + "route" + route['RouteNo'] + ".json"
+    timePath = path.routeTimetable + "route" + route['RouteNo'] + ".json"
+    with open(seqPath, 'r', encoding = "utf-8") as file:
         routeSeq = file.read()
         routeSeq = json.loads(routeSeq)
         file.close()
+    with open(timePath, 'r', encoding = "utf-8") as file:
+        timetable = file.read()
+        timetable = json.loads(timetable)
+        file.close()
+    timeIn = timetable["timeTableIn"].split(',')
+    for i, t in enumerate(timeIn): timeIn[i] = int(t)
+    timeOut = timetable["timeTableOut"].split(',')
+    for i, t in enumerate(timeOut): timeOut[i] = int(t)
 
-        route['InboundSeq'] = []
-        route['OutboundSeq'] = []
-        curSeq = 'InboundSeq'
-        #pathPoints format: lng1, lat1, lng2, lat2, lng3, lat3, ... lng_n, lat_n
-
-        #Calculating distance to travel between stations in a route
-        #prePoint = geoPos(routeSeq[0]['Lat'], routeSeq[0]['Lng'])
-        prePoint = Feature(geometry=Point((routeSeq[0]['Lng'], routeSeq[0]['Lat'])))
+    #Route 120 is a special one. Its path (either inbound or outbound) makes a loop.
+    #The timetable for this route is available for both directions.
+    #But the sequence only contains 1 of the two (because they are similar)
+    if route['RouteNo'] != '120': route['timeTableIn'] = timeIn
+    route['InboundSeq'] = []
         
-        for station in routeSeq:
-            #Reversed direction
-            if station['StationDirection']:
-                curSeq = 'OutboundSeq'
-                dist = 0
-                prePoint = Feature(geometry=Point((station['Lng'], station['Lat'])))
+    route['OutboundSeq'] = []
+    route['timeTableOut'] = timeOut
+    
+    curSeq = 'InboundSeq'
+    #pathPoints format: lng1, lat1, lng2, lat2, lng3, lat3, ... lng_n, lat_n
 
-            route[curSeq].append(station)
-            #Initialising dist: the distance to traverse from the previous station to the current
+    #Calculating distance to travel between stations in a route
+    #prePoint = geoPos(routeSeq[0]['Lat'], routeSeq[0]['Lng'])
+    prePoint = Feature(geometry=Point((routeSeq[0]['Lng'], routeSeq[0]['Lat'])))
+    
+    for station in routeSeq:
+        #Reversed direction
+        if station['StationDirection']:
+            if curSeq == 'InboundSeq': prePoint = Feature(geometry=Point((station['Lng'], station['Lat'])))
+            curSeq = 'OutboundSeq'
             dist = 0
-            #Calculate distance between consecutive pathpoints
-            pathPoints = station['pathPoints'].split()
-            for point in pathPoints:
-                point = point.split(',')
-                point[0] = float(point[0])
-                point[1] = float(point[1])
-                #point = geoPos(point[1], point[0])
-                point = Feature(geometry=Point((point[0], point[1])))
 
-                #dist = dist + prePoint.arcLen(point)
-                dist = dist + measurement.distance(prePoint, point) * 1000
-                prePoint = point
-            #dist: the distance to traverse from the previous station to the current
-            route[curSeq][-1]['dist'] = dist
+        route[curSeq].append(station)
+        #Initialising dist: the distance to traverse from the previous station to the current
+        dist = 0
+        #Calculate distance between consecutive pathpoints
+        pathPoints = station['pathPoints'].split()
+        for point in pathPoints:
+            point = point.split(',')
+            point[0] = float(point[0])
+            point[1] = float(point[1])
+            #point = geoPos(point[1], point[0])
+            point = Feature(geometry=Point((point[0], point[1])))
+
+            #dist = dist + prePoint.arcLen(point)
+            dist = dist + measurement.distance(prePoint, point) * 1000
+            prePoint = point
+        #dist: the distance to traverse from the previous station to the current
+        route[curSeq][-1]['dist'] = dist
     
     #Estimating the whole traveling distance of both directions (1 of the two weight of the graph's edge)
     dist = 0
@@ -113,11 +130,13 @@ for route in allRouteInfo:
     route['avgTripTime'] = tripTime
     
     #Calculate the average time to travel from station to station (the second weight of the edeg)
+    inboundTime = tripTime - (len(route['InboundSeq']) - 2) * dwellTime
     for weight in route['InboundSeq']:
-        weight['time'] = route['avgTripTime'] * (weight['dist'] / route['InboundDist'])
+        weight['time'] = inboundTime * (weight['dist'] / route['InboundDist'])
     
+    outboundTime = tripTime - (len(route['OutboundSeq']) - 2) * dwellTime
     for weight in route['OutboundSeq']:
-        weight['time'] = route['avgTripTime'] * (weight['dist'] / route['OutboundDist'])
+        weight['time'] = outboundTime * (weight['dist'] / route['OutboundDist'])
     #print(routeSeq)
 
 #Count the number of directed routes

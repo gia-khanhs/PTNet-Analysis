@@ -1,5 +1,6 @@
-from utilities.topoDataIO import buildAndSaveLGraph, loadGraph
-from utilities.topologicalGraph import buildLGraph, buildTopoGraph
+from utilities.topoDataIO import saveGraph, loadGraph, saveWalkableNodes, loadWalkableNodes
+from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
+from temporalGraph import buildTransitGraph, buildWaitingEdge
 #graph = loadGraph()
 
 # graph[0] = node list
@@ -17,13 +18,20 @@ start_time = time.time()
 #=================================================================
 # Start the main code
 
-#=======Topological Graph=====
-#LGraph = buildLGraph()
-#topoGraph = buildTopoGraph()
-#buildAndSaveLGraph()
-#nodes, edges = loadGraph()
-#exportTable4()
-#=============================
+#==========Topological Graph========
+# LGraph = buildLGraph()
+# saveGraph(buildLGraph())
+# topoGraph = buildTopoGraph()
+# saveGraph(buildTopoGraph())
+# nodes, edges = loadGraph()
+# exportTable4()
+#===================================
+
+
+# ============Temporal Graph==========
+buildTransitGraph()
+# buildWaitingEdge()
+#====================================
 
 
 # End the main code

@@ -1,11 +1,10 @@
-from .topologicalGraph import buildLGraph, buildTopoGraph
+from .topologicalGraph import buildLGraph, buildTopoGraph, buildNodes, getWalkableNodes
 from .topologicalGraph import topoEdge
 from .dataPath import saves
 from geojson import Feature, Point
 import json
 
-def buildAndSaveLGraph():
-    topoGraph = buildLGraph()
+def saveGraph(topoGraph): #topoGraph = buildLGraph()/buildTopoGraph()
 
     nodes = []
     edges = []
@@ -25,14 +24,21 @@ def buildAndSaveLGraph():
 
     #Save the data of the graph
     graph = {"nodes": nodes, "edges": edges}
+    with open(saves + "stops.json", 'w', encoding = 'utf-8') as file:
+        json.dump(nodes, file, indent = 4, ensure_ascii = False)
+        file.close()
     with open(saves + "topoGraph.json", 'w', encoding = 'utf-8') as file:
         json.dump(graph, file, indent = 4, ensure_ascii = False)
+        file.close()
 
 def loadGraph():
-    with open(saves + "topoGraph.json", 'r', encoding = 'utf-8') as file:
-        data = file.read()
-        data = json.loads(data)
-        file.close()
+    try:
+        with open(saves + "topoGraph.json", 'r', encoding = 'utf-8') as file:
+            data = file.read()
+            data = json.loads(data)
+            file.close()
+    except IOError:
+        return ([], [])
 
     nodes = data["nodes"]
     for node in nodes:
@@ -45,3 +51,23 @@ def loadGraph():
         adj[edge["origin"]].append(newEdge)
 
     return (nodes, adj)
+
+def saveWalkableNodes():
+    walkableNode = getWalkableNodes()
+    with open(saves + "walkableNodes.json", 'w', encoding = 'utf-8') as file:
+        json.dump(walkableNode, file, indent = 4, ensure_ascii = False)
+        file.close()
+
+def loadWalkableNodes():
+    try:
+        with open(saves + "walkableNodes.json", 'r', encoding = 'utf-8') as file:
+            walkableNodes = file.read()
+            walkableNodes = json.loads(walkableNodes)
+            file.close()
+    except IOError:
+        saveWalkableNodes()
+        with open(saves + "walkableNodes.json", 'r', encoding = 'utf-8') as file:
+            walkableNodes = file.read()
+            walkableNodes = json.loads(walkableNodes)
+            file.close()
+    return walkableNodes

@@ -1,10 +1,11 @@
-import json
 from .dataPath import dataPath
 from .getRoutes import allRouteInfo, allRouteStopSeq, walkDistance, walkSpeed, dwellTime
 from .hcmcRegion import inHcmc
 #from .coords import geoPos
 from turfpy import measurement
 from geojson import Feature, Point
+import json
+from threading import Thread
 
 path = dataPath()
 
@@ -91,7 +92,8 @@ def buildLGraph():
                 destination = compactedId[station['StationId']]
                 newEdge = topoEdge(destination, station['dist'], station['time'] + dwellTime)
 
-                if not (origin, destination) in edgeSet and min(origin, destination) != 0:
+                #Check if end points are in hcmc and if the edge has been added
+                if min(origin, destination) != 0 and not (origin, destination) in edgeSet:
                     edgeSet.add((origin, destination))
                     if adjMat[origin].get(destination) == None: adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
                     else:
@@ -107,19 +109,64 @@ def buildLGraph():
             edges[origin].append(newEdge)
 
     print("==== Built L-space graph attributes ====")
-    print("Node count: " + str(N))
+    print("Node count:", N)
     sum = 0
     for i in range(1, N + 1):
         sum += len(edges[i])
-    print("Edge count: " + str(sum))
+    print("Edge count:", sum)
     print("========================================")
     return (nodes, edges, adjMat, id, compactedId)
         
+def getWalkableNodes():
+    from .topoDataIO import loadGraph
+    nodes = loadGraph()[0]
 
+    N = len(nodes) - 1
+    walkableNodes = [{} for i in range(N + 1)]
+    
+    #for multi-processing
+    def runChunk(l, r):
+        for origin in range(l, r):
+            originPos = nodes[origin]['pos']
 
+            for destination in range(origin + 1, N + 1):
+                destinationPos = nodes[destination]['pos']
+                #distance = origin.pos.arcLen(destination.pos)
+                distance = measurement.distance(originPos, destinationPos) * 1000
+                
+                if distance <= walkDistance:
+                    walkableNodes[origin][destination] = distance
+                    walkableNodes[destination][origin] = distance
+
+    #======Multi-threading=====
+    nThreads = 4
+    chunkSize = int(N / nThreads)
+    chunk = []
+    preR = 0
+    for i in range(nThreads):
+        if i == nThreads - 1: chunk.append((preR + 1, N))
+        else: 
+            chunk.append((preR + 1, preR + 1 + chunkSize))
+            preR = preR + 1 + chunkSize
+
+    threads = []
+    for i in range(nThreads):
+        l, r = chunk[i]
+        thread = Thread(target=runChunk, args=(l, r))
+        thread.start()
+        threads.append(thread)
+    
+    for thread in threads:
+        thread.join()
+    #==================================
+    
+    return walkableNodes
 
 def buildTopoGraph():
+    from .topoDataIO import loadWalkableNodes
+
     nodes, LEdges, adjMat, id, compactedId = buildLGraph()
+    walkableNodes = loadWalkableNodes()
 
     N = len(nodes) - 1
     edges = {i: [] for i in range(1, N + 1)}
@@ -128,39 +175,28 @@ def buildTopoGraph():
     def updateEdge(origin, destination, distance, travelTime):
         e = adjMat[origin].get(destination)
         if e is None or travelTime < e[1]:
-            adjMat[origin][destination] = [distance, travelTime]
+            adjMat[origin][destination] = (distance, travelTime)
 
     #============================================
     #Add edges between stops within walking distance to the graph
-    for origin in range(1, N):
-        originPos = nodes[origin].pos
-
-        for destination in range(origin + 1, N + 1):
-            destinationPos = nodes[destination].pos
-            #distance = origin.pos.arcLen(destination.pos)
-            distance = measurement.distance(originPos, destinationPos) * 1000
-            
-            if distance <= walkDistance:
-                updateEdge(origin, destination, distance, distance / walkSpeed)
-                updateEdge(destination, origin, distance, distance / walkSpeed)
-
-            #Add edges to the graph
-            if adjMat[origin].get(destination) != None: #If the edge exists
-                newEdge = topoEdge(destination, adjMat[origin][destination][0], adjMat[origin][destination][1])
-                edges[origin].append(newEdge)
-            
-            if adjMat[destination].get(origin) != None:
-                newEdge = topoEdge(origin, adjMat[destination][origin][0], adjMat[destination][origin][1])
-                edges[destination].append(newEdge)
-            
-
-            
+    for origin in range(1, N + 1):
+        for destination, distance in walkableNodes[origin].items():
+            destination = int(destination)
+            updateEdge(origin, destination, distance, distance / walkSpeed)
+            updateEdge(destination, origin, distance, distance / walkSpeed)
     
+    for origin in range(1, N + 1):
+        for destination, weight in adjMat[origin].items():
+            distance = weight[0]
+            travelTime = weight[1]
+            newEdge = topoEdge(destination, distance, travelTime)
+            edges[origin].append(newEdge)
+            
     print("==== Built topological graph attributes ====")
-    print("Node count: " + str(N))
+    print("Node count:", N)
     sum = 0
     for i in range(1, N + 1):
         sum += len(edges[i])
-    print("Edge count: " + str(sum))
+    print("Edge count:", sum)
     print("============================================")
     return (nodes, edges) #(nodes, edges, id, compactedId)
