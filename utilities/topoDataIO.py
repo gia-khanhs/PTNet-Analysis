@@ -44,11 +44,11 @@ def loadGraph():
     for node in nodes:
         node["pos"] = Feature(geometry=Point((node["pos"][0], node["pos"][1])))
         
-    adj = {i: [] for i in range(len(nodes))}
+    adj = {i: {} for i in range(len(nodes))}
 
     for edge in data["edges"]:
         newEdge = topoEdge(edge["destination"], edge["distance"], edge["travelTime"])
-        adj[edge["origin"]].append(newEdge)
+        adj[edge["origin"]][edge["destination"]] = newEdge
 
     return (nodes, adj)
 

@@ -24,12 +24,12 @@ def dijkstra(s):
         d, u = heapq.heappop(pq)
         if d > shortest[u]: continue
 
-        for edge in adj[u]:
+        for edge in adj[u].values():
             v = edge.destination
             w = edge.travelTime
             
-            if d + w < shortest[v]:
-                shortest[v] = d + w
+            if shortest[u] + w < shortest[v]:
+                shortest[v] = shortest[u] + w
                 trace[v] = u
                 heapq.heappush(pq, (shortest[v], v))
 
@@ -50,7 +50,7 @@ def exportTable4():
         for s in range(l, r):
             shortest, trace = dijkstra(s)
         
-            topoSort = [(shortest[i], i) for i in range(1, N + 1) if shortest[i] != INT_MAX]
+            topoSort = [(shortest[i], i) for i in range(1, N + 1) if i != s and shortest[i] != INT_MAX]
             topoSort.sort()
             passes = [0] * (N + 1)
 
@@ -59,14 +59,14 @@ def exportTable4():
                 parent = trace[nodeId]
 
                 #the path is only counted when the distance between the stop pair is longer than walking distance
-                if walkableNodes[parent].get(nodeId) == None: passes[nodeId] += 1
                 totalPasses[nodeId] += passes[nodeId]
+                if walkableNodes[parent].get(nodeId) == None: passes[nodeId] += 1
                 passes[parent] += passes[nodeId]
 
             #add shortest paths between nodes within walking distance
-            for destination in walkableNodes[s]:
-                totalPasses[s] += 1
-                totalPasses[int(destination)] += 1
+            # for destination in walkableNodes[s]:
+            #     totalPasses[s] += 1
+            #     totalPasses[int(destination)] += 1
 
     runChunk(1, N + 1)
      #======Multi-threading=====

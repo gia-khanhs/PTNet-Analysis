@@ -53,11 +53,12 @@ def buildNodes():
                 if newNode in tmp: continue
 
                 pos = Feature(geometry=Point((station['Lng'], station['Lat'])))
-
+                
                 if i == 0 or i == len(data) - 1\
                 or station['StationDirection'] != data[i + 1]['StationDirection']\
                 or station['StationDirection'] != data[i - 1]['StationDirection']:
-                    if not inHcmc(pos): continue
+                    if not inHcmc(pos):
+                        continue
 
                 tmp.add(newNode)
                 newNode = topoNode(station['StationName'], station['Address'], pos, station['StationId'])
@@ -118,8 +119,13 @@ def buildLGraph():
     return (nodes, edges, adjMat, id, compactedId)
         
 def getWalkableNodes():
-    from .topoDataIO import loadGraph
+    from .topoDataIO import loadGraph, saveGraph
     nodes = loadGraph()[0]
+    
+    if not len(nodes):
+        saveGraph(buildLGraph())
+        nodes = loadGraph()[0]
+
 
     N = len(nodes) - 1
     walkableNodes = [{} for i in range(N + 1)]
@@ -163,9 +169,10 @@ def getWalkableNodes():
     return walkableNodes
 
 def buildTopoGraph():
-    from .topoDataIO import loadWalkableNodes
+    from .topoDataIO import loadWalkableNodes, saveGraph
 
     nodes, LEdges, adjMat, id, compactedId = buildLGraph()
+    saveGraph((nodes, LEdges))
     walkableNodes = loadWalkableNodes()
 
     N = len(nodes) - 1

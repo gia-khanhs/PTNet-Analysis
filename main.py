@@ -10,9 +10,11 @@ from temporalGraph import buildTransitGraph, buildWaitingEdge
 # graph[1][u] = a list of edges that connect u and graph[1][u][i]
 # graph[1][u][i].destination/distance/travelTime = self-explainatory
 from utilities.analyseTopo import exportTable4
-import tracemalloc, time
+import time
+import psutil, os
 
-tracemalloc.start()
+
+# tracemalloc.start()
 start_time = time.time()
 
 #=================================================================
@@ -38,8 +40,7 @@ start_time = time.time()
 #=================================================================
 
 end_time = time.time()
-current, peak = tracemalloc.get_traced_memory()
-tracemalloc.stop()
 
-print(f"Time elapsed: {end_time - start_time:.3f} s")
-print(f"Current memory usage: {current / 10**6:.2f} MB; Peak: {peak / 10**6:.2f} MB")
+print("Time elapsed:", round(end_time - start_time, 2), "s")
+process = psutil.Process(os.getpid())
+print("Process memory used:", round(process.memory_info().rss / 1024**2, 2), "MB")
