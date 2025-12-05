@@ -58,6 +58,9 @@ def exportTable4():
                 nodeId = topoSort[i][1]
                 parent = trace[nodeId]
 
+                passes[nodeId] += 1
+                passes[parent] += passes[nodeId]
+                totalPasses[nodeId] += passes[nodeId]
                 #if two nodes are in walking distance
                 '''
                 if walkableNodes[parent].get(nodeId) == None:
@@ -69,9 +72,6 @@ def exportTable4():
                     totalPasses[parent] += 1
                 '''
                 
-                passes[parent] += passes[nodeId]
-                passes[nodeId] += 1
-                totalPasses[nodeId] += passes[nodeId]
 
             #add shortest paths between nodes within walking distance
             # for destination in walkableNodes[s]:

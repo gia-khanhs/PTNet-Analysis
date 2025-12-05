@@ -120,13 +120,13 @@ def buildLGraph(mimicPaper=False):
                     if adjMat[origin].get(destination) == None:
                         adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
                     else:
-                        if newEdge.travelTime < adjMat[origin][destination][1]:
-                            adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
-                        '''
+                        # if newEdge.travelTime < adjMat[origin][destination][1]:
+                        #     adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
+                        
                         #Averaging the edge weight
                         d, t, cnt = adjMat[origin][destination]
                         adjMat[origin][destination] = (d + newEdge.distance, t + newEdge.travelTime, cnt + 1)
-                        '''
+                        
 
                 origin = destination
     

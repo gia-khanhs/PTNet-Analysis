@@ -25,7 +25,7 @@ mimicPaper = True
 # LGraph = buildLGraph()
 # saveGraph(buildLGraph())
 # LGraph = buildLGraph(mimicPaper)
-saveGraph(buildLGraph(mimicPaper))
+# saveGraph(buildLGraph(mimicPaper))
 # topoGraph = buildTopoGraph()
 # saveGraph(buildTopoGraph())
 # nodes, edges = loadGraph()
