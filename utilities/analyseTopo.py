@@ -41,7 +41,7 @@ def exportTable4():
     if not N:
         nodes, adj = loadGraph()
         N = len(nodes) - 1
-    walkableNodes = loadWalkableNodes()
+    # walkableNodes = loadWalkableNodes()
 
     totalPasses = [0] * (N + 1)
     geoDis = [{} for i in range (N + 1)]
@@ -107,7 +107,7 @@ def exportTable4():
     for i in range(1, N + 1):
         passCnt.append((totalPasses[i], round(100 * totalPasses[i] / ((N - 1) * (N - 2)), 2), nodes[i]['name'], nodes[i]['address'], nodes[i]['id']))
         
-    passCnt.sort(reverse = True)
+    passCnt = sorted(passCnt, key=lambda x:(-x[0], x[2]))
 
     print("====Reproduced table 4====")
     toPrint = []

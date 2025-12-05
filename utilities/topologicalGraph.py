@@ -94,7 +94,8 @@ def buildLGraph(mimicPaper=False):
 
     N = len(nodes) - 1
     edges = {i: [] for i in range(1, N + 1)}
-    adjMat = [{} for i in range(N + 1)]
+    # minAdjMat = [{} for i in range(N + 1)]
+    meanAdjMat = [{} for i in range(N + 1)]
 
     edgeSet = set()
 
@@ -111,28 +112,29 @@ def buildLGraph(mimicPaper=False):
 
                 #Add edges (consecutive stops) to the graph
                 destination = compactedId[station['StationId']]
-                newEdge = topoEdge(destination, station['dist'], station['time'])
+                newEdge = topoEdge(destination, station['dist'], round(station['time']))
 
                 #Check if end points are in hcmc and if the edge has been added
                 if min(origin, destination) != 0: #and not (origin, destination) in edgeSet:
                     edgeSet.add((origin, destination))
                     #Adding a new edge
-                    if adjMat[origin].get(destination) == None:
-                        adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
+                    if meanAdjMat[origin].get(destination) == None:
+                        # minAdjMat[origin][destination] = (newEdge.distance, newEdge.travelTime)
+                        meanAdjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
                     else:
-                        # if newEdge.travelTime < adjMat[origin][destination][1]:
-                        #     adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
+                        # if newEdge.travelTime < minAdjMat[origin][destination][1]:
+                        #     minAdjMat[origin][destination] = (newEdge.distance, newEdge.travelTime)
                         
                         #Averaging the edge weight
-                        d, t, cnt = adjMat[origin][destination]
-                        adjMat[origin][destination] = (d + newEdge.distance, t + newEdge.travelTime, cnt + 1)
+                        d, t, cnt = meanAdjMat[origin][destination]
+                        meanAdjMat[origin][destination] = (d + newEdge.distance, t + newEdge.travelTime, cnt + 1)
                         
 
                 origin = destination
     
     for origin in range (1, N + 1):
-        for destination in adjMat[origin]:
-            d, t, cnt = adjMat[origin][destination]
+        for destination in meanAdjMat[origin]:
+            d, t, cnt = meanAdjMat[origin][destination]
             newEdge = topoEdge(destination, d / cnt, t / cnt)
             edges[origin].append(newEdge)
 
@@ -143,7 +145,7 @@ def buildLGraph(mimicPaper=False):
         sum += len(edges[i])
     print("Edge count:", sum)
     print("========================================")
-    return (nodes, edges, adjMat, id, compactedId)
+    return (nodes, edges, meanAdjMat, id, compactedId)
         
 def getWalkableNodes():
     from .topoDataIO import loadGraph, saveGraph

@@ -87,12 +87,10 @@ for route in allRouteInfo:
 
     #Calculating distance to travel between stations in a route
     #prePoint = geoPos(routeSeq[0]['Lat'], routeSeq[0]['Lng'])
-    prePoint = Feature(geometry=Point((routeSeq[0]['Lng'], routeSeq[0]['Lat'])))
     
     for station in routeSeq:
         #Reversed direction
         if station['StationDirection']:
-            if curSeq == 'InboundSeq': prePoint = Feature(geometry=Point((station['Lng'], station['Lat'])))
             curSeq = 'OutboundSeq'
             dist = 0
 
@@ -101,7 +99,8 @@ for route in allRouteInfo:
         dist = 0
         #Calculate distance between consecutive pathpoints
         pathPoints = station['pathPoints'].split()
-        for point in pathPoints:
+        prePoint = Feature(geometry=Point(()))
+        for i, point in enumerate(pathPoints):
             point = point.split(',')
             point[0] = float(point[0])
             point[1] = float(point[1])
@@ -109,7 +108,7 @@ for route in allRouteInfo:
             point = Feature(geometry=Point((point[0], point[1])))
 
             #dist = dist + prePoint.arcLen(point)
-            dist = dist + measurement.distance(prePoint, point) * 1000
+            if i: dist = dist + measurement.distance(prePoint, point) * 1000
             prePoint = point
         #dist: the distance to traverse from the previous station to the current
         route[curSeq][-1]['dist'] = dist
