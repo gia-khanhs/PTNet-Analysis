@@ -26,25 +26,44 @@ class topoEdge:
         self.travelTime = travelTime
 
 
-def buildNodes():
+def buildNodes(mimicPaper=False):
     tmp = set()
     O = Feature(geometry=Point((0, 0)))
     nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", O, 0)]
     id = [0]
     compactedId = [0] * 7620 #The maximum id is 7617
 
+    for route in allRouteInfo:
+        if route['RouteNo'] in ["DL01", "72-1", "70-5", "61-4", "61-7"]: continue
+        
+        for seq in ['InboundSeq', 'OutboundSeq']:
+            for station in route[seq]:
+                #remove end nodes outside hcmc
+                pos = Feature(geometry=Point((station['Lng'], station['Lat'])))
+                if station == route[seq][0] or station == route[seq][-1]:
+                    if (not mimicPaper or station['StationId'] > 7000) and not inHcmc(pos): continue
+                
+                #if is a new node
+                if not compactedId[station['StationId']]:
+                    newNode = topoNode(station['StationName'], station['Address'], pos, station['StationId'])
+                    nodes.append(newNode)
+                    compactedId[station['StationId']] = len(id)
+                    id.append(station['StationId'])
+
+    '''
+    #STUPID FIRST VERSION
     for route in allRouteStopSeq:
         #print(route)
         with open(route, 'r', encoding = 'utf-8') as file:
             data = file.read()
             data = json.loads(data)
 
-            '''
-            if data[0]['RouteId'] == 110: continue #Route 70-5
-            if data[0]['RouteId'] == 335: continue #Route 72-1 
-            if data[0]['RouteId'] == 87: continue  #Route 61-4
-            if data[0]['RouteId'] == 89: continue #Route 61-7 
-            '''
+            
+            # if data[0]['RouteId'] == 110: continue #Route 70-5
+            # if data[0]['RouteId'] == 335: continue #Route 72-1 
+            # if data[0]['RouteId'] == 87: continue  #Route 61-4
+            # if data[0]['RouteId'] == 89: continue #Route 61-7 
+            
             if data[0]['RouteId'] in {110, 335, 87, 89}: continue;
 
             for i, station in enumerate(data): 
@@ -57,7 +76,7 @@ def buildNodes():
                 if i == 0 or i == len(data) - 1\
                 or station['StationDirection'] != data[i + 1]['StationDirection']\
                 or station['StationDirection'] != data[i - 1]['StationDirection']:
-                    if not inHcmc(pos):
+                    if station['StationId'] > 7000 and not inHcmc(pos):
                         continue
 
                 tmp.add(newNode)
@@ -66,11 +85,12 @@ def buildNodes():
                 compactedId[station['StationId']] = len(id)
                 id.append(station['StationId'])
             file.close()
+            '''
 
     return (nodes, id, compactedId)
 
-def buildLGraph():
-    nodes, id, compactedId = buildNodes()
+def buildLGraph(mimicPaper=False):
+    nodes, id, compactedId = buildNodes(mimicPaper)
 
     N = len(nodes) - 1
     edges = {i: [] for i in range(1, N + 1)}
@@ -79,7 +99,7 @@ def buildLGraph():
     edgeSet = set()
 
     for route in allRouteInfo:
-        if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
+        if route['RouteNo'] in ["DL01", "72-1", "70-5", "61-4", "61-7"]: continue
 
         for sequence in ['InboundSeq', 'OutboundSeq']:
             origin = 0
@@ -91,15 +111,22 @@ def buildLGraph():
 
                 #Add edges (consecutive stops) to the graph
                 destination = compactedId[station['StationId']]
-                newEdge = topoEdge(destination, station['dist'], station['time'] + dwellTime)
+                newEdge = topoEdge(destination, station['dist'], station['time'])
 
                 #Check if end points are in hcmc and if the edge has been added
-                if min(origin, destination) != 0 and not (origin, destination) in edgeSet:
+                if min(origin, destination) != 0: #and not (origin, destination) in edgeSet:
                     edgeSet.add((origin, destination))
-                    if adjMat[origin].get(destination) == None: adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
+                    #Adding a new edge
+                    if adjMat[origin].get(destination) == None:
+                        adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
                     else:
+                        if newEdge.travelTime < adjMat[origin][destination][1]:
+                            adjMat[origin][destination] = (newEdge.distance, newEdge.travelTime, 1)
+                        '''
+                        #Averaging the edge weight
                         d, t, cnt = adjMat[origin][destination]
                         adjMat[origin][destination] = (d + newEdge.distance, t + newEdge.travelTime, cnt + 1)
+                        '''
 
                 origin = destination
     

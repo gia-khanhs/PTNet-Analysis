@@ -21,12 +21,15 @@ start_time = time.time()
 # Start the main code
 
 #==========Topological Graph========
+mimicPaper = True
 # LGraph = buildLGraph()
 # saveGraph(buildLGraph())
+# LGraph = buildLGraph(mimicPaper)
+saveGraph(buildLGraph(mimicPaper))
 # topoGraph = buildTopoGraph()
 # saveGraph(buildTopoGraph())
 # nodes, edges = loadGraph()
-# exportTable4()
+exportTable4()
 #===================================
 
 
