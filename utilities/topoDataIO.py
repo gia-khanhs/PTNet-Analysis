@@ -38,6 +38,7 @@ def loadGraph():
             data = json.loads(data)
             file.close()
     except IOError:
+        print("ERROR: Cannot find topoGraph.json, make sure the graph is saved!")
         return ([], [])
 
     nodes = data["nodes"]

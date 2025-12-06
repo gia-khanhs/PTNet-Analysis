@@ -22,14 +22,16 @@ start_time = time.time()
 
 #==========Topological Graph========
 mimicPaper = True
+#=====Graph with 4342 nodes
 # LGraph = buildLGraph()
-# saveGraph(buildLGraph())
+# saveGraph(buildLGraph()) 
+
+#=====Graph with 4350 nodes (Match paper's)
 # LGraph = buildLGraph(mimicPaper)
 # saveGraph(buildLGraph(mimicPaper))
-# topoGraph = buildTopoGraph()
-# saveGraph(buildTopoGraph())
+
 # nodes, edges = loadGraph()
-exportTable4()
+# exportTable4() # Run the code to save the graph before running main.py again to call this function
 # ===================================
 
 

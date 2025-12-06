@@ -120,9 +120,9 @@ def exportTable4():
         table4 = table4 + info + "\n"
     print("==========================")
 
-    with open(saves + "passCount.json", 'w', encoding = 'utf-8') as file:
+    with open(saves + "passCount - " + str(len(nodes) - 1) + " nodes.json", 'w', encoding = 'utf-8') as file:
         json.dump(passCnt, file, indent = 4, ensure_ascii = False)
         file.close()
-    with open(saves + "table4.txt", 'w', encoding = 'utf-8') as file:
+    with open(saves + "table4 - " + str(len(nodes) - 1) + " nodes.txt", 'w', encoding = 'utf-8') as file:
         file.write(table4)
         file.close()
