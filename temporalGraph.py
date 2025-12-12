@@ -4,6 +4,7 @@ from utilities.topoDataIO import saveGraph, buildLGraph
 from utilities.getRoutes import dwellTime
 
 import json
+import time
 
 maxWaitTime = 60 * 60
 
@@ -31,15 +32,23 @@ def getDeparture():
     departKey = sorted(departKey)
     return (departKey, depart)
 
-def getStops():
+def getStops(mimicPaper = False):
     stops = []
     try:
         with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
             stops = file.read()
             stops = json.loads(stops)
             file.close()
+        if (mimicPaper and len(stops)) < 4350 or (not mimicPaper and len(stops) > 4343):
+            saveGraph(buildLGraph(mimicPaper))
+            time.sleep(0.1)
+            with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
+                stops = file.read()
+                stops = json.loads(stops)
+                file.close()
     except IOError:
-        saveGraph(buildLGraph())
+        saveGraph(buildLGraph(mimicPaper))
+        time.sleep(0.1)
         with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
             stops = file.read()
             stops = json.loads(stops)
@@ -47,10 +56,9 @@ def getStops():
     
     return stops
 
-
-def buildTransitGraph():
+def buildTransitGraph(mimicPaper = False):
     departTime, departRoute = getDeparture()
-    stops = getStops()
+    stops = getStops(mimicPaper)
     compactedId = [0] * 7620 #The maximum id is 7617
     nStop = len(stops) - 1
     
@@ -58,6 +66,8 @@ def buildTransitGraph():
         compactedId[stops[i]['id']] = i
     
     nodes = []
+    nodeIds = []
+    sortedIds = []
     transitEdges = []
 
     for _departTime in departTime:
@@ -66,36 +76,51 @@ def buildTransitGraph():
 
             time = _departTime
             firstStation = allRouteInfo[routeId][seq][0]
+            if not compactedId[firstStation['StationId']]: firstStation = allRouteInfo[routeId][seq][1]
             lastStation = allRouteInfo[routeId][seq][-1]
+            if not compactedId[lastStation['StationId']]: lastStation = allRouteInfo[routeId][seq][-2]
+
+            isNewFirst = True
             for station in allRouteInfo[routeId][seq]:
                 time += station['time']
 
                 #End stops outside of HCMC are skipped (not added to the graph)
-                if not compactedId[station['StationId']] and (station == firstStation or station == lastStation): continue
+                if not compactedId[station['StationId']]: continue
+                
+                if not isNewFirst: #only add arrivals of intermediate and last stations
+                    newNode = (time, (routeId, seq), compactedId[station['StationId']], 0)
+                    #time, (compactedRouteId, inbound/outbound), compactedStationId, 0/1: arrival/departure
+                    nodes.append(newNode) #arrival node
+                    curN = len(nodes) - 1
+                    nodeIds.append(curN)
+                    #=============================
+                    transitEdges.append((curN - 1, curN))
+                    #=============================
+                else: isNewFirst = False
 
-                newNode = (time, (routeId, seq), compactedId[station['StationId']], 0)
-                #time, (compactedRouteId, inbound/outbound), compactedStationId, 0/1: arrival/departure
-                curN = len(nodes)
-                #=============================
-                #if current node is not the first node => Add transit edge
-                if station != allRouteInfo[routeId][seq][0]:
-                    if station == allRouteInfo[routeId][seq][1]:
-                        if compactedId[allRouteInfo[routeId][seq][0]['StationId']]: transitEdges.append((curN - 1, curN))
-                    else: transitEdges.append((curN - 1, curN))
-                #=============================
-                nodes.append(newNode)
-                if station != firstStation and station != lastStation:
+                if station != lastStation: #only add departures of intermediate and first stations
                     time += dwellTime
                     newNode = (time, (routeId, seq), compactedId[station['StationId']], 1)
                     #===================================
-                    curN = len(nodes)
-                    if station == allRouteInfo[routeId][seq][1]:
-                        if compactedId[allRouteInfo[routeId][seq][0]['StationId']]: transitEdges.append((curN - 1, curN))
-                    else: transitEdges.append((curN - 1, curN))
+                    nodes.append(newNode) #departure node
+                    curN = len(nodes) - 1
+                    nodeIds.append(curN + 1)
                     #===================================
-                    nodes.append(newNode)
+                    if station != firstStation: transitEdges.append((curN - 1, curN))
+                    #===================================
+                else: break
+                    
     
-    nodes.sort()
+    sortedPairs = sorted(zip(nodes, nodeIds))
+    nodes, nodeIds = zip(*sortedPairs)
+    nodes = list(nodes)
+    nodeIds = list(nodeIds)
+
+    sortedIds = [0] * len(nodeIds)
+    for i, x in enumerate(nodeIds): sortedIds[x] = i
+
+    for i in range(len(transitEdges)):
+        transitEdges[i] = (sortedIds[transitEdges[i][0]], sortedIds[transitEdges[i][1]])
     #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES
     #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES
     #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES

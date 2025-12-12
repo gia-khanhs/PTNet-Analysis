@@ -20,8 +20,9 @@ start_time = time.time()
 #=================================================================
 # Start the main code
 
-#==========Topological Graph========
 mimicPaper = True
+
+#==========Topological Graph========
 #=====Graph with 4342 nodes
 # LGraph = buildLGraph()
 # saveGraph(buildLGraph()) 
@@ -36,7 +37,11 @@ mimicPaper = True
 
 
 # ============Temporal Graph==========
+#=====Built from the topograph with 4342 nodes
 # buildTransitGraph()
+# buildWaitingEdge()
+#=====Built from the topograph matching paper's
+# buildTransitGraph(mimicPaper)
 # buildWaitingEdge()
 #====================================
 

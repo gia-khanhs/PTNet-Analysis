@@ -112,7 +112,7 @@ def buildLGraph(mimicPaper=False):
 
                 #Add edges (consecutive stops) to the graph
                 destination = compactedId[station['StationId']]
-                newEdge = topoEdge(destination, station['dist'], round(station['time']))
+                newEdge = topoEdge(destination, station['dist'], station['time'])
 
                 #Check if end points are in hcmc and if the edge has been added
                 if min(origin, destination) != 0: #and not (origin, destination) in edgeSet:

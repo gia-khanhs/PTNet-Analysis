@@ -131,11 +131,11 @@ for route in allRouteInfo:
     #Calculate the average time to travel from station to station (the second weight of the edeg)
     inboundTime = tripTime - (len(route['InboundSeq']) - 1) * dwellTime
     for weight in route['InboundSeq']:
-        weight['time'] = inboundTime * (weight['dist'] / route['InboundDist'])
+        weight['time'] = round(inboundTime * (weight['dist'] / route['InboundDist']))
     
     outboundTime = tripTime - (len(route['OutboundSeq']) - 1) * dwellTime
     for weight in route['OutboundSeq']:
-        weight['time'] = outboundTime * (weight['dist'] / route['OutboundDist'])
+        weight['time'] = round(outboundTime * (weight['dist'] / route['OutboundDist']))
     #print(routeSeq)
 
 #Count the number of directed routes
