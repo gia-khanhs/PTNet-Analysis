@@ -24,14 +24,14 @@ def saveGraph(topoGraph): #topoGraph = buildLGraph()/buildTopoGraph()
 
     #Save the data of the graph
     graph = {"nodes": nodes, "edges": edges}
-    with open(saves + "stops.json", 'w', encoding = 'utf-8') as file:
+    with open(saves + "stations.json", 'w', encoding = 'utf-8') as file:
         json.dump(nodes, file, indent = 4, ensure_ascii = False)
         file.close()
     with open(saves + "topoGraph.json", 'w', encoding = 'utf-8') as file:
         json.dump(graph, file, indent = 4, ensure_ascii = False)
         file.close()
 
-def loadGraph():
+def loadTopoGraph():
     try:
         with open(saves + "topoGraph.json", 'r', encoding = 'utf-8') as file:
             data = file.read()

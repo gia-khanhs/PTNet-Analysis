@@ -32,39 +32,39 @@ def getDeparture():
     departKey = sorted(departKey)
     return (departKey, depart)
 
-def getStops(mimicPaper = False):
-    stops = []
+def getStations(mimicPaper = False):
+    stations = []
     try:
-        with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
-            stops = file.read()
-            stops = json.loads(stops)
+        with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
+            stations = file.read()
+            stations = json.loads(stations)
             file.close()
 
-        if (mimicPaper and len(stops) < 4350) or (not mimicPaper and len(stops) > 4343):
+        if (mimicPaper and len(stations) < 4350) or (not mimicPaper and len(stations) > 4343):
             saveGraph(buildLGraph(mimicPaper))
             time.sleep(0.1)
-            with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
-                stops = file.read()
-                stops = json.loads(stops)
+            with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
+                stations = file.read()
+                stations = json.loads(stations)
                 file.close()
     except IOError:
         saveGraph(buildLGraph(mimicPaper))
         time.sleep(0.1)
-        with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
-            stops = file.read()
-            stops = json.loads(stops)
+        with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
+            stations = file.read()
+            stations = json.loads(stations)
             file.close()
     
-    return stops
+    return stations
 
 def buildTransitGraph(mimicPaper = False):
     departTime, departRoute = getDeparture()
-    stops = getStops(mimicPaper)
+    stations = getStations(mimicPaper)
     compactedId = [0] * 7620 #The maximum id is 7617
-    nStop = len(stops) - 1
+    nStation = len(stations) - 1
     
-    for i in range(1, nStop + 1): 
-        compactedId[stops[i]['id']] = i
+    for i in range(1, nStation + 1): 
+        compactedId[stations[i]['id']] = i
     
     nodes = []
     nodeIds = []
@@ -128,10 +128,10 @@ def buildTransitGraph(mimicPaper = False):
     print("Transit edge count:", len(transitEdges))
     print("========================================")
 
-    return (stops, nodes, transitEdges)
+    return (stations, nodes, transitEdges)
 
-def getNodesById(): #Get nodes by compactedStationId
-    stops, nodes, transitEdges = buildTransitGraph(True)
+def getNodesById(mimicPaper = False): #Get nodes by compactedStationId
+    stations, nodes, transitEdges = buildTransitGraph(mimicPaper)
     nNode = len(nodes) - 1
     nodesById = ([[] for i in range(nNode + 1)], [[] for j in range(nNode + 1)])
     #nodesById[0/1 = arrival/departure][compactedStationId]
@@ -140,13 +140,13 @@ def getNodesById(): #Get nodes by compactedStationId
         time, (routeId, seq), stationId, type = node
         nodesById[type][stationId].append((time, (routeId, seq), iNode))
 
-    return (stops, nodes, nodesById, transitEdges)
+    return (stations, nodes, nodesById, transitEdges)
 
-def buildWaitingEdge():
-    stops, nodes, nodesById, transitEdges = getNodesById()
+def buildWaitingEdge(mimicPaper = False):
+    stations, nodes, nodesById, transitEdges = getNodesById(mimicPaper)
     waitingEdges = []
     
-    for stationId in range(len(stops)):
+    for stationId in range(len(stations)):
         arrivals = nodesById[0][stationId]
         departures = nodesById[1][stationId]
         maxI = len(arrivals) - 1
@@ -178,7 +178,7 @@ def buildWaitingEdge():
             if nextLarger is not None: firstLarger = nextLarger
             else: break #if the next arrival node is larger than every departure node, break
         
-    print("==== Built temporal graph walking edges ====")
+    print("==== Built temporal graph waiting edges ====")
     print("Waiting edge count: ", len(waitingEdges))
     print("===========================================")
-    return (nodes, nodesById, stops, transitEdges, waitingEdges)
+    return (nodes, nodesById, stations, transitEdges, waitingEdges)

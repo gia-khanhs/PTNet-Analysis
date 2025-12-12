@@ -1,6 +1,6 @@
-from utilities.topoDataIO import saveGraph, loadGraph, saveWalkableNodes, loadWalkableNodes
+from utilities.topoDataIO import saveGraph, loadTopoGraph, saveWalkableNodes, loadWalkableNodes
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
-from temporalGraph import buildTransitGraph, buildWaitingEdge, buildWalkingEdge_bf
+from temporalGraph import buildTransitGraph, buildWaitingEdge
 #graph = loadGraph()
 
 # graph[0] = node list
@@ -26,13 +26,14 @@ mimicPaper = True
 #=====Graph with 4342 nodes
 # LGraph = buildLGraph()
 # saveGraph(buildLGraph()) 
+# exportTable4()
 
 #=====Graph with 4350 nodes (Match paper's)
 # LGraph = buildLGraph(mimicPaper)
 # saveGraph(buildLGraph(mimicPaper))
+# exportTable4(mimicPaper)
 
-# nodes, edges = loadGraph()
-# exportTable4() # Run the code to save the graph before running main.py again to call this function
+# nodes, edges = loadTopoGraph()
 # ===================================
 
 

@@ -148,12 +148,12 @@ def buildLGraph(mimicPaper=False):
     return (nodes, edges, meanAdjMat, id, compactedId)
         
 def getWalkableNodes():
-    from .topoDataIO import loadGraph, saveGraph
-    nodes = loadGraph()[0]
+    from .topoDataIO import loadTopoGraph, saveGraph
+    nodes = loadTopoGraph()[0]
     
     if not len(nodes):
         saveGraph(buildLGraph())
-        nodes = loadGraph()[0]
+        nodes = loadTopoGraph()[0]
 
 
     N = len(nodes) - 1

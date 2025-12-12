@@ -1,12 +1,13 @@
-from .topoDataIO import loadGraph, loadWalkableNodes
+from .topoDataIO import loadTopoGraph, loadWalkableNodes, saveGraph
 from .topologicalGraph import topoEdge
 from .dataPath import saves
 from .getRoutes import walkDistance
 from threading import Thread
 import heapq
 import json
+import time
 
-nodes, adj = loadGraph()
+nodes, adj = loadTopoGraph()
 N = len(nodes) - 1
 
 INT_MAX = 2147483647
@@ -35,12 +36,15 @@ def dijkstra(s):
 
     return (shortest, trace)
 
-def exportTable4():
+def exportTable4(mimicPaper = False):
+    from .topologicalGraph import buildLGraph
     #Building shortest-path tree
     global N, nodes, adj
-    if not N:
-        nodes, adj = loadGraph()
-        N = len(nodes) - 1
+    if not N or (mimicPaper and len(nodes) < 4350) or (not mimicPaper and len(nodes) > 4343):
+            saveGraph(buildLGraph(mimicPaper))
+            time.sleep(0.1)
+            nodes, adj = loadTopoGraph()
+            N = len(nodes) - 1
     # walkableNodes = loadWalkableNodes()
 
     totalPasses = [0] * (N + 1)
