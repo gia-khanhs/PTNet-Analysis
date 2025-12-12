@@ -53,8 +53,8 @@ def loadTopoGraph():
 
     return (nodes, adj)
 
-def saveWalkableNodes():
-    walkableNode = getWalkableNodes()
+def saveWalkableNodes(mimicPaper = False):
+    walkableNode = getWalkableNodes(mimicPaper)
     with open(saves + "walkableNodes.json", 'w', encoding = 'utf-8') as file:
         json.dump(walkableNode, file, indent = 4, ensure_ascii = False)
         file.close()
@@ -66,9 +66,6 @@ def loadWalkableNodes():
             walkableNodes = json.loads(walkableNodes)
             file.close()
     except IOError:
-        saveWalkableNodes()
-        with open(saves + "walkableNodes.json", 'r', encoding = 'utf-8') as file:
-            walkableNodes = file.read()
-            walkableNodes = json.loads(walkableNodes)
-            file.close()
+        print("ERROR: Cannot find walkableNodes.json, make sure the file is saved!")
+        return []
     return walkableNodes

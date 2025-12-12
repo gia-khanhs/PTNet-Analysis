@@ -5,6 +5,7 @@ from .hcmcRegion import inHcmc
 from turfpy import measurement
 from geojson import Feature, Point
 import json
+import time
 from threading import Thread
 
 path = dataPath()
@@ -147,13 +148,14 @@ def buildLGraph(mimicPaper=False):
     print("========================================")
     return (nodes, edges, meanAdjMat, id, compactedId)
         
-def getWalkableNodes():
+def getWalkableNodes(mimicPaper = False):
     from .topoDataIO import loadTopoGraph, saveGraph
-    nodes = loadTopoGraph()[0]
+    nodes = loadTopoGraph(mimicPaper)[0]
     
-    if not len(nodes):
-        saveGraph(buildLGraph())
-        nodes = loadTopoGraph()[0]
+    if not len(nodes) or (mimicPaper and len(nodes) < 4350) or (not mimicPaper and len(nodes) > 4343):
+        saveGraph(buildLGraph(mimicPaper))
+        time.sleep(0.1)
+        nodes = loadTopoGraph(mimicPaper)[0]
 
 
     N = len(nodes) - 1

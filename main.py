@@ -43,7 +43,7 @@ mimicPaper = True
 # buildWaitingEdge()
 #=====Built from the topograph matching paper's
 # buildTransitGraph(mimicPaper)
-buildWaitingEdge()
+# buildWaitingEdge()
 # buildWalkingEdge_bf()
 #====================================
 
