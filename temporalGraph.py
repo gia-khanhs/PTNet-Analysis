@@ -39,7 +39,8 @@ def getStops(mimicPaper = False):
             stops = file.read()
             stops = json.loads(stops)
             file.close()
-        if (mimicPaper and len(stops)) < 4350 or (not mimicPaper and len(stops) > 4343):
+
+        if (mimicPaper and len(stops) < 4350) or (not mimicPaper and len(stops) > 4343):
             saveGraph(buildLGraph(mimicPaper))
             time.sleep(0.1)
             with open(saves + "stops.json", 'r', encoding = 'utf-8') as file:
@@ -104,7 +105,7 @@ def buildTransitGraph(mimicPaper = False):
                     #===================================
                     nodes.append(newNode) #departure node
                     curN = len(nodes) - 1
-                    nodeIds.append(curN + 1)
+                    nodeIds.append(curN)
                     #===================================
                     if station != firstStation: transitEdges.append((curN - 1, curN))
                     #===================================
@@ -121,10 +122,7 @@ def buildTransitGraph(mimicPaper = False):
 
     for i in range(len(transitEdges)):
         transitEdges[i] = (sortedIds[transitEdges[i][0]], sortedIds[transitEdges[i][1]])
-    #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES
-    #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES
-    #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES
-    #CURRENT PROBLEM: ADD TRANSIST EDGES AND SORT => DISORTED EDGES
+
     print("==== Built temporal transit graph  ====")
     print("Node count:", len(nodes))
     print("Transit edge count:", len(transitEdges))
@@ -133,7 +131,7 @@ def buildTransitGraph(mimicPaper = False):
     return (stops, nodes, transitEdges)
 
 def getNodesById(): #Get nodes by compactedStationId
-    stops, nodes, transitEdges = buildTransitGraph()
+    stops, nodes, transitEdges = buildTransitGraph(True)
     nNode = len(nodes) - 1
     nodesById = ([[] for i in range(nNode + 1)], [[] for j in range(nNode + 1)])
     #nodesById[0/1 = arrival/departure][compactedStationId]
@@ -149,24 +147,36 @@ def buildWaitingEdge():
     waitingEdges = []
     
     for stationId in range(len(stops)):
-        maxI = len(nodesById[0][stationId]) - 1
-        for i, arriveNode in enumerate(nodesById[0][stationId]):
-            arriveTime, (arriveRouteId, arriveSeq), arriveNodeId = arriveNode
-            firstLarger = 0
-            
-            maxJ = len(nodesById[1][stationId]) - 1
-            for j in range(firstLarger, maxJ + 1):
-                departTime, (departRouteId, departSeq), departNodeId = nodesById[1][stationId][j]
+        arrivals = nodesById[0][stationId]
+        departures = nodesById[1][stationId]
+        maxI = len(arrivals) - 1
+        maxJ = len(departures) - 1
 
-                if departTime > arriveTime + maxWaitTime: break
-                if arriveRouteId != departRouteId and arriveSeq != departSeq:
+        firstLarger = 0
+        if min(maxI, maxJ) < 0: continue
+        while firstLarger < maxJ and departures[firstLarger][0] <= arrivals[0][0]: firstLarger += 1
+
+        for i, arriveNode in enumerate(arrivals): #looping through arrival nodes
+            arriveTime, (arriveRouteId, arriveSeq), arriveNodeId = arriveNode  
+
+            nextLarger = None
+            #firstLarger is always the id of the departure node with time > current arrive node
+            for j in range(firstLarger, maxJ + 1):
+                if nextLarger is None and i != maxI and \
+                    arrivals[i + 1][0] < departures[j][0]:\
+                    nextLarger = j #To update firstLarger
+
+                departTime, (departRouteId, departSeq), departNodeId = departures[j]
+
+                if departTime > arriveTime + maxWaitTime:
+                    if nextLarger is not None: break
+                    else: continue #continue loop to find dep node with id > next arrival node
+                    
+                if (arriveRouteId, arriveSeq) != (departRouteId, departSeq):
                     waitingEdges.append((arriveNodeId, departNodeId))
 
-                nextLarger = 0
-                if not nextLarger and i != maxI and \
-                    nodesById[0][stationId][i + 1][0] < nodesById[1][stationId][j][0]:\
-                    nextLarger = j
-                if nextLarger: firstLarger = nextLarger
+            if nextLarger is not None: firstLarger = nextLarger
+            else: break #if the next arrival node is larger than every departure node, break
         
     print("==== Built temporal graph walking edges ====")
     print("Waiting edge count: ", len(waitingEdges))

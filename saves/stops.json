@@ -3609,6 +3609,15 @@
         ]
     },
     {
+        "name": "Đại học Nông Lâm",
+        "address": "Bến xe buýt ĐH Nông Lâm, đường Quốc lộ 1, Quận Thủ Đức",
+        "id": 394,
+        "pos": [
+            106.787445,
+            10.868183
+        ]
+    },
+    {
         "name": "ĐH Nông Lâm",
         "address": "1026/2 (1030), đường Quốc lộ 1, Quận Thủ Đức",
         "id": 396,
@@ -4731,6 +4740,15 @@
         "pos": [
             106.687975,
             10.825134
+        ]
+    },
+    {
+        "name": "Đại học Quốc gia",
+        "address": "Bến xe buýt Khu A Đô thị Quốc gia, đường Đường nội bộ Đại học Quốc gia, Quận Thủ Đức",
+        "id": 538,
+        "pos": [
+            106.802025,
+            10.873805
         ]
     },
     {
@@ -16326,6 +16344,15 @@
         ]
     },
     {
+        "name": "Tân Vạn",
+        "address": "Ngã ba Tân Vạn, đường Xa Lộ Hà Nội, Quận 9",
+        "id": 1871,
+        "pos": [
+            106.827988,
+            10.898042
+        ]
+    },
+    {
         "name": "Công ty TNHH Thuận Thành Tâm",
         "address": "Công ty TNHH Thuận Thành Tâm, đường Quốc lộ 1, Quận 9",
         "id": 1186,
@@ -22572,6 +22599,15 @@
         ]
     },
     {
+        "name": "Đường nội bộ Đại học Quốc gia",
+        "address": "Đại học Quốc Tế - Đại học Quốc gia, đường Đường nội bộ Đại học Quốc gia, Quận Thủ Đức",
+        "id": 4412,
+        "pos": [
+            106.801808,
+            10.876771
+        ]
+    },
+    {
         "name": "Cây Xăng Hoàng Nguyên",
         "address": "113, đường Nguyễn Hữu Cảnh, Quận Bình Thạnh",
         "id": 2699,
@@ -24198,6 +24234,15 @@
         "pos": [
             106.68179,
             10.863242
+        ]
+    },
+    {
+        "name": "Bến Xe Buýt ÐH Quốc Gia",
+        "address": "Bến xe buýt Khu B - ĐH Quốc Gia, đường Đường nội bộ Đại học Quốc gia, Quận Thủ Đức",
+        "id": 4112,
+        "pos": [
+            106.778717,
+            10.884156
         ]
     },
     {
@@ -28404,6 +28449,15 @@
         ]
     },
     {
+        "name": "Đầu bến Đại học Bách Khoa - Cơ sở 2",
+        "address": "Đại học Bách Khoa, đường Đại học Bách Khoa, Quận Thủ Đức",
+        "id": 6845,
+        "pos": [
+            106.806378,
+            10.880932
+        ]
+    },
+    {
         "name": "Trạm cầu vượt Linh Xuân",
         "address": "1123, đường Kha Vạn Cân, Quận Thủ Đức",
         "id": 3385,
@@ -28671,6 +28725,15 @@
         "pos": [
             106.763999,
             10.87135
+        ]
+    },
+    {
+        "name": "Đại học Quốc gia",
+        "address": "Đại học Quốc gia, đường Đường nội bộ Đại học Quốc gia, Quận Thủ Đức",
+        "id": 3160,
+        "pos": [
+            106.80159,
+            10.877304
         ]
     },
     {
@@ -36294,6 +36357,15 @@
         "pos": [
             106.47365,
             10.747149
+        ]
+    },
+    {
+        "name": "Tân Túc",
+        "address": "Điểm Đầu - Cuối Tân Túc, đường Nguyễn Hữu Trí, Huyện Bình Chánh",
+        "id": 3933,
+        "pos": [
+            106.549755,
+            10.684146
         ]
     },
     {

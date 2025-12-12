@@ -79,29 +79,6 @@ def exportTable4():
             #     totalPasses[int(destination)] += 1
 
     runChunk(1, N + 1)
-     #======Multi-threading=====
-    '''
-    nThreads = 4
-    chunkSize = int(N / nThreads)
-    chunk = []
-    preR = 0
-    for i in range(nThreads):
-        if i == nThreads - 1: chunk.append((preR + 1, N + 1))
-        else: 
-            chunk.append((preR + 1, preR + 1 + chunkSize))
-            preR = preR + 1 + chunkSize
-
-    threads = []
-    for i in range(nThreads):
-        l, r = chunk[i]
-        thread = Thread(target=runChunk, args=(l, r))
-        thread.start()
-        threads.append(thread)
-    
-    for thread in threads:
-        thread.join()
-    #==================================
-    '''
 
     passCnt = []
     for i in range(1, N + 1):
