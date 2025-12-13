@@ -1,4 +1,4 @@
-from utilities.topoDataIO import saveTopoGraph, loadTopoGraph, saveNLoadTopoGraph, saveWalkableNodes, loadWalkableNodes
+from utilities.topoDataIO import saveTopoGraph, loadTopoGraph, saveNLoadTopoGraph, saveWalkableNodes, loadWalkableNodes, saveNLoadWalkableNodes
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
 from temporalGraph import buildTransitGraph, buildWaitingEdge
 #graph = loadGraph()
@@ -37,7 +37,8 @@ if __name__ == "__main__": #multiprocessing guard
     # nodes, edges = loadTopoGraph()
     # ===================================
 
-    # saveWalkableNodes(getWalkableNodes(True))
+    # from utilities.test import lol
+    # lol()
 
     # ============Temporal Graph==========
     #=====Built from the topograph with 4342 nodes

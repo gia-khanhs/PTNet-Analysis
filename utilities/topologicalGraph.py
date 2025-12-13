@@ -1,7 +1,7 @@
 from .dataPath import dataPath
 from .getRoutes import allRouteInfo, allRouteStopSeq, walkDistance, walkSpeed, dwellTime
 from .hcmcRegion import inHcmc
-#from .coords import geoPos
+from .multiProc import multiProcFunc
 from turfpy import measurement
 from geojson import Feature, Point
 import json
@@ -112,7 +112,28 @@ def buildLGraph(mimicPaper=False):
     return (nodes, edges, meanAdjMat, id, compactedId)
         
 
-# def getWalkableNodesWorker()
+def getWalkableNodesWorker(rng):
+    l, r = rng
+
+    from .topoDataIO import loadTopoGraph
+    nodes = loadTopoGraph()[0]
+
+    N = len(nodes) - 1
+    walkableNodes = [{} for i in range(N + 1)]
+
+    for origin in range(l, r + 1):
+        originPos = nodes[origin]['pos']
+
+        for destination in range(origin + 1, N + 1):
+            destinationPos = nodes[destination]['pos']
+            #distance = origin.pos.arcLen(destination.pos)
+            distance = measurement.distance(originPos, destinationPos) * 1000
+            
+            if distance <= walkDistance:
+                walkableNodes[origin][destination] = distance
+                walkableNodes[destination][origin] = distance
+
+    return walkableNodes
 
 def getWalkableNodes(mimicPaper = False):
     from .topoDataIO import loadTopoGraph, saveNLoadTopoGraph
@@ -124,48 +145,19 @@ def getWalkableNodes(mimicPaper = False):
     N = len(nodes) - 1
     walkableNodes = [{} for i in range(N + 1)]
     
-    #for multi-processing
-    def runChunk(l, r):
-        for origin in range(l, r):
-            originPos = nodes[origin]['pos']
+    walkableWorkers = multiProcFunc(getWalkableNodesWorker, N)
 
-            for destination in range(origin + 1, N + 1):
-                destinationPos = nodes[destination]['pos']
-                #distance = origin.pos.arcLen(destination.pos)
-                distance = measurement.distance(originPos, destinationPos) * 1000
-                
-                if distance <= walkDistance:
-                    walkableNodes[origin][destination] = distance
-                    walkableNodes[destination][origin] = distance
-
-    #======Multi-threading=====
-    nThreads = 4
-    chunkSize = int(N / nThreads)
-    chunk = []
-    preR = 0
-    for i in range(nThreads):
-        if i == nThreads - 1: chunk.append((preR + 1, N))
-        else: 
-            chunk.append((preR + 1, preR + 1 + chunkSize))
-            preR = preR + 1 + chunkSize
-
-    threads = []
-    for i in range(nThreads):
-        l, r = chunk[i]
-        thread = Thread(target=runChunk, args=(l, r))
-        thread.start()
-        threads.append(thread)
-    
-    for thread in threads:
-        thread.join()
-    #==================================
+    for chunkResult in walkableWorkers:
+        for origin in range(1, N + 1):
+            for destination, distance in chunkResult[origin].items():
+                walkableNodes[origin][destination] = distance
 
     return walkableNodes
 
-def buildTopoGraph():
+def buildTopoGraph(mimicPaper = False):
     from .topoDataIO import loadWalkableNodes, saveTopoGraph
 
-    nodes, LEdges, adjMat, id, compactedId = buildLGraph()
+    nodes, LEdges, adjMat, id, compactedId = buildLGraph(mimicPaper)
     saveTopoGraph((nodes, LEdges))
     walkableNodes = loadWalkableNodes()
 

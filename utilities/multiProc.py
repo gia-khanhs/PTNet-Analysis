@@ -2,7 +2,7 @@ import multiprocessing
 
 cpuCount = multiprocessing.cpu_count()
 
-def chunk(N, nProcs = cpuCount):
+def chunk(N, nProcs):
     nProcs = min(N, nProcs)
     chunkSize = int(N / nProcs)
     chunks = []
@@ -16,7 +16,10 @@ def chunk(N, nProcs = cpuCount):
 
     return chunks
 
-def multiProcFunc(func, N, nProcs = cpuCount):
+def multiProcFunc(func, N, nProcs = 0):
+    if nProcs == 0: #default
+        nProcs = cpuCount
+        
     chunks = chunk(N, nProcs)
 
     with multiprocessing.Pool(len(chunks)) as p:
