@@ -23,3 +23,9 @@ def multiProcFunc(func, N, nProcs = cpuCount):
         ret = p.map(func, chunks)
 
     return ret
+
+'''
+from utilities.multiProc import multiProcFunc
+if __name__ == "__main__":
+    print(multiProcFunc(funcName, N))
+'''
