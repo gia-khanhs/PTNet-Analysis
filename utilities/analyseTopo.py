@@ -1,4 +1,4 @@
-from .topoDataIO import loadTopoGraph, saveGraph
+from .topoDataIO import loadTopoGraph, saveTopoGraph, saveNLoadTopoGraph
 from .dataPath import saves
 from .multiProc import multiProcFunc
 import heapq
@@ -61,9 +61,7 @@ def exportTable4(mimicPaper = False):
     #Building shortest-path tree
     global N, nodes, adj
     if not N or (mimicPaper and len(nodes) < 4350) or (not mimicPaper and len(nodes) > 4343):
-            saveGraph(buildLGraph(mimicPaper))
-            time.sleep(0.1)
-            nodes, adj = loadTopoGraph()
+            nodes, adj = saveNLoadTopoGraph(mimicPaper)
             N = len(nodes) - 1
     # walkableNodes = loadWalkableNodes()
 

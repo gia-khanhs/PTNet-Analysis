@@ -1,6 +1,6 @@
 from utilities.getRoutes import allRouteInfo
 from utilities.dataPath import saves
-from utilities.topoDataIO import saveGraph, buildLGraph
+from utilities.topoDataIO import saveTopoGraph, buildLGraph
 from utilities.getRoutes import dwellTime
 
 import json
@@ -41,14 +41,14 @@ def getStations(mimicPaper = False):
             file.close()
 
         if (mimicPaper and len(stations) < 4350) or (not mimicPaper and len(stations) > 4343):
-            saveGraph(buildLGraph(mimicPaper))
+            saveTopoGraph(buildLGraph(mimicPaper))
             time.sleep(0.1)
             with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
                 stations = file.read()
                 stations = json.loads(stations)
                 file.close()
     except IOError:
-        saveGraph(buildLGraph(mimicPaper))
+        saveTopoGraph(buildLGraph(mimicPaper))
         time.sleep(0.1)
         with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
             stations = file.read()

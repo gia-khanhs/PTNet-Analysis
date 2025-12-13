@@ -1,4 +1,4 @@
-from utilities.topoDataIO import saveGraph, loadTopoGraph, saveWalkableNodes, loadWalkableNodes
+from utilities.topoDataIO import saveTopoGraph, loadTopoGraph, saveNLoadTopoGraph, saveWalkableNodes, loadWalkableNodes
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
 from temporalGraph import buildTransitGraph, buildWaitingEdge
 #graph = loadGraph()
@@ -26,19 +26,18 @@ if __name__ == "__main__": #multiprocessing guard
     #==========Topological Graph========
     #=====Graph with 4342 nodes
     # LGraph = buildLGraph()
-    # saveGraph(buildLGraph()) 
+    # saveTopoGraph(buildLGraph()) 
     # exportTable4()
 
     #=====Graph with 4350 nodes (Match paper's)
     # LGraph = buildLGraph(mimicPaper)
-    # saveGraph(buildLGraph(mimicPaper))
+    # saveTopoGraph(buildLGraph(mimicPaper))
     # exportTable4(mimicPaper)
 
     # nodes, edges = loadTopoGraph()
     # ===================================
 
-    # getWalkableNodes()
-    # saveWalkableNodes(True)
+    # saveWalkableNodes(getWalkableNodes(True))
 
     # ============Temporal Graph==========
     #=====Built from the topograph with 4342 nodes

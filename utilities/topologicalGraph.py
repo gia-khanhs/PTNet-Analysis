@@ -28,7 +28,6 @@ class topoEdge:
 
 
 def buildNodes(mimicPaper=False):
-    tmp = set()
     O = Feature(geometry=Point((0, 0)))
     nodes = [topoNode("This is not a real node!", "Created so that the id starts at 1.", O, 0)]
     id = [0]
@@ -50,43 +49,6 @@ def buildNodes(mimicPaper=False):
                     nodes.append(newNode)
                     compactedId[station['StationId']] = len(id)
                     id.append(station['StationId'])
-
-    '''
-    #STUPID FIRST VERSION
-    for route in allRouteStopSeq:
-        #print(route)
-        with open(route, 'r', encoding = 'utf-8') as file:
-            data = file.read()
-            data = json.loads(data)
-
-            
-            # if data[0]['RouteId'] == 110: continue #Route 70-5
-            # if data[0]['RouteId'] == 335: continue #Route 72-1 
-            # if data[0]['RouteId'] == 87: continue  #Route 61-4
-            # if data[0]['RouteId'] == 89: continue #Route 61-7 
-            
-            if data[0]['RouteId'] in {110, 335, 87, 89}: continue;
-
-            for i, station in enumerate(data): 
-                newNode = station['StationId']
-
-                if newNode in tmp: continue
-
-                pos = Feature(geometry=Point((station['Lng'], station['Lat'])))
-                
-                if i == 0 or i == len(data) - 1\
-                or station['StationDirection'] != data[i + 1]['StationDirection']\
-                or station['StationDirection'] != data[i - 1]['StationDirection']:
-                    if station['StationId'] > 7000 and not inHcmc(pos):
-                        continue
-
-                tmp.add(newNode)
-                newNode = topoNode(station['StationName'], station['Address'], pos, station['StationId'])
-                nodes.append(newNode)
-                compactedId[station['StationId']] = len(id)
-                id.append(station['StationId'])
-            file.close()
-            '''
 
     return (nodes, id, compactedId)
 
@@ -146,17 +108,18 @@ def buildLGraph(mimicPaper=False):
         sum += len(edges[i])
     print("Edge count:", sum)
     print("========================================")
+
     return (nodes, edges, meanAdjMat, id, compactedId)
         
+
+# def getWalkableNodesWorker()
+
 def getWalkableNodes(mimicPaper = False):
-    from .topoDataIO import loadTopoGraph, saveGraph
+    from .topoDataIO import loadTopoGraph, saveNLoadTopoGraph
     nodes = loadTopoGraph()[0]
     
     if not len(nodes) or (mimicPaper and len(nodes) < 4350) or (not mimicPaper and len(nodes) > 4343):
-        saveGraph(buildLGraph(mimicPaper))
-        time.sleep(0.1)
-        nodes = loadTopoGraph()[0]
-
+        nodes = saveNLoadTopoGraph(buildLGraph(mimicPaper))[0]
 
     N = len(nodes) - 1
     walkableNodes = [{} for i in range(N + 1)]
@@ -200,10 +163,10 @@ def getWalkableNodes(mimicPaper = False):
     return walkableNodes
 
 def buildTopoGraph():
-    from .topoDataIO import loadWalkableNodes, saveGraph
+    from .topoDataIO import loadWalkableNodes, saveTopoGraph
 
     nodes, LEdges, adjMat, id, compactedId = buildLGraph()
-    saveGraph((nodes, LEdges))
+    saveTopoGraph((nodes, LEdges))
     walkableNodes = loadWalkableNodes()
 
     N = len(nodes) - 1
@@ -237,4 +200,5 @@ def buildTopoGraph():
         sum += len(edges[i])
     print("Edge count:", sum)
     print("============================================")
+
     return (nodes, edges) #(nodes, edges, id, compactedId)

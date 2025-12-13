@@ -1,10 +1,11 @@
-from .topologicalGraph import buildLGraph, buildTopoGraph, buildNodes, getWalkableNodes
+from .topologicalGraph import buildLGraph, buildNodes, getWalkableNodes
 from .topologicalGraph import topoEdge
 from .dataPath import saves
 from geojson import Feature, Point
 import json
+import time
 
-def saveGraph(topoGraph): #topoGraph = buildLGraph()/buildTopoGraph()
+def saveTopoGraph(topoGraph): #topoGraph = buildLGraph()/buildTopoGraph()
 
     nodes = []
     edges = []
@@ -53,6 +54,12 @@ def loadTopoGraph():
 
     return (nodes, adj)
 
+def saveNLoadTopoGraph(mimicPaper = False):
+    saveTopoGraph(buildLGraph(mimicPaper))
+    time.sleep(0.1)
+    return loadTopoGraph()
+
+
 def saveWalkableNodes(walkableNode):
     # walkableNode = getWalkableNodes(mimicPaper)
     with open(saves + "walkableNodes.json", 'w', encoding = 'utf-8') as file:
@@ -68,4 +75,5 @@ def loadWalkableNodes():
     except IOError:
         print("ERROR: Cannot find walkableNodes.json, make sure the file is saved!")
         return []
+    
     return walkableNodes
