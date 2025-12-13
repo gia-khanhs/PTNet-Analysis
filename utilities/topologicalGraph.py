@@ -150,12 +150,12 @@ def buildLGraph(mimicPaper=False):
         
 def getWalkableNodes(mimicPaper = False):
     from .topoDataIO import loadTopoGraph, saveGraph
-    nodes = loadTopoGraph(mimicPaper)[0]
+    nodes = loadTopoGraph()[0]
     
     if not len(nodes) or (mimicPaper and len(nodes) < 4350) or (not mimicPaper and len(nodes) > 4343):
         saveGraph(buildLGraph(mimicPaper))
         time.sleep(0.1)
-        nodes = loadTopoGraph(mimicPaper)[0]
+        nodes = loadTopoGraph()[0]
 
 
     N = len(nodes) - 1
@@ -196,7 +196,7 @@ def getWalkableNodes(mimicPaper = False):
     for thread in threads:
         thread.join()
     #==================================
-    
+
     return walkableNodes
 
 def buildTopoGraph():

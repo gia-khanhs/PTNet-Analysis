@@ -37,6 +37,8 @@ mimicPaper = True
 # ===================================
 
 
+saveWalkableNodes(True)
+
 # ============Temporal Graph==========
 #=====Built from the topograph with 4342 nodes
 # buildTransitGraph()
