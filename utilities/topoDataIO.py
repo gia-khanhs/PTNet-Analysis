@@ -53,8 +53,8 @@ def loadTopoGraph():
 
     return (nodes, adj)
 
-def saveWalkableNodes(mimicPaper = False):
-    walkableNode = getWalkableNodes(mimicPaper)
+def saveWalkableNodes(walkableNode):
+    # walkableNode = getWalkableNodes(mimicPaper)
     with open(saves + "walkableNodes.json", 'w', encoding = 'utf-8') as file:
         json.dump(walkableNode, file, indent = 4, ensure_ascii = False)
         file.close()

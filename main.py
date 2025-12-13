@@ -13,48 +13,49 @@ from utilities.analyseTopo import exportTable4
 import time
 import psutil, os
 
-
-# tracemalloc.start()
-start_time = time.time()
-
-#=================================================================
-# Start the main code
-
-mimicPaper = True
-
-#==========Topological Graph========
-#=====Graph with 4342 nodes
-# LGraph = buildLGraph()
-# saveGraph(buildLGraph()) 
-# exportTable4()
-
-#=====Graph with 4350 nodes (Match paper's)
-# LGraph = buildLGraph(mimicPaper)
-# saveGraph(buildLGraph(mimicPaper))
-# exportTable4(mimicPaper)
-
-# nodes, edges = loadTopoGraph()
-# ===================================
+if __name__ == "__main__": #multiprocessing guard
+    # tracemalloc.start()
+    start_time = time.time()
 
 
-saveWalkableNodes(True)
+    #=================================================================
+    # Start the main code
 
-# ============Temporal Graph==========
-#=====Built from the topograph with 4342 nodes
-# buildTransitGraph()
-# buildWaitingEdge()
-#=====Built from the topograph matching paper's
-# buildTransitGraph(mimicPaper)
-# buildWaitingEdge()
-# buildWalkingEdge_bf()
-#====================================
+    mimicPaper = True
+
+    #==========Topological Graph========
+    #=====Graph with 4342 nodes
+    # LGraph = buildLGraph()
+    # saveGraph(buildLGraph()) 
+    # exportTable4()
+
+    #=====Graph with 4350 nodes (Match paper's)
+    # LGraph = buildLGraph(mimicPaper)
+    # saveGraph(buildLGraph(mimicPaper))
+    # exportTable4(mimicPaper)
+
+    # nodes, edges = loadTopoGraph()
+    # ===================================
+
+    # getWalkableNodes()
+    # saveWalkableNodes(True)
+
+    # ============Temporal Graph==========
+    #=====Built from the topograph with 4342 nodes
+    # buildTransitGraph()
+    # buildWaitingEdge()
+    #=====Built from the topograph matching paper's
+    # buildTransitGraph(mimicPaper)
+    # buildWaitingEdge()
+    # buildWalkingEdge_bf()
+    #====================================
 
 
-# End the main code
-#=================================================================
+    # End the main code
+    #=================================================================
 
-end_time = time.time()
+    end_time = time.time()
 
-print("Time elapsed:", round(end_time - start_time, 2), "s")
-process = psutil.Process(os.getpid())
-print("Process memory used:", round(process.memory_info().rss / 1024**2, 2), "MB")
+    print("Time elapsed:", round(end_time - start_time, 2), "s")
+    process = psutil.Process(os.getpid())
+    print("Process memory used:", round(process.memory_info().rss / 1024**2, 2), "MB")

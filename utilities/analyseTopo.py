@@ -1,8 +1,6 @@
-from .topoDataIO import loadTopoGraph, loadWalkableNodes, saveGraph
-from .topologicalGraph import topoEdge
+from .topoDataIO import loadTopoGraph, saveGraph
 from .dataPath import saves
-from .getRoutes import walkDistance
-from threading import Thread
+from .multiProc import multiProcFunc
 import heapq
 import json
 import time
@@ -36,6 +34,28 @@ def dijkstra(s):
 
     return (shortest, trace)
 
+
+def exportTable4Worker(rng):
+    l, r = rng
+
+    chunkPasses = [0] * (N + 1)
+    for s in range(l, r + 1):
+        shortest, trace = dijkstra(s)
+    
+        topoSort = [(shortest[i], i) for i in range(1, N + 1) if shortest[i] != INT_MAX]
+        topoSort.sort()
+        passes = [0] * (N + 1)
+
+        for i in range(len(topoSort) - 1, -1, -1):
+            nodeId = topoSort[i][1]
+            parent = trace[nodeId]
+
+            passes[nodeId] += 1
+            passes[parent] += passes[nodeId]
+            chunkPasses[nodeId] += passes[nodeId]
+
+    return chunkPasses
+
 def exportTable4(mimicPaper = False):
     from .topologicalGraph import buildLGraph
     #Building shortest-path tree
@@ -50,49 +70,19 @@ def exportTable4(mimicPaper = False):
     totalPasses = [0] * (N + 1)
     geoDis = [{} for i in range (N + 1)]
 
-    def runChunk(l, r):
-        for s in range(l, r):
-            shortest, trace = dijkstra(s)
-        
-            topoSort = [(shortest[i], i) for i in range(1, N + 1) if shortest[i] != INT_MAX]
-            topoSort.sort()
-            passes = [0] * (N + 1)
+    passesWorkers = multiProcFunc(exportTable4Worker, N)
+    for passes in passesWorkers:
+        for id, cnt in enumerate(passes): totalPasses[id] += cnt
 
-            for i in range(len(topoSort) - 1, -1, -1):
-                nodeId = topoSort[i][1]
-                parent = trace[nodeId]
-
-                passes[nodeId] += 1
-                passes[parent] += passes[nodeId]
-                totalPasses[nodeId] += passes[nodeId]
-                #if two nodes are in walking distance
-                '''
-                if walkableNodes[parent].get(nodeId) == None:
-                    passes[nodeId] += 1
-                    passes[parent] += passes[nodeId]
-                    totalPasses[nodeId] += passes[nodeId]
-                else:
-                    totalPasses[nodeId] += 1
-                    totalPasses[parent] += 1
-                '''
-                
-
-            #add shortest paths between nodes within walking distance
-            # for destination in walkableNodes[s]:
-            #     totalPasses[s] += 1
-            #     totalPasses[int(destination)] += 1
-
-    runChunk(1, N + 1)
-
-    passCnt = []
+    sortedPass = []
     for i in range(1, N + 1):
-        passCnt.append((totalPasses[i], round(100 * totalPasses[i] / ((N - 1) * (N - 2)), 2), nodes[i]['name'], nodes[i]['address'], nodes[i]['id']))
+        sortedPass.append((totalPasses[i], round(100 * totalPasses[i] / ((N - 1) * (N - 2)), 2), nodes[i]['name'], nodes[i]['address'], nodes[i]['id']))
         
-    passCnt = sorted(passCnt, key=lambda x:(-x[0], x[2]))
+    sortedPass = sorted(sortedPass, key=lambda x:(-x[0], x[2]))
 
     print("====Reproduced table 4====")
     toPrint = []
-    for node in passCnt[:10]:
+    for node in sortedPass[:10]:
         toPrint.append(str(round(100 * node[0] / ((N - 1) * (N - 2)), 2)) + "% - " + node[2] + " - " + node[3] + " (stop ID " + str(node[4]) + ")")
     
     table4 = ""
@@ -102,7 +92,7 @@ def exportTable4(mimicPaper = False):
     print("==========================")
 
     with open(saves + "passCount - " + str(len(nodes) - 1) + " nodes.json", 'w', encoding = 'utf-8') as file:
-        json.dump(passCnt, file, indent = 4, ensure_ascii = False)
+        json.dump(sortedPass, file, indent = 4, ensure_ascii = False)
         file.close()
     with open(saves + "table4 - " + str(len(nodes) - 1) + " nodes.txt", 'w', encoding = 'utf-8') as file:
         file.write(table4)
