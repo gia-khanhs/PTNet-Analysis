@@ -1,9 +1,10 @@
 from .dataPath import dataPath
-#from .coords import *
-from pathlib import Path
+
 from turfpy import measurement
 from geojson import Feature, Point
+
 import json
+from pathlib import Path
 
 path = dataPath()
 

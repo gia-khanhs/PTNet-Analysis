@@ -1,8 +1,10 @@
 from .dataPath import dataPath
-import json
+
 import geojson
 from geojson import Feature, MultiPolygon, Point
 from turfpy.measurement import boolean_point_in_polygon
+
+import json
 
 hcmcPath = dataPath.data + "hcmc.geojson"
 

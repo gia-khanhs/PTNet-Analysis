@@ -10,6 +10,7 @@ from temporalGraph import buildTransitGraph, buildWaitingEdge
 # graph[1][u] = a list of edges that connect u and graph[1][u][i]
 # graph[1][u][i].destination/distance/travelTime = self-explainatory
 from utilities.analyseTopo import exportTable4
+
 import time
 import psutil, os
 
