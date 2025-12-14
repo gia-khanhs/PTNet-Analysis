@@ -261,16 +261,14 @@ def buildTempoGraph(mimicPaper = False):
     nNodes = len(nodes) - 1
     edges = {i: [] for i in range(nNodes + 1)}
 
-    ecnt = len(transitEdges) + len(waitingEdges) + len(walkNWaitEdges)
-
-    for u, v in transitEdges:
-        edges[u].append((v, 0))
+    # for u, v in transitEdges:
+    #     edges[u].append((v, 0))
     
-    #Transfer edge
-    for u, v in waitingEdges:
-        edges[u].append((v, 1))
+    # #Transfer edge
+    # for u, v in waitingEdges:
+    #     edges[u].append((v, 1))
 
-    for u, v in walkNWaitEdges:
-        edges[u].append((v, 1))
+    # for u, v in walkNWaitEdges:
+    #     edges[u].append((v, 1))
 
     return stations, nodes, nodesById, edges
