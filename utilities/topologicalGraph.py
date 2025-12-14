@@ -132,8 +132,8 @@ def getWalkableNodesWorker(rng):
             distance = measurement.distance(originPos, destinationPos) * 1000
             
             if distance <= walkDistance:
-                walkableNodes[origin][destination] = distance
-                walkableNodes[destination][origin] = distance
+                walkableNodes[origin][destination] = round(distance / walkSpeed)
+                walkableNodes[destination][origin] = round(distance / walkSpeed)
 
     return walkableNodes
 
@@ -154,6 +154,9 @@ def getWalkableNodes(mimicPaper = False):
             for destination, distance in chunkResult[origin].items():
                 walkableNodes[origin][destination] = distance
 
+    print("=== getWalkableNodes ===")
+    print("Successfully got nodes in walking distances")
+    print("========================")
     return walkableNodes
 
 def buildTopoGraph(mimicPaper = False):

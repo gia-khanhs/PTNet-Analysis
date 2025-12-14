@@ -83,4 +83,4 @@ def loadWalkableNodes():
 def saveNLoadWalkableNodes(mimicPaper = False):
     saveWalkableNodes(getWalkableNodes(mimicPaper))
     time.sleep(0.1)
-    return loadWalkableNodes
+    return loadWalkableNodes()

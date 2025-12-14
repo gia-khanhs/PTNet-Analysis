@@ -1,6 +1,6 @@
 from utilities.getRoutes import allRouteInfo
 from utilities.dataPath import saves
-from utilities.topoDataIO import saveTopoGraph, buildLGraph
+from utilities.topoDataIO import saveTopoGraph, buildLGraph, saveNLoadTopoGraph, loadWalkableNodes, saveNLoadWalkableNodes
 from utilities.getRoutes import dwellTime
 
 import json
@@ -201,4 +201,24 @@ def buildWaitingEdge(mimicPaper = False):
 
 def buildWaitAndWalkEdge(mimicPaper = False):
     nodes, nodesById, stations, transitEdges, waitingEdges = buildWaitingEdge(mimicPaper)
+
     waitNWalkEdges = []
+
+    nStation = len(stations)
+    walkableNodes = loadWalkableNodes()
+
+    if (mimicPaper and len(walkableNodes) < 4350) or (not mimicPaper and len(walkableNodes) > 4343):
+        print("Trying to save nodes in walking distance!")
+        walkableNodes = saveNLoadWalkableNodes(mimicPaper)
+
+    for stationId in range(1, nStation + 1):
+        arrivals = nodesById[0][stationId]
+        maxI = len(arrivals)
+
+        for destStation in walkableNodes[stationId]:
+            departures = nodesById[1][stationId]
+            maxJ = len(departures)
+            
+            for i, arriveNode in enumerate(arrivals): #looping through arrival nodes
+                arriveTime, arriveRouteId, arriveNodeId = arriveNode  
+
