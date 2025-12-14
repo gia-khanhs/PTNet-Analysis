@@ -1,6 +1,6 @@
 from utilities.topoDataIO import saveTopoGraph, loadTopoGraph, saveNLoadTopoGraph, saveWalkableNodes, loadWalkableNodes, saveNLoadWalkableNodes
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
-from temporalGraph import buildTransitGraph, buildWaitingEdge
+from temporalGraph import buildTransitGraph, buildWaitingEdge, buildWaitAndWalkEdge
 #graph = loadGraph()
 
 # graph[0] = node list
@@ -47,8 +47,9 @@ if __name__ == "__main__": #multiprocessing guard
     # buildWaitingEdge()
     #=====Built from the topograph matching paper's
     # buildTransitGraph(mimicPaper)
-    # buildWaitingEdge()
-    # buildWalkingEdge_bf()
+    # buildWaitingEdge(mimicPaper)
+    
+    buildWaitAndWalkEdge(mimicPaper)
     #====================================
 
 

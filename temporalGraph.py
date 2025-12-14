@@ -7,12 +7,16 @@ import json
 import time
 
 maxWaitTime = 60 * 60
+nRoute = 0
 
 def getDeparture():
     depart = {}
     departKey = set()
 
-    for i, route in enumerate(allRouteInfo):
+    global nRoute
+    for i, route in enumerate(allRouteInfo[:20]):
+        if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
+
         if route.get('timeTableIn') != None:
             for time in route['timeTableIn']:
                 newDeparture = (i, 'InboundSeq')
@@ -20,6 +24,7 @@ def getDeparture():
                 departKey.add(time)
                 if depart.get(time) == None: depart[time] = [newDeparture]
                 else: depart[time].append(newDeparture)
+            nRoute += 1
         
         if route.get('timeTableOut') != None:
             for time in route['timeTableOut']:
@@ -28,6 +33,7 @@ def getDeparture():
                 departKey.add(time)
                 if depart.get(time) == None: depart[time] = [newDeparture]
                 else: depart[time].append(newDeparture)
+            nRoute += 1
 
     departKey = sorted(departKey)
     return (departKey, depart)
@@ -70,6 +76,8 @@ def buildTransitGraph(mimicPaper = False):
     nodeIds = []
     sortedIds = []
     transitEdges = []
+    routeSet = set()
+    newRouteId = [{} for i in range(nRoute)]
 
     for _departTime in departTime:
         for routeId, seq in departRoute[_departTime]:
@@ -88,8 +96,14 @@ def buildTransitGraph(mimicPaper = False):
                 #End stops outside of HCMC are skipped (not added to the graph)
                 if not compactedId[station['StationId']]: continue
                 
+                if not (routeId, seq) in routeSet:
+                    newRouteId[routeId][seq] = len(routeSet)
+                    routeSet.add((routeId, seq))
+
+                newRId = newRouteId[routeId][seq] 
+
                 if not isNewFirst: #only add arrivals of intermediate and last stations
-                    newNode = (time, (routeId, seq), compactedId[station['StationId']], 0)
+                    newNode = (time, newRId, compactedId[station['StationId']], 0)
                     #time, (compactedRouteId, inbound/outbound), compactedStationId, 0/1: arrival/departure
                     nodes.append(newNode) #arrival node
                     curN = len(nodes) - 1
@@ -101,7 +115,7 @@ def buildTransitGraph(mimicPaper = False):
 
                 if station != lastStation: #only add departures of intermediate and first stations
                     time += dwellTime
-                    newNode = (time, (routeId, seq), compactedId[station['StationId']], 1)
+                    newNode = (time, newRId, compactedId[station['StationId']], 1)
                     #===================================
                     nodes.append(newNode) #departure node
                     curN = len(nodes) - 1
@@ -137,16 +151,17 @@ def getNodesById(mimicPaper = False): #Get nodes by compactedStationId
     #nodesById[0/1 = arrival/departure][compactedStationId]
 
     for iNode, node in enumerate(nodes):
-        time, (routeId, seq), stationId, type = node
-        nodesById[type][stationId].append((time, (routeId, seq), iNode))
+        time, routeId, stationId, type = node
+        nodesById[type][stationId].append((time, routeId, iNode))
 
     return (stations, nodes, nodesById, transitEdges)
 
 def buildWaitingEdge(mimicPaper = False):
     stations, nodes, nodesById, transitEdges = getNodesById(mimicPaper)
     waitingEdges = []
+    nStations = len(stations)
     
-    for stationId in range(len(stations)):
+    for stationId in range(1, nStations + 1): 
         arrivals = nodesById[0][stationId]
         departures = nodesById[1][stationId]
         maxI = len(arrivals) - 1
@@ -157,7 +172,7 @@ def buildWaitingEdge(mimicPaper = False):
         while firstLarger < maxJ and departures[firstLarger][0] <= arrivals[0][0]: firstLarger += 1
 
         for i, arriveNode in enumerate(arrivals): #looping through arrival nodes
-            arriveTime, (arriveRouteId, arriveSeq), arriveNodeId = arriveNode  
+            arriveTime, arriveRouteId, arriveNodeId = arriveNode  
 
             nextLarger = None
             #firstLarger is always the id of the departure node with time > current arrive node
@@ -166,13 +181,13 @@ def buildWaitingEdge(mimicPaper = False):
                     arrivals[i + 1][0] < departures[j][0]:\
                     nextLarger = j #To update firstLarger
 
-                departTime, (departRouteId, departSeq), departNodeId = departures[j]
+                departTime, departRouteId, departNodeId = departures[j]
 
                 if departTime > arriveTime + maxWaitTime:
                     if nextLarger is not None: break
                     else: continue #continue loop to find dep node with id > next arrival node
                     
-                if (arriveRouteId, arriveSeq) != (departRouteId, departSeq):
+                if arriveRouteId != departRouteId:
                     waitingEdges.append((arriveNodeId, departNodeId))
 
             if nextLarger is not None: firstLarger = nextLarger
@@ -182,3 +197,8 @@ def buildWaitingEdge(mimicPaper = False):
     print("Waiting edge count: ", len(waitingEdges))
     print("===========================================")
     return (nodes, nodesById, stations, transitEdges, waitingEdges)
+    
+
+def buildWaitAndWalkEdge(mimicPaper = False):
+    nodes, nodesById, stations, transitEdges, waitingEdges = buildWaitingEdge(mimicPaper)
+    waitNWalkEdges = []
