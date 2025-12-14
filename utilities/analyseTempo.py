@@ -1,7 +1,7 @@
-from temporalGraph import buildTempoGraph
-from tempoDataIO import saveAnalysingGraph, loadAnalysingGraph, saveNLoadAnalysingGraph
-from utilities.dataPath import saves
-from utilities.multiProc import multiProcFunc
+from .temporalGraph import buildTempoGraph
+from .tempoDataIO import saveAnalysingGraph, loadAnalysingGraph, saveNLoadAnalysingGraph
+from .dataPath import saves
+from .multiProc import multiProcFunc
 
 from collections import deque
 import json
@@ -18,6 +18,8 @@ isMimic = None
 #==== var to run dijkstra
 #nodes
 dNodes, dEdges = loadAnalysingGraph()
+dStations = []
+dNodesByStationId = ([[] for i in range(4350 + 1)], [[] for j in range(4350 + 1)])
 
 def bfs01(source, dest): #special case of dijkstra & bfs: 0/1 bfs
     global dEdges
@@ -95,6 +97,33 @@ def graphInTime(tDesiredDep, tEnd = None, mimicPaper = False):
     return (newNodes, newEdges)
         
     
+def earliestADShortestPath(sourceStation, disStation): # 5-step algorithm mentioned in the paper
+    for arrival in dNodesByStationId[0][sourceStation]: #step 1
+        aTime, aRouteId, aNodeId = arrival
+
+        for departure in dNodesByStationId[1][disStation]: #step 2
+            if departure[0] > arrival[0]: break
+            dTime, dRouteId, dNodeId = departure
+
+            shortestPath = bfs01(dNodeId, aNodeId) #step 3
+
+            if len(shortestPath) == 0: continue #step 4
+
+            return shortestPath #step 5:D
+
+def allPairShortestPath():
+    global dStations
+
+    for s in dStations:
+        for d in dStations:
+            if d == s: continue
+
+            shortestPath = earliestADShortestPath(s, d)
+
+            if shortestPath is not None:
+                print(shortestPath)
+
+    return None
 
 def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
     global stations, nodes, nodesById, edges, nStation, nNode, isMimic
@@ -103,8 +132,18 @@ def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
     if tEnd == None: #default: 3 hours
         tEnd = tDesiredDep + 3 * 3600
 
-    global dNodes, dEdges
+    global dNodes, dEdges, dStations
     dNodes, dEdges = saveNLoadAnalysingGraph(graphInTime(tDesiredDep, tEnd, mimicPaper))
     print("Graph saved for analysation!")
+    
+    dStations = set()
+    for iNode, (time, routeId, stationId, event) in dNodes.items():
+        dNodesByStationId[event][stationId].append((time, routeId, int(iNode)))
+        dStations.add(stationId)
+    
+    dStations = list(dStations)
+
+    print(dNodes)
+    allPairShortestPath()
 
     return None

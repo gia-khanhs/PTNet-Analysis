@@ -1,5 +1,5 @@
-from temporalGraph import buildTempoGraph
-from utilities.dataPath import savesTempo
+from .temporalGraph import buildTempoGraph
+from .dataPath import savesTempo
 
 from geojson import Feature, Point
 

@@ -2,9 +2,9 @@ from utilities.topoDataIO import saveTopoGraph, loadTopoGraph, saveNLoadTopoGrap
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
 from utilities.analyseTopo import exportTable4
 
-from tempoDataIO import saveTempoGraph
-from temporalGraph import buildTransitGraph, buildWaitingEdge, buildWalkAndWaitEdge, buildTempoGraph
-from analyseTempo import graphInTime, bfs01, exportTempoTable
+from utilities.tempoDataIO import saveTempoGraph
+from utilities.temporalGraph import buildTransitGraph, buildWaitingEdge, buildWalkAndWaitEdge, buildTempoGraph
+from utilities.analyseTempo import graphInTime, bfs01, exportTempoTable
 
 import time
 import psutil, os
@@ -41,8 +41,7 @@ if __name__ == "__main__": #multiprocessing guard
 
     #=====Built from the topograph matching paper's
     # tempoGraph = buildTempoGraph(mimicPaper)
-    print(exportTempoTable(14407, 14407 + 5 * 60, True))
-    print(bfs01(1, 8))
+    exportTempoTable(14407, 14407 + 5 * 60, True)
     # End the main code
     '''================================================================='''
 

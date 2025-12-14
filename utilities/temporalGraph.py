@@ -1,7 +1,7 @@
-from utilities.getRoutes import allRouteInfo
-from utilities.dataPath import saves
-from utilities.topoDataIO import saveTopoGraph, buildLGraph, saveNLoadTopoGraph, loadWalkableNodes, saveNLoadWalkableNodes
-from utilities.getRoutes import dwellTime
+from .getRoutes import allRouteInfo
+from .dataPath import saves
+from .topoDataIO import saveTopoGraph, buildLGraph, saveNLoadTopoGraph, loadWalkableNodes, saveNLoadWalkableNodes
+from .getRoutes import dwellTime
 
 import json
 import time
