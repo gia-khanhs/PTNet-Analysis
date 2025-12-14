@@ -258,17 +258,20 @@ def buildWalkAndWaitEdge(mimicPaper = False):
 def buildTempoGraph(mimicPaper = False):
     stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges = buildWalkAndWaitEdge(mimicPaper)
 
-    nNodes = len(nodes) - 1
-    edges = {i: [] for i in range(nNodes + 1)}
+    nNodes = len(nodes)
+    edges = {}
 
-    # for u, v in transitEdges:
-    #     edges[u].append((v, 0))
+    for u, v in transitEdges:
+        if not edges.get(u): edges[u] = []
+        edges[u].append((v, 0))
     
-    # #Transfer edge
-    # for u, v in waitingEdges:
-    #     edges[u].append((v, 1))
+    #Transfer edge
+    for u, v in waitingEdges:
+        if not edges.get(u): edges[u] = []
+        edges[u].append((v, 1))
 
-    # for u, v in walkNWaitEdges:
-    #     edges[u].append((v, 1))
+    for u, v in walkNWaitEdges:
+        if not edges.get(u): edges[u] = []
+        edges[u].append((v, 1))
 
     return stations, nodes, nodesById, edges
