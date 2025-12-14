@@ -145,6 +145,7 @@ def getWalkableNodes(mimicPaper = False):
         nodes = saveNLoadTopoGraph(buildLGraph(mimicPaper))[0]
 
     N = len(nodes) - 1
+    
     walkableNodes = [{} for i in range(N + 1)]
     
     walkableWorkers = multiProcFunc(getWalkableNodesWorker, N)

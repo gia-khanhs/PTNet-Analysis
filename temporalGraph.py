@@ -14,7 +14,7 @@ def getDeparture():
     departKey = set()
 
     global nRoute
-    for i, route in enumerate(allRouteInfo[:20]):
+    for i, route in enumerate(allRouteInfo):
         if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
         if route.get('timeTableIn') != None:
@@ -199,12 +199,12 @@ def buildWaitingEdge(mimicPaper = False):
     return (nodes, nodesById, stations, transitEdges, waitingEdges)
     
 
-def buildWaitAndWalkEdge(mimicPaper = False):
+def buildWalkAndWaitEdge(mimicPaper = False):
     nodes, nodesById, stations, transitEdges, waitingEdges = buildWaitingEdge(mimicPaper)
 
-    waitNWalkEdges = []
+    walkNWaitEdges = []
 
-    nStation = len(stations)
+    nStation = len(stations) - 1
     walkableNodes = loadWalkableNodes()
 
     if (mimicPaper and len(walkableNodes) < 4350) or (not mimicPaper and len(walkableNodes) > 4343):
@@ -213,12 +213,42 @@ def buildWaitAndWalkEdge(mimicPaper = False):
 
     for stationId in range(1, nStation + 1):
         arrivals = nodesById[0][stationId]
-        maxI = len(arrivals)
+        maxI = len(arrivals) - 1
 
-        for destStation in walkableNodes[stationId]:
-            departures = nodesById[1][stationId]
-            maxJ = len(departures)
+        for sDestStation in walkableNodes[stationId]:
+            destStation = int(sDestStation)
+            departures = nodesById[1][destStation]
+            maxJ = len(departures) - 1
             
+            tWalk = walkableNodes[stationId][sDestStation] 
+
+            firstLarger = 0
+            if min(maxI, maxJ) < 0: continue
+            while firstLarger < maxJ and departures[firstLarger][0] < arrivals[0][0] + tWalk: firstLarger += 1
+
             for i, arriveNode in enumerate(arrivals): #looping through arrival nodes
                 arriveTime, arriveRouteId, arriveNodeId = arriveNode  
+
+                nextLarger = None
+                #firstLarger is always the id of the departure node with time > current arrive node + walking time
+                for j in range(firstLarger, maxJ + 1):
+                    if nextLarger is None and i != maxI and \
+                        arrivals[i + 1][0] < departures[j][0]:\
+                        nextLarger = j #To update firstLarger
+
+                    departTime, departRouteId, departNodeId = departures[j]
+
+                    if departTime > arriveTime + maxWaitTime + tWalk:
+                        if nextLarger is not None: break
+                        else: continue #continue loop to find dep node with id > next arrival node
+                        
+                    if arriveRouteId != departRouteId:
+                        walkNWaitEdges.append((arriveNodeId, departNodeId))
+
+                if nextLarger is not None: firstLarger = nextLarger
+                else: break #if the next arrival node is larger than every departure node, break
+
+    print("==== Built temporal graph walking and waiting edges ====")
+    print("Walking and waiting edge count: ", len(walkNWaitEdges))
+    print("===========================================")
 
