@@ -111,19 +111,37 @@ def earliestADShortestPath(sourceStation, disStation): # 5-step algorithm mentio
 
             return shortestPath #step 5:D
 
-def allPairShortestPath():
-    global dStations
 
-    for s in dStations:
+def shortestPathPassCountWorker(rng):
+    l, r = rng
+    global stations, dStations, dNodes
+
+    passes = [0] * len(stations)
+
+    for sId in range(l, r + 1):
+        s = dStations[sId]
         for d in dStations:
             if d == s: continue
 
             shortestPath = earliestADShortestPath(s, d)
 
             if shortestPath is not None:
-                print(shortestPath)
+                for i in shortestPath: passes[dNodes[i][2]] += 1
 
-    return None
+    return passes
+
+def allPairShortestPathPassCount():
+    global dStations
+
+    totalPasses = [0] * (nStation + 1)
+
+    workerPasses = multiProcFunc(shortestPathPassCountWorker, 0, len(dStations) - 1)
+
+    for workerResult in workerPasses:
+        for i in range(1, nStation + 1):
+            totalPasses[i] += workerResult[i]
+
+    return totalPasses
 
 def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
     global stations, nodes, nodesById, edges, nStation, nNode, isMimic
@@ -144,6 +162,6 @@ def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
     dStations = list(dStations)
 
     print(dNodes)
-    allPairShortestPath()
+    allPairShortestPathPassCount()
 
     return None

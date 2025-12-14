@@ -69,7 +69,7 @@ def exportTable4(mimicPaper = False):
     totalPasses = [0] * (N + 1)
     geoDis = [{} for i in range (N + 1)]
 
-    passesWorkers = multiProcFunc(exportTable4Worker, N)
+    passesWorkers = multiProcFunc(exportTable4Worker, 1, N)
     for passes in passesWorkers:
         for id, cnt in enumerate(passes): totalPasses[id] += cnt
 

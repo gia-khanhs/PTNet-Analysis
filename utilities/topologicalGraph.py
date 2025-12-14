@@ -148,7 +148,7 @@ def getWalkableNodes(mimicPaper = False):
     
     walkableNodes = [{} for i in range(N + 1)]
     
-    walkableWorkers = multiProcFunc(getWalkableNodesWorker, N)
+    walkableWorkers = multiProcFunc(getWalkableNodesWorker, 1, N)
 
     for chunkResult in walkableWorkers:
         for origin in range(1, N + 1):

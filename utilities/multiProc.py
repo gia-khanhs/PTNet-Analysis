@@ -16,17 +16,23 @@ def chunk(N, nProcs):
 
     return chunks
 
-def multiProcFunc(func, N, nProcs = 0):
+def chunkLR(l, r, nProcs):
+    N = r - l + 1
+    chunks = chunk(N, nProcs)
+    for i in range(len(chunks)):
+        chunks[i] = (chunks[i][0] + l - 1, chunks[i][1] + l - 1)
+    return chunks
+
+def multiProcFunc(func, l, r, nProcs = 0):
     if nProcs == 0: #default
         nProcs = cpuCount
         
-    chunks = chunk(N, nProcs)
+    chunks = chunkLR(l, r, nProcs)
 
     with multiprocessing.Pool(len(chunks)) as p:
         ret = p.map(func, chunks)
 
     return ret
-
 '''
 from utilities.multiProc import multiProcFunc
 if __name__ == "__main__":
