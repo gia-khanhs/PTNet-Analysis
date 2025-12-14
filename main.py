@@ -4,7 +4,7 @@ from utilities.analyseTopo import exportTable4
 
 from utilities.tempoDataIO import saveTempoGraph
 from utilities.temporalGraph import buildTransitGraph, buildWaitingEdge, buildWalkAndWaitEdge, buildTempoGraph
-from utilities.analyseTempo import graphInTime, bfs01, exportTempoTable
+from utilities.analyseTempo import graphInTime, exportTempoTable
 
 import time
 import psutil, os
@@ -41,8 +41,8 @@ if __name__ == "__main__": #multiprocessing guard
 
     #=====Built from the topograph matching paper's
     # tempoGraph = buildTempoGraph(mimicPaper)
-    exportTempoTable(14407,  14707, True) #analyse from 7 to 10 hours
-
+    # exportTempoTable(25200, 25200 + 10 * 60, mimicPaper) #25200 = 7:00 am => 7:00-7:10
+    # exportTempoTable(25200, 25200 + 20 * 60, mimicPaper) # 7:00 => 7:20
 
     # End the main code
     '''================================================================='''

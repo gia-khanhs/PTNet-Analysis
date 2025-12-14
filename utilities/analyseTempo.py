@@ -100,11 +100,11 @@ def graphInTime(tDesiredDep, tEnd = None, mimicPaper = False):
     return (newNodes, newEdges)
         
     
-def earliestADShortestPath(sourceStation, disStation): # 5-step algorithm mentioned in the paper
-    for arrival in dNodesByStationId[0][sourceStation]: #step 1
+def earliestADShortestPath(sourceStation, desStation): # 5-step algorithm mentioned in the paper
+    for arrival in dNodesByStationId[0][desStation]: #step 1
         aTime, aRouteId, aNodeId = arrival
 
-        for departure in dNodesByStationId[1][disStation]: #step 2
+        for departure in dNodesByStationId[1][sourceStation]: #step 2
             if departure[0] > arrival[0]: break
             dTime, dRouteId, dNodeId = departure
 
@@ -174,9 +174,11 @@ def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
     totalPasses = allPairShortestPathPassCount()
 
     sortedPass = []
-    N = nStation
+    N = len(dStations)
 
-    for i in range(1, N + 1):
+    for strI in range(len(stations)):
+        i = int(strI)
+        if totalPasses[i] == 0: continue
         sortedPass.append((totalPasses[i], round(100 * totalPasses[i] / ((N - 1) * (N - 2)), 2), stations[i]['name'], stations[i]['address'], stations[i]['id']))
         
     sortedPass = sorted(sortedPass, key=lambda x:(-x[0], x[2]))
@@ -187,10 +189,10 @@ def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
     for stations in sortedPass[:10]:
         toPrint.append(str(round(100 * stations[0] / ((N - 1) * (N - 2)), 2)) + "% - " + stations[2] + " - " + stations[3] + " (stop ID " + str(stations[4]) + ")")
     
-    table4 = ""
+    table = ""
     for info in toPrint:
         print(info)
-        table4 = table4 + info + "\n"
+        table = table + info + "\n"
     print('=' * len(msg))
 
     fileName = str(tDesiredDep) + "-" + str(tEnd) + (" - mimicPaper" if mimicPaper else "")
@@ -199,5 +201,5 @@ def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
         json.dump(sortedPass, file, indent = 4, ensure_ascii = False)
         file.close()
     with open(savesTempo + "table - " + fileName + ".txt", 'w', encoding = 'utf-8') as file:
-        file.write(table4)
+        file.write(table)
         file.close()

@@ -14,7 +14,7 @@ def getDeparture():
     departKey = set()
 
     global nRoute
-    for i, route in enumerate(allRouteInfo[:20]):
+    for i, route in enumerate(allRouteInfo[:10]):
         if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
         if route.get('timeTableIn') != None:
