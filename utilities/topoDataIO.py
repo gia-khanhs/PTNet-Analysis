@@ -84,3 +84,12 @@ def saveNLoadWalkableNodes(mimicPaper = False):
     saveWalkableNodes(getWalkableNodes(mimicPaper))
     time.sleep(0.1)
     return loadWalkableNodes()
+
+def loadStation():
+    ret = []
+    with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
+        ret = file.read()
+        ret = json.loads(ret)
+        file.close()
+    
+    return ret

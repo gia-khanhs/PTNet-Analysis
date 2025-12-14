@@ -1,6 +1,6 @@
 import multiprocessing
 
-cpuCount = multiprocessing.cpu_count()
+cpuCount = multiprocessing.cpu_count() - 1
 
 def chunk(N, nProcs):
     nProcs = min(N, nProcs)

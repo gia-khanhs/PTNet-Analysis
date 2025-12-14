@@ -1,16 +1,19 @@
+from .topoDataIO import loadStation
 from .temporalGraph import buildTempoGraph
-from .tempoDataIO import saveAnalysingGraph, loadAnalysingGraph, saveNLoadAnalysingGraph
-from .dataPath import saves
+from .tempoDataIO import saveAnalysingGraph, loadAnalysingGraph, saveNLoadAnalysingGraph, loadFromFile, saveNLoadFile
+from .dataPath import saves, savesTempo
 from .multiProc import multiProcFunc
 
 from collections import deque
+import multiprocessing
 import json
 import time
 import bisect
 
 INT_MAX = 2147483647
 
-stations, nodes, nodesById, edges = ([], [], [], [])
+stations = loadStation()
+dummyStations, nodes, nodesById, edges = ([], [], [], [])
 nStation = len(stations) - 1
 nNode = len(nodes)
 isMimic = None
@@ -18,7 +21,7 @@ isMimic = None
 #==== var to run dijkstra
 #nodes
 dNodes, dEdges = loadAnalysingGraph()
-dStations = []
+dStations = loadFromFile("analysingStations")
 dNodesByStationId = ([[] for i in range(4350 + 1)], [[] for j in range(4350 + 1)])
 
 def bfs01(source, dest): #special case of dijkstra & bfs: 0/1 bfs
@@ -47,7 +50,7 @@ def bfs01(source, dest): #special case of dijkstra & bfs: 0/1 bfs
         if u in optimised: continue
         optimised.add(u)
 
-        for v, w in dEdges[str(u)]:
+        for v, w in dEdges.get(str(u), []):
             newCost = transfer[u] + w
 
             if newCost < transfer[v]:
@@ -114,8 +117,12 @@ def earliestADShortestPath(sourceStation, disStation): # 5-step algorithm mentio
 
 def shortestPathPassCountWorker(rng):
     l, r = rng
-    global stations, dStations, dNodes
 
+    global stations, dStations, dNodes, dNodesByStationId
+
+    for iNode, (time, routeId, stationId, event) in dNodes.items():
+        dNodesByStationId[event][stationId].append((time, routeId, int(iNode)))
+    
     passes = [0] * len(stations)
 
     for sId in range(l, r + 1):
@@ -126,7 +133,9 @@ def shortestPathPassCountWorker(rng):
             shortestPath = earliestADShortestPath(s, d)
 
             if shortestPath is not None:
-                for i in shortestPath: passes[dNodes[i][2]] += 1
+                for i in shortestPath:
+                    passes[dNodes[str(i)][2]] += 1
+
 
     return passes
 
@@ -135,7 +144,7 @@ def allPairShortestPathPassCount():
 
     totalPasses = [0] * (nStation + 1)
 
-    workerPasses = multiProcFunc(shortestPathPassCountWorker, 0, len(dStations) - 1)
+    workerPasses = multiProcFunc(shortestPathPassCountWorker, 0, len(dStations) - 1, int(3 * multiprocessing.cpu_count() / 4 + 1))
 
     for workerResult in workerPasses:
         for i in range(1, nStation + 1):
@@ -160,8 +169,35 @@ def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
         dStations.add(stationId)
     
     dStations = list(dStations)
+    dStations = saveNLoadFile(dStations, "analysingStations")
 
-    print(dNodes)
-    allPairShortestPathPassCount()
+    totalPasses = allPairShortestPathPassCount()
 
-    return None
+    sortedPass = []
+    N = nStation
+
+    for i in range(1, N + 1):
+        sortedPass.append((totalPasses[i], round(100 * totalPasses[i] / ((N - 1) * (N - 2)), 2), stations[i]['name'], stations[i]['address'], stations[i]['id']))
+        
+    sortedPass = sorted(sortedPass, key=lambda x:(-x[0], x[2]))
+
+    msg = "====Reproduced table in " + str(tDesiredDep) + "-" + str(tEnd) + "===="
+    print(msg)
+    toPrint = []
+    for stations in sortedPass[:10]:
+        toPrint.append(str(round(100 * stations[0] / ((N - 1) * (N - 2)), 2)) + "% - " + stations[2] + " - " + stations[3] + " (stop ID " + str(stations[4]) + ")")
+    
+    table4 = ""
+    for info in toPrint:
+        print(info)
+        table4 = table4 + info + "\n"
+    print('=' * len(msg))
+
+    fileName = str(tDesiredDep) + "-" + str(tEnd) + (" - mimicPaper" if mimicPaper else "")
+
+    with open(savesTempo + "passCount - " + fileName + ".json", 'w', encoding = 'utf-8') as file:
+        json.dump(sortedPass, file, indent = 4, ensure_ascii = False)
+        file.close()
+    with open(savesTempo + "table - " + fileName + ".txt", 'w', encoding = 'utf-8') as file:
+        file.write(table4)
+        file.close()

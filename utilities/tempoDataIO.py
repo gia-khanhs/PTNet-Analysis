@@ -1,4 +1,4 @@
-from .temporalGraph import buildTempoGraph
+from .temporalGraph import buildTempoGraph, getStations
 from .dataPath import savesTempo
 
 from geojson import Feature, Point
@@ -98,3 +98,25 @@ def saveNLoadAnalysingGraph(analysingGraph):
     saveAnalysingGraph(analysingGraph)
     time.sleep(0.1)
     return loadAnalysingGraph()
+
+def saveToFile(data, name):
+    with open(savesTempo + name + ".json", 'w', encoding = 'utf-8') as file:
+        json.dump(data, file, indent = 4, ensure_ascii = False)
+        file.close()
+
+def loadFromFile(name):
+    try:
+        with open(savesTempo + name + ".json", 'r', encoding = 'utf-8') as file:
+            data = file.read()
+            data = json.loads(data)
+            file.close()
+        
+        return data
+    except IOError:
+        print("ERROR: Cannot find " + name + ".json!")
+        return ([], [])
+    
+def saveNLoadFile(data, name):
+    saveToFile(data, name)
+    time.sleep(0.1)
+    return loadFromFile(name)
