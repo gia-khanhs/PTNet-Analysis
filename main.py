@@ -41,9 +41,9 @@ if __name__ == "__main__": #multiprocessing guard
 
     #=====Built from the topograph matching paper's
     # tempoGraph = buildTempoGraph(mimicPaper)
-    exportTempoTable(7 * 3600, 8 * 3600, True) #analyse from 7 to 10 hours
+    exportTempoTable(14407,  14707, True) #analyse from 7 to 10 hours
 
-    
+
     # End the main code
     '''================================================================='''
 
