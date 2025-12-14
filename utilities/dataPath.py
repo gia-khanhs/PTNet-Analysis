@@ -5,3 +5,5 @@ class dataPath:
     allRouteJson = data + "allRouteInfo.json"
 
 saves = "saves/"
+savesTopo = saves + "topoGraph/"
+savesTempo = saves + "tempoGraph/"

@@ -1,6 +1,7 @@
 from utilities.topoDataIO import saveTopoGraph, loadTopoGraph, saveNLoadTopoGraph, saveWalkableNodes, loadWalkableNodes, saveNLoadWalkableNodes
 from utilities.topologicalGraph import buildLGraph, buildTopoGraph, getWalkableNodes
-from temporalGraph import buildTransitGraph, buildWaitingEdge, buildWalkAndWaitEdge
+from tempoDataIO import saveTempoGraph
+from temporalGraph import buildTransitGraph, buildWaitingEdge, buildWalkAndWaitEdge, buildTempoGraph
 #graph = loadGraph()
 
 # graph[0] = node list
@@ -19,7 +20,7 @@ if __name__ == "__main__": #multiprocessing guard
     start_time = time.time()
 
 
-    #=================================================================
+    '''================================================================='''
     # Start the main code
 
     mimicPaper = True
@@ -38,25 +39,17 @@ if __name__ == "__main__": #multiprocessing guard
     # nodes, edges = loadTopoGraph()
     # ===================================
 
-    # from utilities.test import lol
-    # lol()
+    '''================================================================='''
 
     # ============Temporal Graph==========
     #=====Built from the topograph with 4342 nodes
-    # buildTransitGraph()
-    # buildWaitingEdge()
-    #=====Built from the topograph matching paper's
-    # buildTransitGraph(mimicPaper)
-    # buildWaitingEdge(mimicPaper)
-    
-    # getWalkableNodes(mimicPaper)
-    
-    buildWalkAndWaitEdge(mimicPaper)
-    #====================================
+    # tempoGraph = buildTempoGraph()
 
+    #=====Built from the topograph matching paper's
+    # tempoGraph = buildTempoGraph(mimicPaper)
 
     # End the main code
-    #=================================================================
+    '''================================================================='''
 
     end_time = time.time()
 

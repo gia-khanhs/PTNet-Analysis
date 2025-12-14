@@ -156,7 +156,7 @@ def getWalkableNodes(mimicPaper = False):
                 walkableNodes[origin][destination] = distance
 
     print("=== getWalkableNodes ===")
-    print("Successfully got nodes in walking distances")
+    print("Successfully got nodes within walking distance!")
     print("========================")
     return walkableNodes
 

@@ -1,6 +1,6 @@
 from .topologicalGraph import buildLGraph, buildNodes, getWalkableNodes
 from .topologicalGraph import topoEdge
-from .dataPath import saves
+from .dataPath import saves, savesTopo
 
 from geojson import Feature, Point
 
@@ -30,13 +30,13 @@ def saveTopoGraph(topoGraph): #topoGraph = buildLGraph()/buildTopoGraph()
     with open(saves + "stations.json", 'w', encoding = 'utf-8') as file:
         json.dump(nodes, file, indent = 4, ensure_ascii = False)
         file.close()
-    with open(saves + "topoGraph.json", 'w', encoding = 'utf-8') as file:
+    with open(savesTopo + "topoGraph.json", 'w', encoding = 'utf-8') as file:
         json.dump(graph, file, indent = 4, ensure_ascii = False)
         file.close()
 
 def loadTopoGraph():
     try:
-        with open(saves + "topoGraph.json", 'r', encoding = 'utf-8') as file:
+        with open(savesTopo + "topoGraph.json", 'r', encoding = 'utf-8') as file:
             data = file.read()
             data = json.loads(data)
             file.close()

@@ -1,5 +1,5 @@
 from .topoDataIO import loadTopoGraph, saveTopoGraph, saveNLoadTopoGraph
-from .dataPath import saves
+from .dataPath import saves, savesTopo
 from .multiProc import multiProcFunc
 
 import heapq
@@ -90,9 +90,9 @@ def exportTable4(mimicPaper = False):
         table4 = table4 + info + "\n"
     print("==========================")
 
-    with open(saves + "passCount - " + str(len(nodes) - 1) + " nodes.json", 'w', encoding = 'utf-8') as file:
+    with open(savesTopo + "passCount - " + str(len(nodes) - 1) + " nodes.json", 'w', encoding = 'utf-8') as file:
         json.dump(sortedPass, file, indent = 4, ensure_ascii = False)
         file.close()
-    with open(saves + "table4 - " + str(len(nodes) - 1) + " nodes.txt", 'w', encoding = 'utf-8') as file:
+    with open(savesTopo + "table4 - " + str(len(nodes) - 1) + " nodes.txt", 'w', encoding = 'utf-8') as file:
         file.write(table4)
         file.close()

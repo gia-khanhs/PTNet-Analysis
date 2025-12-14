@@ -14,7 +14,7 @@ def getDeparture():
     departKey = set()
 
     global nRoute
-    for i, route in enumerate(allRouteInfo):
+    for i, route in enumerate(allRouteInfo[:20]):
         if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
         if route.get('timeTableIn') != None:
@@ -105,6 +105,7 @@ def buildTransitGraph(mimicPaper = False):
                 if not isNewFirst: #only add arrivals of intermediate and last stations
                     newNode = (time, newRId, compactedId[station['StationId']], 0)
                     #time, (compactedRouteId, inbound/outbound), compactedStationId, 0/1: arrival/departure
+                    #time, newRouteId, compactedStationId, 0/1: arrival/departure
                     nodes.append(newNode) #arrival node
                     curN = len(nodes) - 1
                     nodeIds.append(curN)
@@ -144,7 +145,7 @@ def buildTransitGraph(mimicPaper = False):
 
     return (stations, nodes, transitEdges)
 
-def getNodesById(mimicPaper = False): #Get nodes by compactedStationId
+def getNodesByStationId(mimicPaper = False): #Get nodes by compactedStationId
     stations, nodes, transitEdges = buildTransitGraph(mimicPaper)
     nNode = len(nodes) - 1
     nodesById = ([[] for i in range(nNode + 1)], [[] for j in range(nNode + 1)])
@@ -157,7 +158,7 @@ def getNodesById(mimicPaper = False): #Get nodes by compactedStationId
     return (stations, nodes, nodesById, transitEdges)
 
 def buildWaitingEdge(mimicPaper = False):
-    stations, nodes, nodesById, transitEdges = getNodesById(mimicPaper)
+    stations, nodes, nodesById, transitEdges = getNodesByStationId(mimicPaper)
     waitingEdges = []
     nStations = len(stations)
     
@@ -195,12 +196,12 @@ def buildWaitingEdge(mimicPaper = False):
         
     print("==== Built temporal graph waiting edges ====")
     print("Waiting edge count: ", len(waitingEdges))
-    print("===========================================")
-    return (nodes, nodesById, stations, transitEdges, waitingEdges)
+    print("============================================")
+    return (stations, nodes, nodesById, transitEdges, waitingEdges)
     
 
 def buildWalkAndWaitEdge(mimicPaper = False):
-    nodes, nodesById, stations, transitEdges, waitingEdges = buildWaitingEdge(mimicPaper)
+    stations, nodes, nodesById, transitEdges, waitingEdges = buildWaitingEdge(mimicPaper)
 
     walkNWaitEdges = []
 
@@ -208,7 +209,7 @@ def buildWalkAndWaitEdge(mimicPaper = False):
     walkableNodes = loadWalkableNodes()
 
     if (mimicPaper and len(walkableNodes) < 4350) or (not mimicPaper and len(walkableNodes) > 4343):
-        print("Trying to save nodes in walking distance!")
+        print("Trying to save nodes within walking distance!")
         walkableNodes = saveNLoadWalkableNodes(mimicPaper)
 
     for stationId in range(1, nStation + 1):
@@ -250,5 +251,26 @@ def buildWalkAndWaitEdge(mimicPaper = False):
 
     print("==== Built temporal graph walking and waiting edges ====")
     print("Walking and waiting edge count: ", len(walkNWaitEdges))
-    print("===========================================")
+    print("========================================================")
 
+    return stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges
+
+def buildTempoGraph(mimicPaper = False):
+    stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges = buildWalkAndWaitEdge(mimicPaper)
+
+    nNodes = len(nodes) - 1
+    edges = {i: [] for i in range(nNodes + 1)}
+
+    ecnt = len(transitEdges) + len(waitingEdges) + len(walkNWaitEdges)
+
+    for u, v in transitEdges:
+        edges[u].append((v, 0))
+    
+    #Transfer edge
+    for u, v in waitingEdges:
+        edges[u].append((v, 1))
+
+    for u, v in walkNWaitEdges:
+        edges[u].append((v, 1))
+
+    return stations, nodes, nodesById, edges
