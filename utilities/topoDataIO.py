@@ -87,9 +87,13 @@ def saveNLoadWalkableNodes(mimicPaper = False):
 
 def loadStation():
     ret = []
-    with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
-        ret = file.read()
-        ret = json.loads(ret)
-        file.close()
+    try:
+        with open(saves + "stations.json", 'r', encoding = 'utf-8') as file:
+            ret = file.read()
+            ret = json.loads(ret)
+            file.close()
+    except IOError:
+        print("ERROR: Cannot find stations.json, make sure the file is saved!")
+        return []
     
     return ret

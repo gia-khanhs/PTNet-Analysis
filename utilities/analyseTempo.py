@@ -1,4 +1,5 @@
-from .topoDataIO import loadStation
+from .topoDataIO import loadStation, saveTopoGraph
+from .topologicalGraph import buildLGraph
 from .temporalGraph import buildTempoGraph
 from .tempoDataIO import saveAnalysingGraph, loadAnalysingGraph, saveNLoadAnalysingGraph, loadFromFile, saveNLoadFile
 from .dataPath import saves, savesTempo
@@ -67,6 +68,7 @@ def ensureGraphBuilt(mimicPaper = False):
     global stations, nodes, nodesById, edges, nStation, nNode, isMimic
 
     if isMimic != mimicPaper:
+        saveTopoGraph(buildLGraph(mimicPaper))
         stations, nodes, nodesById, edges = buildTempoGraph(mimicPaper)
         nStation = len(stations) - 1
         nNode = len(nodes)
