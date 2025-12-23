@@ -41,8 +41,11 @@ if __name__ == "__main__": #multiprocessing guard
 
     #=====Built from the topograph matching paper's
     # tempoGraph = buildTempoGraph(mimicPaper)
-    exportTempoTable(25200, 25200 + 10 * 60, mimicPaper) #25200 = 7:00 am => 7:00-7:10
+    # exportTempoTable(25200, 25200 + 10 * 60, mimicPaper) #25200 = 7:00 am => 7:00-7:10
     # exportTempoTable(25200, 25200 + 20 * 60, mimicPaper) # 7:00 => 7:20
+
+    from utilities.analyseTempo import revGraphInTime, multisrcBfs01
+    multisrcBfs01()
 
     # End the main code
     '''================================================================='''

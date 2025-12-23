@@ -208,7 +208,7 @@ def buildWalkAndWaitEdge(mimicPaper = False):
     nStation = len(stations) - 1
     walkableNodes = loadWalkableNodes()
 
-    if (mimicPaper and len(walkableNodes) < 4350) or (not mimicPaper and len(walkableNodes) > 4343):
+    if (len(walkableNodes) == 0 or mimicPaper and len(walkableNodes) < 4350) or (not mimicPaper and len(walkableNodes) > 4343):
         print("Trying to save nodes within walking distance!")
         walkableNodes = saveNLoadWalkableNodes(mimicPaper)
 
