@@ -20,6 +20,10 @@ if __name__ == "__main__": #multiprocessing guard
     mimicPaper = True
 
     #==========Topological Graph========
+    # topoGraph = buildTopoGraph()
+    # saveTopoGraph(buildTopoGraph())
+    # exportTable4()
+
     #=====Graph with 4342 nodes
     # LGraph = buildLGraph()
     # saveTopoGraph(buildLGraph()) 
@@ -38,11 +42,15 @@ if __name__ == "__main__": #multiprocessing guard
     # ============Temporal Graph==========
     #=====Built from the topograph with 4342 nodes
     # tempoGraph = buildTempoGraph()
+    # exportTempoTable(25200, 25200 + 10 * 60) #25200 = 7:00 am => 7:00-7:10
+    # exportTempoTable(25200, 25200 + 20 * 60) # 7:00 => 7:20
 
     #=====Built from the topograph matching paper's
     # tempoGraph = buildTempoGraph(mimicPaper)
     # exportTempoTable(25200, 25200 + 10 * 60, mimicPaper) #25200 = 7:00 am => 7:00-7:10
-    exportTempoTable(25200, 25200 + 20 * 60, mimicPaper) # 7:00 => 7:20
+    # exportTempoTable(25200, 25200 + 20 * 60, mimicPaper) # 7:00 => 7:20
+    # exportTempoTable(25200, 25200 + 30 * 60, mimicPaper) # 7:00 => 7:30
+    # exportTempoTable(25200, 25200 + 40 * 60, mimicPaper) # 7:00 => 7:40
 
     # End the main code
     '''================================================================='''

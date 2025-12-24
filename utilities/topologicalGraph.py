@@ -160,12 +160,16 @@ def getWalkableNodes(mimicPaper = False):
     print("========================")
     return walkableNodes
 
-def buildTopoGraph(mimicPaper = False):
-    from .topoDataIO import loadWalkableNodes, saveTopoGraph
+def buildTopoGraph():
+    mimicPaper = False
+    from .topoDataIO import loadWalkableNodes, saveTopoGraph, saveNLoadWalkableNodes
 
     nodes, LEdges, adjMat, id, compactedId = buildLGraph(mimicPaper)
     saveTopoGraph((nodes, LEdges))
     walkableNodes = loadWalkableNodes()
+    if len(walkableNodes) == 0 or (not mimicPaper and len(walkableNodes) >= 4342) or (mimicPaper and len(walkableNodes) < 4350):
+        walkableNodes = saveNLoadWalkableNodes(mimicPaper)
+        time.sleep(0.1)
 
     N = len(nodes) - 1
     edges = {i: [] for i in range(1, N + 1)}
