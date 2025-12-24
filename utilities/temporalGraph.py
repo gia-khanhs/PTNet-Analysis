@@ -14,7 +14,7 @@ def getDeparture():
     departKey = set()
 
     global nRoute
-    for i, route in enumerate(allRouteInfo[:10]):
+    for i, route in enumerate(allRouteInfo):
         if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
         if route.get('timeTableIn') != None:
@@ -259,19 +259,25 @@ def buildTempoGraph(mimicPaper = False):
     stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges = buildWalkAndWaitEdge(mimicPaper)
 
     nNodes = len(nodes)
-    edges = {}
+    edges = [[]] * (nNodes + 1)
 
     for u, v in transitEdges:
-        if not edges.get(u): edges[u] = []
+        # if not edges.get(u): edges[u] = []
         edges[u].append((v, 0))
+
+    transitEdges.clear() #release memory
     
     #Transfer edge
     for u, v in waitingEdges:
-        if not edges.get(u): edges[u] = []
+        # if not edges.get(u): edges[u] = []
         edges[u].append((v, 1))
 
+    waitingEdges.clear()
+
     for u, v in walkNWaitEdges:
-        if not edges.get(u): edges[u] = []
+        # if not edges.get(u): edges[u] = []
         edges[u].append((v, 1))
+
+    waitingEdges.clear()
 
     return stations, nodes, nodesById, edges
