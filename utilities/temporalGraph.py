@@ -9,6 +9,8 @@ import time
 maxWaitTime = 60 * 60
 nRoute = 0
 
+nWaiting = 0
+
 def getDeparture():
     depart = {}
     departKey = set()
@@ -159,7 +161,7 @@ def getNodesByStationId(mimicPaper = False): #Get nodes by compactedStationId
 
 def buildWaitingEdge(mimicPaper = False):
     stations, nodes, nodesById, transitEdges = getNodesByStationId(mimicPaper)
-    waitingEdges = []
+    transferEdges = [[] for _ in range(len(nodes) + 1)]
     nStations = len(stations)
     
     for stationId in range(1, nStations + 1): 
@@ -189,21 +191,23 @@ def buildWaitingEdge(mimicPaper = False):
                     else: continue #continue loop to find dep node with id > next arrival node
                     
                 if arriveRouteId != departRouteId:
-                    waitingEdges.append((arriveNodeId, departNodeId))
+                    transferEdges[arriveNodeId].append((departNodeId, 1))
 
             if nextLarger is not None: firstLarger = nextLarger
             else: break #if the next arrival node is larger than every departure node, break
-        
+    
+    global nWaiting
+    nWaiting = sum([len(transferEdges[i]) for i in range(1, len(nodes) + 1)])
+
     print("==== Built temporal graph waiting edges ====")
-    print("Waiting edge count: ", len(waitingEdges))
+    print("Waiting edge count: ", nWaiting)
     print("============================================")
-    return (stations, nodes, nodesById, transitEdges, waitingEdges)
+    return (stations, nodes, nodesById, transitEdges, transferEdges)
     
 
 def buildWalkAndWaitEdge(mimicPaper = False):
-    stations, nodes, nodesById, transitEdges, waitingEdges = buildWaitingEdge(mimicPaper)
-
-    walkNWaitEdges = []
+    stations, nodes, nodesById, transitEdges, transferEdges = buildWaitingEdge(mimicPaper)
+    preLen = len(transferEdges)
 
     nStation = len(stations) - 1
     walkableNodes = loadWalkableNodes()
@@ -244,40 +248,26 @@ def buildWalkAndWaitEdge(mimicPaper = False):
                         else: continue #continue loop to find dep node with id > next arrival node
                         
                     if arriveRouteId != departRouteId:
-                        walkNWaitEdges.append((arriveNodeId, departNodeId))
+                        transferEdges[arriveNodeId].append((departNodeId, 1))
 
                 if nextLarger is not None: firstLarger = nextLarger
                 else: break #if the next arrival node is larger than every departure node, break
 
+    global nWaiting
+    nWalkingNWaiting = sum([len(transferEdges[i]) for i in range(1, len(nodes) + 1)])
     print("==== Built temporal graph walking and waiting edges ====")
-    print("Walking and waiting edge count: ", len(walkNWaitEdges))
+    print("Walking and waiting edge count: ", nWalkingNWaiting - nWaiting)
     print("========================================================")
 
-    return stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges
+    return stations, nodes, nodesById, transitEdges, transferEdges
 
 def buildTempoGraph(mimicPaper = False):
-    stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges = buildWalkAndWaitEdge(mimicPaper)
+    stations, nodes, nodesById, transitEdges, transferEdges = buildWalkAndWaitEdge(mimicPaper)
 
     nNodes = len(nodes)
-    edges = [[]] * (nNodes + 1)
 
     for u, v in transitEdges:
         # if not edges.get(u): edges[u] = []
-        edges[u].append((v, 0))
+        transferEdges[u].append((v, 0))
 
-    transitEdges.clear() #release memory
-    
-    #Transfer edge
-    for u, v in waitingEdges:
-        # if not edges.get(u): edges[u] = []
-        edges[u].append((v, 1))
-
-    waitingEdges.clear()
-
-    for u, v in walkNWaitEdges:
-        # if not edges.get(u): edges[u] = []
-        edges[u].append((v, 1))
-
-    waitingEdges.clear()
-
-    return stations, nodes, nodesById, edges
+    return stations, nodes, nodesById, transferEdges

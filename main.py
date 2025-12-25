@@ -41,13 +41,11 @@ if __name__ == "__main__": #multiprocessing guard
 
     # ============Temporal Graph==========
     #=====Built from the topograph with 4342 nodes
-    # stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges = buildWalkAndWaitEdge(mimicPaper)
-    tempoGraph = buildTempoGraph()
+    # tempoGraph = buildTempoGraph()
     # exportTempoTable(25200, 25200 + 10 * 60) #25200 = 7:00 am => 7:00-7:10
     # exportTempoTable(25200, 25200 + 20 * 60) # 7:00 => 7:20
 
     #=====Built from the topograph matching paper's
-    # stations, nodes, nodesById, transitEdges, waitingEdges, walkNWaitEdges = buildWalkAndWaitEdge(mimicPaper)
     # tempoGraph = buildTempoGraph(mimicPaper)
     # exportTempoTable(25200, 25200 + 10 * 60, mimicPaper) #25200 = 7:00 am => 7:00-7:10
     # exportTempoTable(25200, 25200 + 20 * 60, mimicPaper) # 7:00 => 7:20
