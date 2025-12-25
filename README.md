@@ -5,6 +5,6 @@ This is my own implementation of the research paper [A comparative study of topo
 
 - To make the coding process easier, these libraries were used: turfpy, geojson (to work with geographical information).
 - Installation: 
-```pip install turfpy geojson```
+```pip install turfpy geojson psutil```
 
 - The report of the project is private.
