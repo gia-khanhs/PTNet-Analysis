@@ -42,14 +42,15 @@ if __name__ == "__main__": #multiprocessing guard
     # ============Temporal Graph==========
     #=====Built from the topograph with 4342 nodes
     # tempoGraph = buildTempoGraph()
-    # exportTempoTable(25200, 25200 + 10 * 60) #25200 = 7:00 am => 7:00-7:10
-    # exportTempoTable(25200, 25200 + 20 * 60) # 7:00 => 7:20
 
     #=====Built from the topograph matching paper's
-    # tempoGraph = buildTempoGraph(mimicPaper)
-    # exportTempoTable(25200, 25200 + 10 * 60, mimicPaper) #25200 = 7:00 am => 7:00-7:10
-    # exportTempoTable(25200, 25200 + 20 * 60, mimicPaper) # 7:00 => 7:20
-    # exportTempoTable(25200, 25200 + 30 * 60, mimicPaper) # 7:00 => 7:30
+    # tempoGraph = buildTempoGraph(0, mimicPaper)
+
+    #=====Temporal graph (with first 10 routes) built from the topograph matching paper's
+    # tempoGraph = buildTempoGraph(10, mimicPaper)
+    # exportTempoTable(25200, 25200 + 10 * 60, 10, mimicPaper) #25200 = 7:00 am => 7:00-7:10
+    # exportTempoTable(25200, 25200 + 20 * 60, 10, mimicPaper) # 7:00 => 7:20
+    # exportTempoTable(25200, 25200 + 30 * 60, 10, mimicPaper) # 7:00 => 7:30
 
     # End the main code
     '''================================================================='''

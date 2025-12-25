@@ -64,18 +64,18 @@ def bfs01(source, dest): #special case of dijkstra & bfs: 0/1 bfs
 
     return []
 
-def ensureGraphBuilt(mimicPaper = False):
+def ensureGraphBuilt(routeTaken = 0, mimicPaper = False):
     global stations, nodes, nodesById, edges, nStation, nNode, isMimic
 
     if isMimic != mimicPaper:
         saveTopoGraph(buildLGraph(mimicPaper))
-        stations, nodes, nodesById, edges = buildTempoGraph(mimicPaper)
+        stations, nodes, nodesById, edges = buildTempoGraph(routeTaken, mimicPaper)
         nStation = len(stations) - 1
         nNode = len(nodes)
         isMimic = mimicPaper
 
-def graphInTime(tDesiredDep, tEnd = None, mimicPaper = False):
-    ensureGraphBuilt(mimicPaper)
+def graphInTime(tDesiredDep, tEnd = None, routeTaken = 0, mimicPaper = False):
+    ensureGraphBuilt(routeTaken, mimicPaper)
     global stations, nodes, nodesById, edges, nStation, nNode, isMimic
 
     if tEnd == None: #default: 3 hours
@@ -154,15 +154,15 @@ def allPairShortestPathPassCount():
 
     return totalPasses
 
-def exportTempoTable(tDesiredDep, tEnd = None, mimicPaper = False):
+def exportTempoTable(tDesiredDep, tEnd = None, routeTaken = 0, mimicPaper = False):
     global stations, nodes, nodesById, edges, nStation, nNode, isMimic
-    ensureGraphBuilt(mimicPaper)
+    ensureGraphBuilt(routeTaken, mimicPaper)
 
     if tEnd == None: #default: 3 hours
         tEnd = tDesiredDep + 3 * 3600
 
     global dNodes, dEdges, dStations
-    dNodes, dEdges = saveNLoadAnalysingGraph(graphInTime(tDesiredDep, tEnd, mimicPaper))
+    dNodes, dEdges = saveNLoadAnalysingGraph(graphInTime(tDesiredDep, tEnd, routeTaken, mimicPaper))
     print("Graph saved for analysation!")
     
     dStations = set()

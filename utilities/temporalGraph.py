@@ -11,12 +11,16 @@ nRoute = 0
 
 nWaiting = 0
 
-def getDeparture():
+def getDeparture(routeTaken = 0):
     depart = {}
     departKey = set()
 
+    toAnalyse = []
+    if routeTaken == 0: toAnalyse = allRouteInfo
+    else: toAnalyse = allRouteInfo[:routeTaken]
+
     global nRoute
-    for i, route in enumerate(allRouteInfo):
+    for i, route in enumerate(toAnalyse):
         if route['RouteNo'] in {"DL01", "72-1", "70-5", "61-4", "61-7"}: continue
 
         if route.get('timeTableIn') != None:
@@ -65,8 +69,8 @@ def getStations(mimicPaper = False):
     
     return stations
 
-def buildTransitGraph(mimicPaper = False):
-    departTime, departRoute = getDeparture()
+def buildTransitGraph(routeTaken = 0, mimicPaper = False):
+    departTime, departRoute = getDeparture(routeTaken)
     stations = getStations(mimicPaper)
     compactedId = [0] * 7620 #The maximum id is 7617
     nStation = len(stations) - 1
@@ -147,8 +151,8 @@ def buildTransitGraph(mimicPaper = False):
 
     return (stations, nodes, transitEdges)
 
-def getNodesByStationId(mimicPaper = False): #Get nodes by compactedStationId
-    stations, nodes, transitEdges = buildTransitGraph(mimicPaper)
+def getNodesByStationId(routeTaken = 0, mimicPaper = False): #Get nodes by compactedStationId
+    stations, nodes, transitEdges = buildTransitGraph(routeTaken, mimicPaper)
     nNode = len(nodes) - 1
     nodesById = ([[] for i in range(nNode + 1)], [[] for j in range(nNode + 1)])
     #nodesById[0/1 = arrival/departure][compactedStationId]
@@ -159,8 +163,8 @@ def getNodesByStationId(mimicPaper = False): #Get nodes by compactedStationId
 
     return (stations, nodes, nodesById, transitEdges)
 
-def buildWaitingEdge(mimicPaper = False):
-    stations, nodes, nodesById, transitEdges = getNodesByStationId(mimicPaper)
+def buildWaitingEdge(routeTaken = 0, mimicPaper = False):
+    stations, nodes, nodesById, transitEdges = getNodesByStationId(routeTaken, mimicPaper)
     transferEdges = [[] for _ in range(len(nodes) + 1)]
     nStations = len(stations)
     
@@ -205,8 +209,8 @@ def buildWaitingEdge(mimicPaper = False):
     return (stations, nodes, nodesById, transitEdges, transferEdges)
     
 
-def buildWalkAndWaitEdge(mimicPaper = False):
-    stations, nodes, nodesById, transitEdges, transferEdges = buildWaitingEdge(mimicPaper)
+def buildWalkAndWaitEdge(routeTaken = 0, mimicPaper = False):
+    stations, nodes, nodesById, transitEdges, transferEdges = buildWaitingEdge(routeTaken, mimicPaper)
     preLen = len(transferEdges)
 
     nStation = len(stations) - 1
@@ -261,8 +265,8 @@ def buildWalkAndWaitEdge(mimicPaper = False):
 
     return stations, nodes, nodesById, transitEdges, transferEdges
 
-def buildTempoGraph(mimicPaper = False):
-    stations, nodes, nodesById, transitEdges, transferEdges = buildWalkAndWaitEdge(mimicPaper)
+def buildTempoGraph(routeTaken = 0, mimicPaper = False):
+    stations, nodes, nodesById, transitEdges, transferEdges = buildWalkAndWaitEdge(routeTaken, mimicPaper)
 
     nNodes = len(nodes)
 
