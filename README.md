@@ -7,5 +7,5 @@ This is my own implementation of the research paper [A comparative study of topo
 - Installation: 
 ```pip install turfpy geojson psutil```
 
-- The report of the project is private.
+- The report of the project is private. Only the table 4 was successfully reproduced (Not a 100% match in percentage though T_T)
 ![alt text](Table4.png)
